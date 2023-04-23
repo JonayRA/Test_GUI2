@@ -1,0 +1,4 @@
+/* Fondo de la página en gris para que resalte el negro del ND y el PFD*/
+body {
+  background-color: #f2f2f2;
+}
