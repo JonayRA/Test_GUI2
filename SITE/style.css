@@ -1,4 +1,128 @@
 /* Fondo de la página en gris para que resalte el negro del ND y el PFD*/
 body {
-  background-color: #f2f2f2;
+  background-color: hsl(0, 0%, 90%);
+  font-family: "Bahnschrift Light", sans-serif;
 }
+
+canvas {
+	image-rendering: pixelated;
+}
+
+#PFDcanvasContainer {
+	position:absolute;
+	left: 50%;
+  	margin-left: -700px; /* mitad del ancho de la pantalla */
+  	top: 50%;
+  	margin-top: -290px; /* mitad de la altura de la pantalla */
+  	border: green 3px solid;
+}
+
+#PFD {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#FMA1 {
+	position: absolute;
+  	left: 0%;
+  	top: 1.5%;
+  	width: 20%;
+  	height: 15%;
+  	border-right: white 3px solid;
+}
+
+#FMA2 {
+	position: absolute;
+  	left: 20%;
+  	top: 1.5%;
+  	width: 20%;
+  	height: 15%;
+  	border-right: white 3px solid;
+}
+
+#FMA3 {
+	position: absolute;
+  	left: 40%;
+  	top: 1.5%;
+  	width: 20%;
+  	height: 15%;
+  	border-right: white 3px solid;
+}
+
+#FMA4 {
+	position: absolute;
+  	left: 60%;
+  	top: 1.5%;
+  	width: 20%;
+  	height: 15%;
+  	border-right: white 3px solid;
+}
+
+#FMA5 {
+	position: absolute;
+  	left: 80%;
+  	top: 1.5%;
+  	width: 20%;
+  	height: 15%;
+}
+
+#ASI {
+	position: absolute;
+	left: 1%;
+	top: 22.1%;
+	width: 11.5%;
+	height: 54.5%;
+	border: red 3px solid;
+}
+
+#VSI {
+	position: absolute;
+	right: 1%;
+	top: 22.1%;
+	width: 4.9%;
+	height: 54.5%;
+	border: blue 3px solid;
+}
+
+#ALT {
+	position: absolute;
+	top:22.1%;
+	right:16%;
+	height:54.5%;
+	width:9.4%;
+	border: orange 3px solid;
+}
+
+#AH {
+	position: absolute;
+	top:22.1%;
+	left: 21.9%;
+	height:54.5%;
+	width:42.3%;
+	/* border: brown 3px solid; */
+}
+
+#HDG {
+	position: absolute;
+	top:85.6%;
+	left: 21.9%;
+	height:8.1%;
+	width:42.3%;
+	border: lime 3px solid;
+}
+
+#ND {
+  position: fixed;
+  left: 50%;
+  margin-left: -40px; /* mitad del ancho de la pantalla más el espacio de 10px */
+  top: 50%;
+  margin-top: -290px; /* mitad de la altura de la pantalla */
+}
+
+/*#PFD, #ND {
+  width: 250vw;
+  height: 250vh;
+} */
