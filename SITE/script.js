@@ -91,7 +91,7 @@ ctxND.fillStyle = 'black';
 ctxND.fillRect(0, 0, ND.width, ND.height);
 
 let imgAH = new Image();
-imgAH.src = "D:/DOCUMENTOS/DOCTORADO THALES/DOCTORADO/EXPERIENCIAS/CELLULE ORAGEUSSE - ETUDIANTES UL/PRUEBA ARRASTRAR OBJETOS/Test_GUI/Test_GUI2/SITE/IMAGENES/AH.png";
+imgAH.src = "/IMAGENES/AH.png";
 imgAH.onload = function() {
   ctxAH.drawImage(imgAH, 0, 0, AH.width, AH.height);
 }
