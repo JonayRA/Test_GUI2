@@ -91,7 +91,7 @@ ctxND.fillStyle = 'black';
 ctxND.fillRect(0, 0, ND.width, ND.height);
 
 let imgAH = new Image();
-imgAH.src = "/IMAGENES/AH.jpg";
+imgAH.src = "IMAGENES/AH.jpg";
 imgAH.onload = function() {
   ctxAH.drawImage(imgAH, 0, 0, AH.width, AH.height);
 }
