@@ -130,6 +130,7 @@ canvas {
   margin-left: -40px; /* mitad del ancho de la pantalla más el espacio de 10px */
   /* top: 50%;
   margin-top: -290px; /* mitad de la altura de la pantalla */
+  border: purple 3px solid;
 }
 
 #avionND {
