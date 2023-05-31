@@ -182,7 +182,8 @@ ctxAvionND.stroke();
 // Función para verificar si una posición está dentro de los límites del ND canvas
 function isWithinBounds(x, y) {
   const rect = ND.getBoundingClientRect();
-  return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+  console.log('newCanvasX',x,'newCanvasY',y,'canvasNDX',rect.right,'canvasNDY',rect.top, 'anchura', rect.width, 'altura', rect.height);
+  return x >= -1*rect.width/2 && x <= rect.width/2 && y >= -2/3*rect.height && y <= 1/10*rect.height ;
   console.log('Sabe que estoy en los límites');
 }
 
@@ -207,11 +208,12 @@ document.addEventListener('mousemove', function (event) {
     let newCanvasY = canvasAvionNDY + diffY;
 
     // Verificar si la nueva posición está dentro de los límites del ND canvas
-    //if (isWithinBounds(newCanvasX, newCanvasY)) {
-    	console.log('is within bounds');
+    if (isWithinBounds(newCanvasX, newCanvasY)) {
+    	console.log('sabe que estoy en los límites')
+    //}
       canvasAvionNDX = newCanvasX;
       canvasAvionNDY = newCanvasY;
-    //}
+    }
 
     // Actualizar la posición del canvas en el DOM
     canvasAvionND.style.transform = `translate(${canvasAvionNDX}px, ${canvasAvionNDY}px)`;
