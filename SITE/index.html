@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Test de arrastrar objetos </title>
+    <title> Test cellule orageuse </title>
     <h1> Obrigado Gabriel, vc é o melhor </h1>
    	<link rel="stylesheet" type="text/css" href="style.css">
   </head>
@@ -20,15 +20,19 @@
 		<canvas id="AH", style="image-rendering: pixelated;"></canvas>
   	</div>
 
-
-	<canvas id="ND", style="image-rendering: pixelated; width: 600px; height: 600px;"></canvas>
+  	<div id="NDcanvasContainer", style="width: 600px; height: 600px;">
+		<!--<canvas id="ND", style="image-rendering: pixelated; width: 600px; height: 600px;"></canvas> -->
 	<!-- Création des sections du FMA (Flight Mode Annunciator) -->
+		<canvas id="ND", style="image-rendering: pixelated;"></canvas>
 
-	<canvas id="FMAND1", style="image-rendering: pixelated;"></canvas>
-	<canvas id="FMAND2", style="image-rendering: pixelated;"></canvas>
-	<canvas id="FMAND3", style="image-rendering: pixelated;"></canvas>
-	<canvas id="FMAND4", style="image-rendering: pixelated;"></canvas>
-	<canvas id="FMAND5", style="image-rendering: pixelated;"></canvas>
+		<canvas id="avionND", style="image-rendering: pixelated;"></canvas>
+		<!--<canvas id="FMAND2", style="image-rendering: pixelated;"></canvas>
+		<canvas id="FMAND3", style="image-rendering: pixelated;"></canvas>
+		<canvas id="FMAND4", style="image-rendering: pixelated;"></canvas>
+		<canvas id="FMAND5", style="image-rendering: pixelated;"></canvas> -->
+	</div>
+
 	<script src="script.js"></script>
+	
   </body>
 </html>

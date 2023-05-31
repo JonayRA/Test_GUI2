@@ -114,12 +114,31 @@ canvas {
 	border: lime 3px solid;
 }
 
-#ND {
-  position: fixed;
+#NDcanvasContainer {
+  position: absolute;
   left: 50%;
   margin-left: -40px; /* mitad del ancho de la pantalla más el espacio de 10px */
   top: 50%;
   margin-top: -290px; /* mitad de la altura de la pantalla */
+  border: yellow 3px solid;
+  overflow: hidden;
+}
+
+#ND {
+  position: absolute;
+  /*left: 50%;
+  margin-left: -40px; /* mitad del ancho de la pantalla más el espacio de 10px */
+  /* top: 50%;
+  margin-top: -290px; /* mitad de la altura de la pantalla */
+}
+
+#avionND {
+	position: absolute;
+	left: 45%;
+	top: 87%;
+	width: 10%;
+	height: 10%;
+	border: purple 3px solid;
 }
 
 /*#PFD, #ND {

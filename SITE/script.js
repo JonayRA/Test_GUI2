@@ -5,6 +5,7 @@
 // Definición de funciones
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
+let FMA1 = document.getElementById('FMA1');
 let ctxFMA1 = FMA1.getContext('2d');
 let FMA2 = document.getElementById('FMA2');
 let ctxFMA2 = FMA2.getContext('2d');
@@ -72,6 +73,9 @@ ctxALT.fillText(t6,x,y);
 
 
 
+const NDcontainer = document.getElementById('NDcanvasContainer');
+const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
+const NDcontainerHeight = NDcontainer.getBoundingClientRect().height;
 
 let ND = document.getElementById('ND');
 let ctxND = ND.getContext('2d');
@@ -80,9 +84,9 @@ let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;
 PFD.height = 200 * pixelRatio;
 ctxPFD.scale(pixelRatio, pixelRatio);
-ND.width = 200*pixelRatio
-ND.height = 200*pixelRatio
-ctxND.scale(pixelRatio,devicePixelRatio)
+ND.width = NDcontainerWidth; // 200*pixelRatio;
+ND.height = NDcontainerHeight; // 200*pixelRatio;
+// ctxND.scale(pixelRatio,devicePixelRatio);
 
 ctxPFD.fillStyle = 'black';
 ctxPFD.fillRect(0, 0, PFD.width, PFD.height);
@@ -99,6 +103,197 @@ imgAH.onerror = function() {
   console.log('Error al cargar la imagen');
 }
 
+let canvasAvionND = document.getElementById('avionND');
+let ctxAvionND = canvasAvionND.getContext('2d');
+var xAvion = canvasAvionND.width * 0.5;
+var yAvion = canvasAvionND.height * 0.3;
+/*
+ctxAvionND.beginPath();
+ctxAvionND.moveTo(xAvion,0);
+ctxAvionND.lineTo(xAvion,canvasAvionND.height);
+ctxAvionND.strokeStyle = "yellow";
+ctxAvionND.lineWidth = 10;
+ctxAvionND.stroke();
+
+ctxAvionND.beginPath();
+ctxAvionND.moveTo(0,yAvion);
+ctxAvionND.lineTo(canvasAvionND.width,yAvion);
+ctxAvionND.strokeStyle = "yellow";
+ctxAvionND.lineWidth = 7;
+ctxAvionND.stroke(); */
+
+
+let imgND = new Image();
+imgND.src = "IMAGENES/ND_base.jpg";
+imgND.onload = function() {
+	const scaleWidth = Math.min(NDcontainerWidth / imgND.width);
+	const scaleHeight = Math.min(NDcontainerHeight / imgND.height);
+  	ctxND.drawImage(imgND, -0.125*ND.width, 0, ND.width*1.25, ND.height);
+
+}
+imgND.onerror = function() {
+  console.log('Error al cargar la imagen');
+}
+
+
+/*const imgND	= new Image();
+imgND.src = "IMAGENES/ND_base.jpg";
+imgND.addEventListener('load', function() {
+	const scale = Math.min(NDcontainerWidth / imgND.width, NDcontainerHeight / imgND.height);
+
+  // Calcular las dimensiones finales de la imagen
+  const imageWidth = imgND.width * scale;
+  const imageHeight = imgND.height * scale;
+
+  // Asignar el tamaño calculado a la imagen
+  imgND.width = imageWidth;
+  imgND.height = imageHeight;
+
+  // Agregar la imagen al contenedor
+  NDcontainer.appendChild(imgND);
+}); */
+
+
+
+
+let isDragging = false;
+let startX;
+let startY;
+let canvasAvionNDX = 0;
+let canvasAvionNDY = 0;
+
+// Función para dibujar las líneas iniciales en el canvas
+function drawLines() {
+ctxAvionND.beginPath();
+ctxAvionND.moveTo(xAvion,0);
+ctxAvionND.lineTo(xAvion,canvasAvionND.height);
+ctxAvionND.strokeStyle = "yellow";
+ctxAvionND.lineWidth = 10;
+ctxAvionND.stroke();
+
+ctxAvionND.beginPath();
+ctxAvionND.moveTo(0,yAvion);
+ctxAvionND.lineTo(canvasAvionND.width,yAvion);
+ctxAvionND.strokeStyle = "yellow";
+ctxAvionND.lineWidth = 7;
+ctxAvionND.stroke();
+}
+
+// Función para verificar si una posición está dentro de los límites del ND canvas
+function isWithinBounds(x, y) {
+  const rect = ND.getBoundingClientRect();
+  return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+  console.log('Sabe que estoy en los límites');
+}
+
+// Evento mousedown para comenzar el arrastre del canvas
+canvasAvionND.addEventListener('mousedown', function (event) {
+  if (event.button === 0) { // Botón izquierdo del ratón
+    startX = event.clientX;
+    startY = event.clientY;
+    isDragging = true;
+    console.log('Sabe que he clicado');
+  }
+});
+
+// Evento mousemove para arrastrar el canvas
+document.addEventListener('mousemove', function (event) {
+  //if (event.button === 1 && isDragging) {
+  if (isDragging) {
+  	console.log('Sabe que me muevo');
+    const diffX = event.clientX - startX;
+    const diffY = event.clientY - startY;
+    let newCanvasX = canvasAvionNDX + diffX;
+    let newCanvasY = canvasAvionNDY + diffY;
+
+    // Verificar si la nueva posición está dentro de los límites del ND canvas
+    //if (isWithinBounds(newCanvasX, newCanvasY)) {
+    	console.log('is within bounds');
+      canvasAvionNDX = newCanvasX;
+      canvasAvionNDY = newCanvasY;
+    //}
+
+    // Actualizar la posición del canvas en el DOM
+    canvasAvionND.style.transform = `translate(${canvasAvionNDX}px, ${canvasAvionNDY}px)`;
+
+    startX = event.clientX;
+    startY = event.clientY;
+  }
+});
+
+// Evento mouseup para dejar de arrastrar el canvas
+document.addEventListener('mouseup', function (event) {
+  if (event.button === 0) { // Botón izquierdo del ratón
+    isDragging = false;
+    console.log('Sabe que he levantado')
+  }
+});
+
+// Llamar a la función para dibujar las líneas iniciales
+drawLines();
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+let isDragging = false;
+let startX, startY;
+
+canvasAvionND.addEventListener('mousedown', function(event) {
+  // Verificamos si el click fue dentro de la cruz
+  console.log('Sabe que he clicado');
+  let rect = canvasAvionND.getBoundingClientRect();
+  let x = event.clientX - rect.left;
+  let y = event.clientY - rect.top;
+  isDragging = true;
+  startX = x;
+  startY = y;
+});
+
+canvasAvionND.addEventListener('mousemove', function(event) {
+	console.log('Sabe que me muevo');
+  if (isDragging) {
+  	console.log('Sabe que estoy arrastrando');
+    // Calculamos la nueva posición de la cruz
+    let rect = canvasAvionND.getBoundingClientRect();
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    let dx = x - startX;
+    let dy = y - startY;
+    startX = x;
+    startY = y;
+    ctxAvionND.translate(dx, dy);
+
+    // Dibujamos la cruz en su nueva posición
+    ctxAvionND.clearRect(0, 0, canvasAvionND.width, canvasAvionND.height);
+    ctxAvionND.beginPath();
+    ctxAvionND.moveTo(xAvion,0);
+	ctxAvionND.lineTo(xAvion,canvasAvionND.height);
+    ctxAvionND.strokeStyle = "yellow";
+    ctxAvionND.lineWidth = 10;
+    ctxAvionND.stroke();
+
+    ctxAvionND.beginPath();
+    ctxAvionND.moveTo(0,yAvion);
+	ctxAvionND.lineTo(canvasAvionND.width,yAvion);
+    ctxAvionND.strokeStyle = "yellow";
+    ctxAvionND.lineWidth = 7;
+    ctxAvionND.stroke();
+  }
+});
+
+canvasAvionND.addEventListener('mouseup', function(event) {
+  isDragging = false;
+});
+*/
 /*
 ctxPFD.beginPath();
 ctxPFD.moveTo(0,0);
