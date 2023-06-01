@@ -142,6 +142,12 @@ canvas {
 	border: purple 3px solid;
 }
 
+#cambiarImagen {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
 /*#PFD, #ND {
   width: 250vw;
   height: 250vh;

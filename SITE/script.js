@@ -122,9 +122,25 @@ ctxAvionND.strokeStyle = "yellow";
 ctxAvionND.lineWidth = 7;
 ctxAvionND.stroke(); */
 
+const button = document.getElementById('cambiarImagen');
+button.addEventListener('click', cambiarImagen);
+
+let currentImage = 0;
+const imagenes = [
+"IMAGENES/ND_base.jpg",
+"IMAGENES/ND_radar.png"
+];
 
 let imgND = new Image();
-imgND.src = "IMAGENES/ND_base.jpg";
+imgND.src = imagenes[currentImage];
+function cambiarImagen() {
+  currentImage = (currentImage + 1) % imagenes.length;
+  imgND.src = imagenes[currentImage];
+}
+
+
+//imgND.src = "IMAGENES/ND_base.jpg";
+//imgND.src = "IMAGENES/ND_radar.png";
 imgND.onload = function() {
 	const scaleWidth = Math.min(NDcontainerWidth / imgND.width);
 	const scaleHeight = Math.min(NDcontainerHeight / imgND.height);
