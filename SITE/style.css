@@ -87,6 +87,15 @@ canvas {
 	border: blue 3px solid;
 }
 
+#VSItext {
+	position: absolute;
+	right: -7.5%;
+	top: 24%;
+	width: 15%;
+	height: 54.5%;
+	
+}
+
 #ALT {
 	position: absolute;
 	top:22.1%;

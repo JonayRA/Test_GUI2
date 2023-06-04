@@ -25,13 +25,17 @@ let ALT = document.getElementById('ALT');
 let ctxALT = ALT.getContext('2d');
 let AH = document.getElementById('AH');
 let ctxAH = AH.getContext('2d');
-
+let VSItext = document.getElementById('VSItext');
+let ctxVSItext = VSItext.getContext('2d');
 
 // Texto secciones PFD
 var t1 = 'FMA';
 var t2 = 'ASI';
 var t3 = 'HDG';
 var t4 = 'VSI';
+var t41 = 'V';
+var t42 = 'S';
+var t43 = 'I';
 var t5 = 'AH';
 var t6 = 'ALT';
 ctxFMA3.font = '30px Arial';
@@ -46,24 +50,27 @@ var x2 = (ASI.width / 2) - textWidth2/2;
 var y2 = ASI.height / 2;
 ctxASI.fillStyle = 'white';
 ctxASI.fillText(t2,x2,y2);
-ctxAH.font = '30px Arial';
-var textWidth3 = ctxAH.measureText(t5).width;
-var x3 = (AH.width / 2) - textWidth3/2;
-var y3 = AH.height / 2;
-ctxAH.fillStyle = 'white';
-ctxAH.fillText(t5,x3,y3);
+//ctxAH.font = '30px Arial';
+//var textWidth3 = ctxAH.measureText(t5).width;
+//var x3 = (AH.width / 2) - textWidth3/2;
+//var y3 = AH.height / 2;
+//ctxAH.fillStyle = 'white';
+//ctxAH.fillText(t5,x3,y3);
 ctxHDG.font = '30px Arial';
 var textWidth4 = ctxHDG.measureText(t3).width;
 var x4 = (HDG.width / 2) - textWidth4/2;
 var y4 = HDG.height / 2;
 ctxHDG.fillStyle = 'white';
 ctxHDG.fillText(t3,x4,y4);
-ctxVSI.font = '60px Arial';
+/*ctxVSI.font = '60px Arial';
 var textWidth5 = ctxVSI.measureText(t4).width;
-var x5 = (VSI.width / 2) - textWidth5/2;
+var x5 = (VSI.width / 2) - 2*textWidth5/2;
 var y5 = VSI.height/2;
 ctxVSI.fillStyle = 'white';
-ctxVSI.fillText(t4,x5,y5);
+ctxVSI.textAlign = 'left';
+ctxVSI.fillText(t41,x5,y5-35);
+ctxVSI.fillText(t42,x5,y5+15);
+ctxVSI.fillText(t43,x5,y5+65); */
 ctxALT.font = '60px Arial';
 var textWidth = ctxALT.measureText(t6).width;
 var x = (ALT.width / 2) - textWidth/2;
@@ -71,6 +78,16 @@ var y = ALT.height / 2;
 ctxALT.fillStyle = 'white';
 ctxALT.fillText(t6,x,y);
 
+
+ctxVSItext.font = '60px Arial';
+var textWidth5 = ctxVSItext.measureText(t4).width;
+var x5 = (VSI.width / 2) - 2*textWidth5/2;
+var y5 = VSI.height/2;
+ctxVSItext.fillStyle = 'white';
+ctxVSItext.textAlign = 'left';
+ctxVSItext.fillText(t41,x5,y5-35);
+ctxVSItext.fillText(t42,x5,y5+15);
+ctxVSItext.fillText(t43,x5,y5+65);
 
 
 const NDcontainer = document.getElementById('NDcanvasContainer');
