@@ -1,9 +1,7 @@
 // Comentario opcional para describir el contenido del archivo
 
 // Declaración de variables globales
-
-// Definición de funciones
-let PFD = document.getElementById('PFD');
+/*let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
 let FMA1 = document.getElementById('FMA1');
 let ctxFMA1 = FMA1.getContext('2d');
@@ -26,10 +24,58 @@ let ctxALT = ALT.getContext('2d');
 let AH = document.getElementById('AH');
 let ctxAH = AH.getContext('2d');
 let VSItext = document.getElementById('VSItext');
-let ctxVSItext = VSItext.getContext('2d');
+let ctxVSItext = VSItext.getContext('2d'); */
+const button = document.getElementById('cambiarImagen');
+let currentImage = 0;
+const imagenes = [
+"IMAGENES/ND_base.jpg",
+"IMAGENES/ND_radar.png"
+];
+const NDcontainer = document.getElementById('NDcanvasContainer');
+const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
+const NDcontainerHeight = NDcontainer.getBoundingClientRect().height;
 
+let canvasAvionND = document.getElementById('avionND');
+let ctxAvionND = canvasAvionND.getContext('2d');
+var xAvion = canvasAvionND.width * 0.5;
+var yAvion = canvasAvionND.height * 0.3;
+
+let ND = document.getElementById('ND');
+let ctxND = ND.getContext('2d');
+
+const avionNDinitialPosition = canvasAvionND.getBoundingClientRect();
+const avionNDinitialPositionTop = canvasAvionND.offsetTop;
+const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
+
+let isDragging = false;
+let startX;
+let startY;
+let canvasAvionNDX = 0;
+let canvasAvionNDY = 0;
+
+// Definición de funciones
+
+
+let imgND = new Image();
+imgND.src = imagenes[currentImage];
+function cambiarImagen() {
+  currentImage = (currentImage + 1) % imagenes.length;
+  imgND.src = imagenes[currentImage];
+  console.log(avionNDinitialPositionTop);
+  let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
+  let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
+  canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
+  startX = 0;
+  startY = 0;
+  canvasAvionNDX = 0;
+  canvasAvionNDY = 0;
+  console.log('Apretado el boton');
+}
+
+/*
 // Texto secciones PFD
-var t1 = 'FMA';
+var t1 = 'SPEED';
+var t11 = 'SPEED1';
 var t2 = 'ASI';
 var t3 = 'HDG';
 var t4 = 'VSI';
@@ -38,13 +84,25 @@ var t42 = 'S';
 var t43 = 'I';
 var t5 = 'AH';
 var t6 = 'ALT';
-ctxFMA3.font = '30px Arial';
+// ctxFMA3.font = '50px "Andalé Mono", monospace';
+ctxFMA3.font = '50px "Andale Mono", monospace';
+ctxFMA3.fontWeight = 100;
 var textWidth = ctxFMA3.measureText(t1).width;
 var x = (FMA3.width / 2) - textWidth/2;
 var y = FMA3.height / 2;
 ctxFMA3.fillStyle = 'white';
 ctxFMA3.fillText(t1,x,y);
-ctxASI.font = '60px Arial';
+
+ctxFMA3.font = '50px "Andale Mono", monospace';
+ctxFMA3.fontWeight = 100;
+var textWidth = ctxFMA3.measureText(t11).width;
+var x = (FMA3.width / 2) - textWidth/2;
+var y = FMA3.height / 2;
+ctxFMA3.fillStyle = 'white';
+ctxFMA3.fillText(t1,x,y+60);
+
+
+ctxASI.font = '60px "Lucida Console", monospace';
 var textWidth2 = ctxASI.measureText(t2).width;
 var x2 = (ASI.width / 2) - textWidth2/2;
 var y2 = ASI.height / 2;
@@ -56,7 +114,7 @@ ctxASI.fillText(t2,x2,y2);
 //var y3 = AH.height / 2;
 //ctxAH.fillStyle = 'white';
 //ctxAH.fillText(t5,x3,y3);
-ctxHDG.font = '30px Arial';
+ctxHDG.font = '30px "Lucida Console", monospace';
 var textWidth4 = ctxHDG.measureText(t3).width;
 var x4 = (HDG.width / 2) - textWidth4/2;
 var y4 = HDG.height / 2;
@@ -71,7 +129,8 @@ ctxVSI.textAlign = 'left';
 ctxVSI.fillText(t41,x5,y5-35);
 ctxVSI.fillText(t42,x5,y5+15);
 ctxVSI.fillText(t43,x5,y5+65); */
-ctxALT.font = '60px Arial';
+/*
+ctxALT.font = '100 60px "Lucida Console", monospace';
 var textWidth = ctxALT.measureText(t6).width;
 var x = (ALT.width / 2) - textWidth/2;
 var y = ALT.height / 2;
@@ -79,7 +138,7 @@ ctxALT.fillStyle = 'white';
 ctxALT.fillText(t6,x,y);
 
 
-ctxVSItext.font = '60px Arial';
+ctxVSItext.font = '60px "Lucida Console", monospace';
 var textWidth5 = ctxVSItext.measureText(t4).width;
 var x5 = (VSI.width / 2) - 2*textWidth5/2;
 var y5 = VSI.height/2;
@@ -90,12 +149,8 @@ ctxVSItext.fillText(t42,x5,y5+15);
 ctxVSItext.fillText(t43,x5,y5+65);
 
 
-const NDcontainer = document.getElementById('NDcanvasContainer');
-const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
-const NDcontainerHeight = NDcontainer.getBoundingClientRect().height;
-
-let ND = document.getElementById('ND');
-let ctxND = ND.getContext('2d');
+*/
+FMAtextGenerator();
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;
@@ -120,10 +175,7 @@ imgAH.onerror = function() {
   console.log('Error al cargar la imagen');
 }
 
-let canvasAvionND = document.getElementById('avionND');
-let ctxAvionND = canvasAvionND.getContext('2d');
-var xAvion = canvasAvionND.width * 0.5;
-var yAvion = canvasAvionND.height * 0.3;
+
 /*
 ctxAvionND.beginPath();
 ctxAvionND.moveTo(xAvion,0);
@@ -139,21 +191,11 @@ ctxAvionND.strokeStyle = "yellow";
 ctxAvionND.lineWidth = 7;
 ctxAvionND.stroke(); */
 
-const button = document.getElementById('cambiarImagen');
 button.addEventListener('click', cambiarImagen);
 
-let currentImage = 0;
-const imagenes = [
-"IMAGENES/ND_base.jpg",
-"IMAGENES/ND_radar.png"
-];
 
-let imgND = new Image();
-imgND.src = imagenes[currentImage];
-function cambiarImagen() {
-  currentImage = (currentImage + 1) % imagenes.length;
-  imgND.src = imagenes[currentImage];
-}
+
+
 
 
 //imgND.src = "IMAGENES/ND_base.jpg";
@@ -169,31 +211,10 @@ imgND.onerror = function() {
 }
 
 
-/*const imgND	= new Image();
-imgND.src = "IMAGENES/ND_base.jpg";
-imgND.addEventListener('load', function() {
-	const scale = Math.min(NDcontainerWidth / imgND.width, NDcontainerHeight / imgND.height);
-
-  // Calcular las dimensiones finales de la imagen
-  const imageWidth = imgND.width * scale;
-  const imageHeight = imgND.height * scale;
-
-  // Asignar el tamaño calculado a la imagen
-  imgND.width = imageWidth;
-  imgND.height = imageHeight;
-
-  // Agregar la imagen al contenedor
-  NDcontainer.appendChild(imgND);
-}); */
 
 
 
 
-let isDragging = false;
-let startX;
-let startY;
-let canvasAvionNDX = 0;
-let canvasAvionNDY = 0;
 
 // Función para dibujar las líneas iniciales en el canvas
 function drawLines() {
@@ -215,9 +236,9 @@ ctxAvionND.stroke();
 // Función para verificar si una posición está dentro de los límites del ND canvas
 function isWithinBounds(x, y) {
   const rect = ND.getBoundingClientRect();
-  console.log('newCanvasX',x,'newCanvasY',y,'canvasNDX',rect.right,'canvasNDY',rect.top, 'anchura', rect.width, 'altura', rect.height);
+ // console.log('newCanvasX',x,'newCanvasY',y,'canvasNDX',rect.right,'canvasNDY',rect.top, 'anchura', rect.width, 'altura', rect.height);
   return x >= -1*rect.width/2 && x <= rect.width/2 && y >= -2/3*rect.height && y <= 1/10*rect.height ;
-  console.log('Sabe que estoy en los límites');
+ // console.log('Sabe que estoy en los límites');
 }
 
 // Evento mousedown para comenzar el arrastre del canvas
@@ -226,7 +247,7 @@ canvasAvionND.addEventListener('mousedown', function (event) {
     startX = event.clientX;
     startY = event.clientY;
     isDragging = true;
-    console.log('Sabe que he clicado');
+    // console.log('Sabe que he clicado');
   }
 });
 
@@ -234,24 +255,27 @@ canvasAvionND.addEventListener('mousedown', function (event) {
 document.addEventListener('mousemove', function (event) {
   //if (event.button === 1 && isDragging) {
   if (isDragging) {
-  	console.log('Sabe que me muevo');
+  //	console.log('Sabe que me muevo');
     const diffX = event.clientX - startX;
     const diffY = event.clientY - startY;
     let newCanvasX = canvasAvionNDX + diffX;
     let newCanvasY = canvasAvionNDY + diffY;
+    console.log('diffX',diffX);
 
     // Verificar si la nueva posición está dentro de los límites del ND canvas
     if (isWithinBounds(newCanvasX, newCanvasY)) {
-    	console.log('sabe que estoy en los límites')
+    	console.log('sabe que estoy en los limites')
     //}
       canvasAvionNDX = newCanvasX;
       canvasAvionNDY = newCanvasY;
+      console.log('NewCanvasX', newCanvasX);
     }
 
     // Actualizar la posición del canvas en el DOM
     canvasAvionND.style.transform = `translate(${canvasAvionNDX}px, ${canvasAvionNDY}px)`;
 
     startX = event.clientX;
+    console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
     startY = event.clientY;
   }
 });
@@ -260,7 +284,7 @@ document.addEventListener('mousemove', function (event) {
 document.addEventListener('mouseup', function (event) {
   if (event.button === 0) { // Botón izquierdo del ratón
     isDragging = false;
-    console.log('Sabe que he levantado')
+  //  console.log('Sabe que he levantado')
   }
 });
 
