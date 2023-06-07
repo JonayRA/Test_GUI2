@@ -61,22 +61,60 @@ const t6 = 'ALT';
 
 function FMAtextGenerator(){
 
-// ctxFMA3.font = '50px "Andalé Mono", monospace';
-ctxFMA3.font = FMAfont;
-ctxFMA3.fontWeight = FMAfontWeight;
-var textWidth = ctxFMA3.measureText(t1).width;
-var x = (FMA3.width / 2) - textWidth/2;
-var y = FMA3.height / 2;
-ctxFMA3.fillStyle = 'white';
-ctxFMA3.fillText(t1,x,y);
+	ctxFMA1.font = FMAfont;
+	ctxFMA1.fontWeight = FMAfontWeight;
+	var textWidth = ctxFMA1.measureText(FMA1l1text).width;
+	var x = (FMA1.width / 2) - textWidth/2;
+	var y = 40;
+	ctxFMA1.fillStyle = 'lime';
+	ctxFMA1.fillText(FMA1l1text,x,y);
 
-ctxFMA3.font = FMAfont;
-ctxFMA3.fontWeight = FMAfontWeight;
-var textWidth = ctxFMA3.measureText(t11).width;
-var x = (FMA3.width / 2) - textWidth/2;
-var y = FMA3.height / 2;
-ctxFMA3.fillStyle = 'white';
-ctxFMA3.fillText(t1,x,y+60);
+	ctxFMA2.font = FMAfont;
+	ctxFMA2.fontWeight = FMAfontWeight;
+	var textWidth = ctxFMA2.measureText(FMA2l1text).width;
+	var x = (FMA2.width / 2) - textWidth/2;
+	var y = 40;
+	ctxFMA2.fillStyle = 'lime';
+	ctxFMA2.fillText(FMA2l1text,x,y);
+
+	ctxFMA3.font = FMAfont;
+	ctxFMA3.fontWeight = FMAfontWeight;
+	var textWidth = ctxFMA3.measureText(FMA3l1text).width;
+	var x = (FMA3.width / 2) - textWidth/2;
+	var y = 40;
+	ctxFMA3.fillStyle = 'lime';
+	ctxFMA3.fillText(FMA3l1text,x,y);
+
+	ctxFMA4.font = FMAfont;
+	ctxFMA4.fontWeight = FMAfontWeight;
+	var textWidth = ctxFMA4.measureText(FMA4l1text).width;
+	var x = (FMA4.width / 2) - textWidth/2;
+	var y = 40;
+	ctxFMA4.fillStyle = 'white';
+	ctxFMA4.fillText(FMA4l1text,x,y);
+	var textWidth = ctxFMA4.measureText(FMA4l2text).width;
+	var x = (FMA4.width / 2) - textWidth/2;
+	var y = 2*40+10;
+	ctxFMA4.fillStyle = 'white';
+	ctxFMA4.fillText(FMA4l2text,x,y);
+
+	ctxFMA5.font = FMAfont;
+	ctxFMA5.fontWeight = FMAfontWeight;
+	var textWidth = ctxFMA5.measureText(FMA5l1text).width;
+	var x = (FMA5.width / 2) - textWidth/2;
+	var y = 40;
+	ctxFMA5.fillStyle = 'white';
+	ctxFMA5.fillText(FMA5l1text,x,y);
+	var textWidth = ctxFMA5.measureText(FMA5l2text).width;
+	var x = (FMA5.width / 2) - textWidth/2;
+	var y = 2*40+10;
+	ctxFMA5.fillStyle = 'white';
+	ctxFMA5.fillText(FMA5l2text,x,y);
+	var textWidth = ctxFMA5.measureText(FMA5l3text).width;
+	var x = (FMA5.width / 2) - textWidth/2;
+	var y = 3*40+2*10;
+	ctxFMA5.fillStyle = 'white';
+	ctxFMA5.fillText(FMA5l3text,x,y);
 
 
 ctxASI.font = '60px "Lucida Console", monospace';
