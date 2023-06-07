@@ -61,7 +61,6 @@ imgND.src = imagenes[currentImage];
 function cambiarImagen() {
   currentImage = (currentImage + 1) % imagenes.length;
   imgND.src = imagenes[currentImage];
-  console.log(avionNDinitialPositionTop);
   let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
@@ -69,7 +68,6 @@ function cambiarImagen() {
   startY = 0;
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;
-  console.log('Apretado el boton');
 }
 
 /*
@@ -260,22 +258,22 @@ document.addEventListener('mousemove', function (event) {
     const diffY = event.clientY - startY;
     let newCanvasX = canvasAvionNDX + diffX;
     let newCanvasY = canvasAvionNDY + diffY;
-    console.log('diffX',diffX);
+    // console.log('diffX',diffX);
 
     // Verificar si la nueva posición está dentro de los límites del ND canvas
     if (isWithinBounds(newCanvasX, newCanvasY)) {
-    	console.log('sabe que estoy en los limites')
+    	// console.log('sabe que estoy en los limites')
     //}
       canvasAvionNDX = newCanvasX;
       canvasAvionNDY = newCanvasY;
-      console.log('NewCanvasX', newCanvasX);
+      // console.log('NewCanvasX', newCanvasX);
     }
 
     // Actualizar la posición del canvas en el DOM
     canvasAvionND.style.transform = `translate(${canvasAvionNDX}px, ${canvasAvionNDY}px)`;
 
     startX = event.clientX;
-    console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
+    // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
     startY = event.clientY;
   }
 });
