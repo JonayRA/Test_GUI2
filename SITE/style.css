@@ -157,6 +157,24 @@ canvas {
   right: 10px;
 }
 
+#pressure {
+	position: absolute;
+	top: 80.6%;
+	left: 69.2%;
+	height: 19.4%;
+	width: 30.8%;
+	/* border: fuchsia 3px solid; */
+}
+
+#NAV {
+	position: absolute;
+	top: 80.6%;
+	left: 0%;
+	height: 19.4%;
+	width: 16.8%;
+	border: cyan 3px solid;
+}
+
 /*#PFD, #ND {
   width: 250vw;
   height: 250vh;

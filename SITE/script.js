@@ -1,7 +1,7 @@
 // Comentario opcional para describir el contenido del archivo
 
 // Declaración de variables globales
-/*let PFD = document.getElementById('PFD');
+let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
 let FMA1 = document.getElementById('FMA1');
 let ctxFMA1 = FMA1.getContext('2d');
@@ -24,8 +24,11 @@ let ctxALT = ALT.getContext('2d');
 let AH = document.getElementById('AH');
 let ctxAH = AH.getContext('2d');
 let VSItext = document.getElementById('VSItext');
-let ctxVSItext = VSItext.getContext('2d'); */
+let ctxVSItext = VSItext.getContext('2d'); 
+let pressure = document.getElementById('pressure');
+let ctxPressure = pressure.getContext('2d');
 const button = document.getElementById('cambiarImagen');
+
 let currentImage = 0;
 const imagenes = [
 "IMAGENES/ND_base.jpg",
@@ -149,6 +152,7 @@ ctxVSItext.fillText(t43,x5,y5+65);
 
 */
 FMAtextGenerator();
+pressureTextGenerator();
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;

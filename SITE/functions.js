@@ -1,4 +1,4 @@
-let PFD = document.getElementById('PFD');
+/*let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
 let FMA1 = document.getElementById('FMA1');
 let ctxFMA1 = FMA1.getContext('2d');
@@ -23,6 +23,8 @@ let ctxAH = AH.getContext('2d');
 let VSItext = document.getElementById('VSItext');
 let ctxVSItext = VSItext.getContext('2d');
 
+*/
+
 const FMA1l1text = 'SPEED';
 const FMA1l2text = '';
 const FMA1l3text = '';
@@ -38,10 +40,11 @@ const FMA4l3text = '';
 const FMA5l1text = 'AP1+2';
 const FMA5l2text = '1 FD 2';
 const FMA5l3text = 'A/THR';
+const pressureL1text = 'QNH 1013';
 
 const FMAfont = '50px "Andale Mono", monospace';
 const FMAfontWeight = 100;
-
+const pressureFont = '25px "Andale Mono", monospace';
 
 
 
@@ -162,4 +165,14 @@ ctxVSItext.fillText(t41,x5,y5-35);
 ctxVSItext.fillText(t42,x5,y5+15);
 ctxVSItext.fillText(t43,x5,y5+65);
 
-}
+};
+
+function pressureTextGenerator(){
+	ctxPressure.font = pressureFont;
+	ctxPressure.fontWeight = FMAfontWeight;
+	var textWidth = ctxPressure.measureText(pressureL1text).width;
+	var x = 0*((pressure.width / 2) - textWidth/2)+10;
+	var y = 40;
+	ctxPressure.fillStyle = 'cyan';
+	ctxPressure.fillText(pressureL1text,x,y);
+};
