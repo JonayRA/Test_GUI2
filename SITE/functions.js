@@ -41,10 +41,14 @@ const FMA5l1text = 'AP1+2';
 const FMA5l2text = '1 FD 2';
 const FMA5l3text = 'A/THR';
 const pressureL1text = 'QNH 1013';
+const NAVPFDl1text = 'IMED';
+const NAVPFDl2text = '111.10';
+const NAVPFDl3text = '57NM';
+
 
 const FMAfont = '50px "Andale Mono", monospace';
 const FMAfontWeight = 100;
-const pressureFont = '25px "Andale Mono", monospace';
+const pressureFont = '35px "Andale Mono", monospace';
 
 
 
@@ -172,7 +176,27 @@ function pressureTextGenerator(){
 	ctxPressure.fontWeight = FMAfontWeight;
 	var textWidth = ctxPressure.measureText(pressureL1text).width;
 	var x = 0*((pressure.width / 2) - textWidth/2)+10;
-	var y = 40;
+	var y = 45;
 	ctxPressure.fillStyle = 'cyan';
 	ctxPressure.fillText(pressureL1text,x,y);
 };
+
+function NAVPFDtextGenerator(){
+	ctxNAVPFD.font = pressureFont;
+	ctxNAVPFD.fontWeight = FMAfontWeight;
+	var textWidth = ctxNAVPFD.measureText(NAVPFDl1text).width;
+	var x = 0*((NAVPFD.width / 2) - textWidth/2)+10;
+	var y = 45;
+	ctxNAVPFD.fillStyle = 'fuchsia';
+	ctxNAVPFD.fillText(NAVPFDl1text,x,y);
+	var textWidth = ctxNAVPFD.measureText(NAVPFDl2text).width;
+	var x = 0*((NAVPFD.width / 2) - textWidth/2)+10;
+	var y = NAVPFD.height*1/3+20;
+	ctxNAVPFD.fillStyle = 'fuchsia';
+	ctxNAVPFD.fillText(NAVPFDl2text,x,y);
+	var textWidth = ctxNAVPFD.measureText(NAVPFDl3text).width;
+	var x = NAVPFD.width - textWidth;
+	var y = NAVPFD.height*2/3;
+	ctxNAVPFD.fillStyle = 'fuchsia';
+	ctxNAVPFD.fillText(NAVPFDl3text,x,y);
+}

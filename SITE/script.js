@@ -27,6 +27,8 @@ let VSItext = document.getElementById('VSItext');
 let ctxVSItext = VSItext.getContext('2d'); 
 let pressure = document.getElementById('pressure');
 let ctxPressure = pressure.getContext('2d');
+let NAVPFD = document.getElementById('NAVPFD');
+let ctxNAVPFD = NAVPFD.getContext('2d');
 const button = document.getElementById('cambiarImagen');
 
 let currentImage = 0;
@@ -153,6 +155,7 @@ ctxVSItext.fillText(t43,x5,y5+65);
 */
 FMAtextGenerator();
 pressureTextGenerator();
+NAVPFDtextGenerator();
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;
