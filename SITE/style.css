@@ -175,6 +175,12 @@ canvas {
 	/*border: cyan 3px solid;*/
 }
 
+#resetCase {
+  position: absolute;
+  bottom: 40px;
+  right: 10px;
+}
+
 /*#PFD, #ND {
   width: 250vw;
   height: 250vh;

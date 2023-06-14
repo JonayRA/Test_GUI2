@@ -201,3 +201,13 @@ function NAVPFDtextGenerator(){
 	ctxNAVPFD.fillStyle = 'fuchsia';
 	ctxNAVPFD.fillText(NAVPFDl3text,x,y);
 }
+
+function resetCase(){
+	let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
+  	let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
+  	canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
+  	startX = 0;
+  	startY = 0;
+  	canvasAvionNDX = 0;
+  	canvasAvionNDY = 0;
+}

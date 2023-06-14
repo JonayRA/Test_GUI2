@@ -29,7 +29,8 @@ let pressure = document.getElementById('pressure');
 let ctxPressure = pressure.getContext('2d');
 let NAVPFD = document.getElementById('NAVPFD');
 let ctxNAVPFD = NAVPFD.getContext('2d');
-const button = document.getElementById('cambiarImagen');
+const buttonCambiarImagen = document.getElementById('cambiarImagen');
+const  buttonresetCase = document.getElementById('resetCase'); 
 
 let currentImage = 0;
 const imagenes = [
@@ -66,13 +67,14 @@ imgND.src = imagenes[currentImage];
 function cambiarImagen() {
   currentImage = (currentImage + 1) % imagenes.length;
   imgND.src = imagenes[currentImage];
-  let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
+  resetCase();
+  /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
   startX = 0;
   startY = 0;
   canvasAvionNDX = 0;
-  canvasAvionNDY = 0;
+  canvasAvionNDY = 0;*/
 }
 
 /*
@@ -196,8 +198,8 @@ ctxAvionND.strokeStyle = "yellow";
 ctxAvionND.lineWidth = 7;
 ctxAvionND.stroke(); */
 
-button.addEventListener('click', cambiarImagen);
-
+buttonCambiarImagen.addEventListener('click', cambiarImagen);
+buttonresetCase.addEventListener('click', resetCase);
 
 
 
