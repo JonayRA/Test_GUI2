@@ -304,6 +304,30 @@ drawLines();
 
 
 
+const dropdown = document.querySelector('.dropdown');
+const toggleButton = document.getElementById('toggleButton');
+const selectedOption = document.getElementById('selectedOption');
+const menuItems = document.querySelectorAll('#menu li');
+
+toggleButton.addEventListener('click', function() {
+  dropdown.classList.toggle('open');
+});
+
+menuItems.forEach(function(item) {
+  item.addEventListener('click', function() {
+    const option = this.textContent;
+    selectedOption.textContent = option;
+    
+    menuItems.forEach(function(item) {
+      item.classList.remove('selected');
+    });
+    this.classList.add('selected');
+    
+    dropdown.classList.remove('open');
+  });
+});
+
+
 
 
 

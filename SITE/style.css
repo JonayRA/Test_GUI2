@@ -183,6 +183,59 @@ canvas {
   width: 160px;
 }
 
+
+.dropdown {
+  position: absolute;
+  bottom: 400px;
+  right: 10px;
+  width: 160px;
+}
+
+.dropdown #menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f1f1f1;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.dropdown.open #menu {
+  display: block;
+}
+
+.dropdown #toggleButton {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown #toggleButton::after {
+  content: "▼";
+  margin-left: 5px;
+}
+
+.dropdown #menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown #menu li:hover {
+  background-color: #ddd;
+}
+
+.dropdown #menu li.selected {
+  background-color: #aaa;
+  color: white;
+}
+
+
+
 /*#PFD, #ND {
   width: 250vw;
   height: 250vh;
