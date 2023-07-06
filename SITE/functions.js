@@ -160,7 +160,7 @@ ctxALT.fillStyle = 'white';
 ctxALT.fillText(t6,x,y);
 
 
-ctxVSItext.font = '60px "Lucida Console", monospace';
+/*ctxVSItext.font = '60px "Lucida Console", monospace';
 var textWidth5 = ctxVSItext.measureText(t4).width;
 var x5 = (VSI.width / 2) - 2*textWidth5/2;
 var y5 = VSI.height/2;
@@ -168,7 +168,7 @@ ctxVSItext.fillStyle = 'white';
 ctxVSItext.textAlign = 'left';
 ctxVSItext.fillText(t41,x5,y5-35);
 ctxVSItext.fillText(t42,x5,y5+15);
-ctxVSItext.fillText(t43,x5,y5+65);
+ctxVSItext.fillText(t43,x5,y5+65);*/
 
 };
 
@@ -210,4 +210,20 @@ function resetCase(){
   	startY = 0;
   	canvasAvionNDX = 0;
   	canvasAvionNDY = 0;
+}
+
+function drawVSI(){
+	ctxVSI.beginPath();
+	ctxVSI.moveTo(0,0);
+	ctxVSI.lineTo(VSI.width/2,0);
+	ctxVSI.lineTo(VSI.width,VSI.height/6);
+	ctxVSI.lineTo(VSI.width,VSI.height*5/6);
+	ctxVSI.lineTo(VSI.width/2,VSI.height);
+	ctxVSI.lineTo(0,VSI.height);
+	ctxVSI.closePath();
+	ctxVSI.strokeStyle = 'rgb(150, 150, 150)';
+	ctxVSI.lineWidth = 10;
+	ctxVSI.stroke();
+	ctxVSI.fillStyle = 'rgb(150, 150, 150)';
+	ctxVSI.fill();
 }

@@ -29,6 +29,8 @@ let pressure = document.getElementById('pressure');
 let ctxPressure = pressure.getContext('2d');
 let NAVPFD = document.getElementById('NAVPFD');
 let ctxNAVPFD = NAVPFD.getContext('2d');
+let altIndicator = document.getElementById('altIndicator');
+let ctxAltIndicator = altIndicator.getContext('2d');
 const buttonCambiarImagen = document.getElementById('cambiarImagen');
 const  buttonresetCase = document.getElementById('resetCase'); 
 
@@ -158,6 +160,7 @@ ctxVSItext.fillText(t43,x5,y5+65);
 FMAtextGenerator();
 pressureTextGenerator();
 NAVPFDtextGenerator();
+drawVSI();
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;

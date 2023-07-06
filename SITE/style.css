@@ -75,16 +75,18 @@ canvas {
 	top: 22.1%;
 	width: 11.5%;
 	height: 54.5%;
-	border: red 3px solid;
+	/*border: red 3px solid;*/
+	background-color: rgb(150, 150, 150);
+
 }
 
 #VSI {
 	position: absolute;
 	right: 1%;
-	top: 22.1%;
+	top: 18.5%;
 	width: 4.9%;
-	height: 54.5%;
-	border: blue 3px solid;
+	height: 61.5%;
+	/*border: blue 3px solid;*/
 }
 
 #VSItext {
@@ -102,7 +104,16 @@ canvas {
 	right:16%;
 	height:54.5%;
 	width:9.4%;
-	border: orange 3px solid;
+	/*border: orange 3px solid;*/
+	background-color: rgb(150, 150, 150);
+}
+
+#altIndicator {
+	position: absolute;
+	top: 45%;
+	width: 14%;
+	right: 11%;
+	border: white 3px solid;
 }
 
 #AH {
@@ -120,7 +131,8 @@ canvas {
 	left: 21.9%;
 	height:8.1%;
 	width:42.3%;
-	border: lime 3px solid;
+	/*border: lime 3px solid;*/
+	background-color: rgb(150, 150, 150);
 }
 
 #NDcanvasContainer {
