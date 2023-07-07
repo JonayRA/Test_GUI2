@@ -157,10 +157,7 @@ ctxVSItext.fillText(t43,x5,y5+65);
 
 
 */
-FMAtextGenerator();
-pressureTextGenerator();
-NAVPFDtextGenerator();
-drawVSI();
+
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
 PFD.width = 200 * pixelRatio;
@@ -185,6 +182,12 @@ imgAH.onerror = function() {
   console.log('Error al cargar la imagen');
 }
 
+FMAtextGenerator();
+pressureTextGenerator();
+NAVPFDtextGenerator();
+drawVSI();
+drawAltIndicatorBox();
+altitudeTextGenerator(3510);
 
 /*
 ctxAvionND.beginPath();

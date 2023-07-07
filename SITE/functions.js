@@ -50,6 +50,8 @@ const FMAfont = '50px "Andale Mono", monospace';
 const FMAfontWeight = 100;
 const pressureFont = '35px "Andale Mono", monospace';
 const NAVPFDfont = '40px "Andale Mono", monospace';
+const altIndicatorFont = '80px "Andale Mono", monospace';
+const altIndicatorTenthsFont = '50px "Andale Mono", monospace';
 
 
 
@@ -226,4 +228,56 @@ function drawVSI(){
 	ctxVSI.stroke();
 	ctxVSI.fillStyle = 'rgb(150, 150, 150)';
 	ctxVSI.fill();
+}
+
+function drawAltIndicatorBox(){
+	ctxAltIndicator.beginPath();
+	ctxAltIndicator.moveTo(-4,altIndicator.height/5);
+	ctxAltIndicator.lineTo(altIndicator.width*2/3,altIndicator.height/5);
+	ctxAltIndicator.lineTo(altIndicator.width*2/3,4);
+	ctxAltIndicator.lineTo(altIndicator.width-4,4);
+	ctxAltIndicator.lineTo(altIndicator.width-4,altIndicator.height-4);
+	ctxAltIndicator.lineTo(altIndicator.width*2/3,altIndicator.height-4);
+	ctxAltIndicator.lineTo(altIndicator.width*2/3,altIndicator.height*4/5);
+	ctxAltIndicator.lineTo(-4,altIndicator.height*4/5);
+	ctxAltIndicator.closePath();
+	ctxAltIndicator.strokeStyle = 'yellow';
+	ctxAltIndicator.lineWidth = 8;
+	ctxAltIndicator.stroke();
+	ctxAltIndicator.fillStyle = 'black';
+	ctxAltIndicator.fill();
+}
+
+function altitudeTextGenerator(altitude){
+	var altitudeInt = Math.floor(altitude/100);
+	var altitudeTenths = altitude - altitudeInt*100;
+	var altitudeIntString = altitudeInt.toString();
+	var altitudeTenthsString = altitudeTenths.toString();
+	var altitudeTenthsStringl1 = (altitudeTenths-10).toString();
+	var altitudeTenthsStringl3 = (altitudeTenths+10).toString();
+
+	if (altitudeTenthsString == "0") {
+  		altitudeTenthsString = '00';
+	} else if (altitudeTenthsStringl1 == "0") {
+  		altitudeTenthsStringl1 = '00';
+	} else if (altitudeTenthsStringl3 == "0") {
+  		altitudeTenthsStringl3 = '00';
+	}
+
+	ctxAltIndicator.font = altIndicatorFont;
+	ctxAltIndicator.fontWeight = FMAfontWeight;
+	var textWidth = ctxAltIndicator.measureText(altitudeIntString).width;
+	var x = ALT.width/2 - textWidth/1.8;
+	var y = altIndicator.height*3/5 + 5;
+	ctxAltIndicator.fillStyle = 'lime';
+	ctxAltIndicator.fillText(altitudeIntString,x,y);
+	// Tenths
+	ctxAltIndicator.font =altIndicatorTenthsFont;
+	var textWidth = ctxAltIndicator.measureText(altitudeTenthsString).width;
+	var x = altIndicator.width*2/3;
+	var y = altIndicator.height*3/5 + 5;
+	ctxAltIndicator.fillStyle = 'lime';
+	ctxAltIndicator.fillText(altitudeTenthsString,x,y-5);
+	ctxAltIndicator.fillText(altitudeTenthsStringl1,x,y-50);
+	ctxAltIndicator.fillText(altitudeTenthsStringl3,x,y+40);
 }

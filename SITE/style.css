@@ -14,7 +14,7 @@ canvas {
   	margin-left: -700px; /* mitad del ancho de la pantalla */
   	top: 50%;
   	margin-top: -290px; /* mitad de la altura de la pantalla */
-  	border: green 3px solid;
+  	/*border: green 3px solid;*/
 }
 
 #PFD {
@@ -77,12 +77,11 @@ canvas {
 	height: 54.5%;
 	/*border: red 3px solid;*/
 	background-color: rgb(150, 150, 150);
-
 }
 
 #VSI {
 	position: absolute;
-	right: 1%;
+	right: 3%;
 	top: 18.5%;
 	width: 4.9%;
 	height: 61.5%;
@@ -95,7 +94,6 @@ canvas {
 	top: 24%;
 	width: 15%;
 	height: 54.5%;
-	
 }
 
 #ALT {
@@ -112,8 +110,8 @@ canvas {
 	position: absolute;
 	top: 45%;
 	width: 14%;
-	right: 11%;
-	border: white 3px solid;
+	right: 11.2%;
+	/*border: white 3px solid;*/
 }
 
 #AH {
@@ -141,7 +139,7 @@ canvas {
   margin-left: -40px; /* mitad del ancho de la pantalla más el espacio de 10px */
   top: 50%;
   margin-top: -290px; /* mitad de la altura de la pantalla */
-  border: yellow 3px solid;
+  /*border: yellow 3px solid;*/
   overflow: hidden;
 }
 
@@ -177,6 +175,7 @@ canvas {
 	height: 19.4%;
 	width: 30.8%;
 	/* border: fuchsia 3px solid; */
+	z-index: 2;
 }
 
 #NAVPFD {
