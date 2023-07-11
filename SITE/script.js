@@ -398,3 +398,5 @@ ctxPFD.strokeStyle = 'white';
 ctxPFD.stroke(); */
 
 // Código principal que utiliza las variables y funciones definidas anteriormente
+
+

@@ -249,15 +249,22 @@ function drawAltIndicatorBox(){
 }
 
 function altitudeTextGenerator(altitude){
+	ctxAltIndicator.clearRect(0, 0, altIndicator.width, altIndicator.height);
+	drawAltIndicatorBox();
 	var altitudeInt = Math.floor(altitude/100);
 	var altitudeTenths = altitude - altitudeInt*100;
 	var altitudeIntString = altitudeInt.toString();
 	var altitudeTenthsString = altitudeTenths.toString();
 	var altitudeTenthsStringl1 = (altitudeTenths-10).toString();
-	var altitudeTenthsStringl3 = (altitudeTenths+10).toString();
+	if (altitudeTenths == 90){
+		var altitudeTenthsStringl3 = '00';
+	} else {
+		var altitudeTenthsStringl3 = (altitudeTenths+10).toString();
+	}
 
 	if (altitudeTenthsString == "0") {
   		altitudeTenthsString = '00';
+  		altitudeTenthsStringl1 = '90';
 	} else if (altitudeTenthsStringl1 == "0") {
   		altitudeTenthsStringl1 = '00';
 	} else if (altitudeTenthsStringl3 == "0") {
@@ -281,3 +288,20 @@ function altitudeTextGenerator(altitude){
 	ctxAltIndicator.fillText(altitudeTenthsStringl1,x,y-50);
 	ctxAltIndicator.fillText(altitudeTenthsStringl3,x,y+40);
 }
+
+function processInputValue(value) {
+  // Aquí puedes realizar las operaciones necesarias con el valor introducido
+  console.log('Valor introducido:', value);
+  altitudeTextGenerator(value);
+};
+
+altIndicator.addEventListener('click', function () {
+  const inputValue = prompt('Introduce speed value:');
+  if (inputValue <= 9990 && inputValue >= 10){
+  	const alt = Math.round(inputValue / 10) * 10;
+  	processInputValue(alt);
+  } else {
+  	alert('La valeur introduite pour l\'altitude n\'est pas valide. Svp introduisez une valeur valide.');
+  }
+  
+});
