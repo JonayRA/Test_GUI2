@@ -188,7 +188,7 @@ NAVPFDtextGenerator();
 drawVSI();
 drawAltIndicatorBox();
 altitudeTextGenerator(3510);
-drawVSIindicatorBox(200);
+drawVSIindicatorBox(000);
 divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
 ASItextGenerator(200);

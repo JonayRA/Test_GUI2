@@ -362,7 +362,7 @@ VSI.addEventListener('click', function () {
   	const vertSpeed = Math.round(inputValue / 10) * 10;
   	processVSIValue(vertSpeed);
   } else {
-  	alert('La valeur introduite pour la vitesse verticale n\'est pas valide. Svp introduisez une valeur valide.');
+  	alert('La valeur introduite pour la vitesse verticale n\'est pas valide. Svp introduisez une valeur entre -4000 et 4000.');
   }
   
 });
