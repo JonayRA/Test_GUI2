@@ -23,8 +23,8 @@ let ALT = document.getElementById('ALT');
 let ctxALT = ALT.getContext('2d');
 let AH = document.getElementById('AH');
 let ctxAH = AH.getContext('2d');
-let VSItext = document.getElementById('VSItext');
-let ctxVSItext = VSItext.getContext('2d'); 
+//let VSItext = document.getElementById('VSItext');
+//let ctxVSItext = VSItext.getContext('2d'); 
 let pressure = document.getElementById('pressure');
 let ctxPressure = pressure.getContext('2d');
 let NAVPFD = document.getElementById('NAVPFD');
@@ -188,6 +188,11 @@ NAVPFDtextGenerator();
 drawVSI();
 drawAltIndicatorBox();
 altitudeTextGenerator(3510);
+drawVSIindicatorBox(200);
+divisionGenerator(ALT,ctxALT,11);
+divisionGenerator(ASI,ctxASI,8);
+ASItextGenerator(200);
+horizontalDivisionGenerator(HDG,ctxHDG,5);
 
 /*
 ctxAvionND.beginPath();
@@ -332,9 +337,6 @@ menuItems.forEach(function(item) {
     dropdown.classList.remove('open');
   });
 });
-
-
-
 
 
 

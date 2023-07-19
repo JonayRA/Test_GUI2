@@ -75,14 +75,15 @@ canvas {
 	top: 22.1%;
 	width: 11.5%;
 	height: 54.5%;
-	/*border: red 3px solid;*/
+	border: white 2px solid;
+	border-left-color: transparent;
 	background-color: rgb(150, 150, 150);
 }
 
 #VSI {
 	position: absolute;
 	right: 3%;
-	top: 18.5%;
+	top: 19.5%;
 	width: 4.9%;
 	height: 61.5%;
 	/*border: blue 3px solid;*/
@@ -102,7 +103,8 @@ canvas {
 	right:16%;
 	height:54.5%;
 	width:9.4%;
-	/*border: orange 3px solid;*/
+	border: white 2px solid;
+	border-left-color: transparent;
 	background-color: rgb(150, 150, 150);
 }
 
@@ -129,7 +131,8 @@ canvas {
 	left: 21.9%;
 	height:8.1%;
 	width:42.3%;
-	/*border: lime 3px solid;*/
+	border: white 2px solid;
+	border-bottom-color: transparent;
 	background-color: rgb(150, 150, 150);
 }
 

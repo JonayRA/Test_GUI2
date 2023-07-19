@@ -52,19 +52,22 @@ const pressureFont = '35px "Andale Mono", monospace';
 const NAVPFDfont = '40px "Andale Mono", monospace';
 const altIndicatorFont = '80px "Andale Mono", monospace';
 const altIndicatorTenthsFont = '50px "Andale Mono", monospace';
+const VSIfont = '72px "Andale Mono", monospace';
+const ASIfont = '90px "Andale Mono", monospace';
+const ASIfontWeight = 200;
 
 
 
 const t1 = 'SPEED';
 const t11 = 'SPEED1';
-const t2 = 'ASI';
+//const t2 = 'ASI';
 const t3 = 'HDG';
 const t4 = 'VSI';
 const t41 = 'V';
 const t42 = 'S';
 const t43 = 'I';
 const t5 = 'AH';
-const t6 = 'ALT';
+//const t6 = 'ALT';
 
 
 
@@ -127,7 +130,7 @@ function FMAtextGenerator(){
 	ctxFMA5.fillText(FMA5l3text,x,y);
 
 
-ctxASI.font = '60px "Lucida Console", monospace';
+/*ctxASI.font = '60px "Lucida Console", monospace';
 var textWidth2 = ctxASI.measureText(t2).width;
 var x2 = (ASI.width / 2) - textWidth2/2;
 var y2 = ASI.height / 2;
@@ -153,13 +156,13 @@ ctxVSI.fillStyle = 'white';
 ctxVSI.textAlign = 'left';
 ctxVSI.fillText(t41,x5,y5-35);
 ctxVSI.fillText(t42,x5,y5+15);
-ctxVSI.fillText(t43,x5,y5+65); */
+ctxVSI.fillText(t43,x5,y5+65); 
 ctxALT.font = '100 60px "Lucida Console", monospace';
 var textWidth = ctxALT.measureText(t6).width;
 var x = (ALT.width / 2) - textWidth/2;
 var y = ALT.height / 2;
 ctxALT.fillStyle = 'white';
-ctxALT.fillText(t6,x,y);
+ctxALT.fillText(t6,x,y);*/
 
 
 /*ctxVSItext.font = '60px "Lucida Console", monospace';
@@ -248,6 +251,38 @@ function drawAltIndicatorBox(){
 	ctxAltIndicator.fill();
 }
 
+
+function drawVSIindicatorBox(vertSpeed){
+	// Falta la condición de que la ROC>200ft/min para que se dibuje la caja (?)
+	ctxVSI.beginPath();
+	ctxVSI.moveTo(VSI.width*1/3-0.5,VSI.height/2-2.75*10.5);
+	ctxVSI.lineTo(VSI.width,VSI.height/2-2.75*10.5);
+	ctxVSI.lineTo(VSI.width,VSI.height/2+2.75*10.5);
+	ctxVSI.lineTo(VSI.width*1/3-0.5,VSI.height/2+2.75*10.5);
+	ctxVSI.closePath();
+	//ctxAltIndicator.strokeStyle = 'yellow';
+	//ctxAltIndicator.lineWidth = 8;
+	ctxVSI.stroke();
+	ctxVSI.fillStyle = 'black';
+	ctxVSI.fill();
+	VSItextGenerator(vertSpeed)
+}
+
+function VSItextGenerator(vertSpeed){
+	ctxVSI.font = VSIfont;
+	ctxVSI.fontWeight = FMAfontWeight;
+	var vertSpeedString = (vertSpeed/100).toString();
+	if (vertSpeed/100 < 10){
+		vertSpeedString = '0'+vertSpeedString;
+	}
+	var textWidth = ctxVSI.measureText(vertSpeedString).width;
+	var x = VSI.width*1/3;
+	var y = VSI.height/2+2.5*10;
+	ctxVSI.fillStyle = 'lime';
+	ctxVSI.fillText(vertSpeedString,x,y);
+}
+
+
 function altitudeTextGenerator(altitude){
 	ctxAltIndicator.clearRect(0, 0, altIndicator.width, altIndicator.height);
 	drawAltIndicatorBox();
@@ -289,19 +324,96 @@ function altitudeTextGenerator(altitude){
 	ctxAltIndicator.fillText(altitudeTenthsStringl3,x,y+40);
 }
 
-function processInputValue(value) {
-  // Aquí puedes realizar las operaciones necesarias con el valor introducido
+function processAltValue(value) {
   console.log('Valor introducido:', value);
   altitudeTextGenerator(value);
 };
 
 altIndicator.addEventListener('click', function () {
-  const inputValue = prompt('Introduce speed value:');
+  const inputValue = prompt('Introduce altitude value:');
   if (inputValue <= 9990 && inputValue >= 10){
   	const alt = Math.round(inputValue / 10) * 10;
-  	processInputValue(alt);
+  	processAltValue(alt);
   } else {
   	alert('La valeur introduite pour l\'altitude n\'est pas valide. Svp introduisez une valeur valide.');
   }
   
+});
+
+function processVSIValue(value){
+	ctxVSI.clearRect(0, 0, VSI.width, VSI.height);
+	drawVSI();
+	drawVSIindicatorBox(value);
+	VSItextGenerator(value);
+	console.log('Valor', value);
+}
+
+VSI.addEventListener('click', function () {
+	console.log('Sabe que he clicado');
+  const inputValue = prompt('Introduce vertical speed value:');
+  if (inputValue <= 9990 && inputValue >= 10){
+  	const vertSpeed = Math.round(inputValue / 10) * 10;
+  	processVSIValue(vertSpeed);
+  } else {
+  	alert('La valeur introduite pour la vitesse verticale n\'est pas valide. Svp introduisez une valeur valide.');
+  }
+  
+});
+
+function divisionGenerator(canvas,ctx,numberOfDivisions){
+	const segmentHeight = canvas.height/numberOfDivisions;
+	ctx.lineWidth = 2*4;  
+    ctx.strokeStyle = "white";  
+
+	for (var x=segmentHeight; x <= canvas.height-segmentHeight; x += segmentHeight) {
+		ctx.beginPath();
+		ctx.moveTo(canvas.width*4/5, x);
+		ctx.lineTo(canvas.width,x);
+		ctx.stroke();
+	}
+}
+
+function horizontalDivisionGenerator(canvas,ctx,numberOfDivisions){
+	const segmentWidth = canvas.width/numberOfDivisions;
+	ctx.lineWidth = 2;  
+    ctx.strokeStyle = "white";  
+
+	for (var x=0; x <= canvas.width-segmentWidth; x += segmentWidth) {
+		ctx.beginPath();
+		ctx.moveTo(x, 0);
+		ctx.lineTo(x,canvas.height*2/5);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.moveTo(x+segmentWidth/2, 0);
+		ctx.lineTo(x+segmentWidth/2,canvas.height*1/5);
+		ctx.stroke();
+	}
+}
+
+function ASItextGenerator(ASIvalue){
+	ctxASI.clearRect(0, 0, ASI.width, ASI.height);
+	divisionGenerator(ASI,ctxASI,8);
+	ctxASI.font = ASIfont;
+	ctxASI.fontWeight = ASIfontWeight;
+	var ASIString = (ASIvalue).toString();
+	var textWidth = ctxASI.measureText(ASIString).width;
+	var x = ASI.width*0/3;
+	var y = ASI.height/2+2.5*10;
+	ctxASI.fillStyle = 'white';
+	ctxASI.fillText(ASIString,x,y);
+}
+
+function processASIValue(value){
+	ASItextGenerator(value);
+}
+
+ASI.addEventListener('click', function () {
+	console.log('Sabe que he clicado');
+  const inputValue = prompt('Introduce airspeed value:');
+  if (inputValue <= 9990 && inputValue >= 10){
+  	const ASIvalue = Math.round(inputValue / 10) * 10;
+  	processASIValue(ASIvalue);
+  } else {
+  	alert('La valeur introduite pour la vitesse n\'est pas valide. Svp introduisez une valeur valide.');
+  }
 });
