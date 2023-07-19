@@ -161,7 +161,7 @@ canvas {
 	top: 87%;
 	width: 10%;
 	height: 10%;
-	border: purple 3px solid;
+	/*border: purple 3px solid;*/
 }
 
 #cambiarImagen {
@@ -196,6 +196,13 @@ canvas {
   right: 10px;
   width: 160px;
 }
+
+/*#situationFuture {
+	position: absolute;
+	bottom: 70px;
+	right: 10px;
+  	width: 160px;
+}*/
 
 
 .dropdown {

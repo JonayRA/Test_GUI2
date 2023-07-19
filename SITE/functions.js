@@ -255,10 +255,11 @@ function drawAltIndicatorBox(){
 function drawVSIindicatorBox(vertSpeed){
 	// Falta la condición de que la ROC>200ft/min para que se dibuje la caja (?)
 	ctxVSI.beginPath();
-	ctxVSI.moveTo(VSI.width*1/3-0.5,VSI.height/2-2.75*10.5);
-	ctxVSI.lineTo(VSI.width,VSI.height/2-2.75*10.5);
-	ctxVSI.lineTo(VSI.width,VSI.height/2+2.75*10.5);
-	ctxVSI.lineTo(VSI.width*1/3-0.5,VSI.height/2+2.75*10.5);
+	var yBox = (vertSpeed-4000)/8000*-1;
+	ctxVSI.moveTo(VSI.width*1/3-0.5,VSI.height*yBox-2.75*10.5);
+	ctxVSI.lineTo(VSI.width,VSI.height*yBox-2.75*10.5);
+	ctxVSI.lineTo(VSI.width,VSI.height*yBox+2.75*10.5);
+	ctxVSI.lineTo(VSI.width*1/3-0.5,VSI.height*yBox+2.75*10.5);
 	ctxVSI.closePath();
 	//ctxAltIndicator.strokeStyle = 'yellow';
 	//ctxAltIndicator.lineWidth = 8;
@@ -271,14 +272,20 @@ function drawVSIindicatorBox(vertSpeed){
 function VSItextGenerator(vertSpeed){
 	ctxVSI.font = VSIfont;
 	ctxVSI.fontWeight = FMAfontWeight;
-	var vertSpeedString = (vertSpeed/100).toString();
-	if (vertSpeed/100 < 10){
+	var vertSpeedString = (Math.abs(vertSpeed)/100).toString();
+	if (Math.abs(vertSpeed/100) < 10){
 		vertSpeedString = '0'+vertSpeedString;
 	}
 	var textWidth = ctxVSI.measureText(vertSpeedString).width;
 	var x = VSI.width*1/3;
-	var y = VSI.height/2+2.5*10;
-	ctxVSI.fillStyle = 'lime';
+	var yBox = (vertSpeed-4000)/8000*-1;
+	var y = VSI.height*yBox+2.5*10;
+	if (Math.abs(vertSpeed)<=3500){
+		ctxVSI.fillStyle = 'lime';
+	} else{
+		ctxVSI.fillStyle = 'orange';
+	}
+	
 	ctxVSI.fillText(vertSpeedString,x,y);
 }
 
@@ -351,7 +358,7 @@ function processVSIValue(value){
 VSI.addEventListener('click', function () {
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce vertical speed value:');
-  if (inputValue <= 9990 && inputValue >= 10){
+  if (inputValue <= 4000 && inputValue >= -4000){
   	const vertSpeed = Math.round(inputValue / 10) * 10;
   	processVSIValue(vertSpeed);
   } else {
