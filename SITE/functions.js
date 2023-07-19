@@ -401,6 +401,18 @@ function ASItextGenerator(ASIvalue){
 	var y = ASI.height/2+2.5*10;
 	ctxASI.fillStyle = 'white';
 	ctxASI.fillText(ASIString,x,y);
+	var ASIl1 = ASIvalue - 20;
+	var ASIl1String = ASIl1.toString();
+	var x = ASI.width*0/3;
+	var y = ASI.height/2+2.5*10*4.5+2*ASI.height/11;
+	ctxASI.fillStyle = 'white';
+	ctxASI.fillText(ASIl1String,x,y);
+	var ASIl3 = ASIvalue + 20;
+	var ASIl3String = ASIl3.toString();
+	var x = ASI.width*0/3;
+	var y = ASI.height/2-2.5*10*2.5-2*ASI.height/11;
+	ctxASI.fillStyle = 'white';
+	ctxASI.fillText(ASIl3String,x,y);
 }
 
 function processASIValue(value){
