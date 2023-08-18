@@ -197,6 +197,13 @@ canvas {
   width: 160px;
 }
 
+#soumettreContrefactuel {
+	position: absolute;
+	bottom: 70px;
+	right: 10px;
+  	width: 160px;
+}
+
 /*#situationFuture {
 	position: absolute;
 	bottom: 70px;

@@ -194,6 +194,8 @@ divisionGenerator(ASI,ctxASI,8);
 ASItextGenerator(200);
 horizontalDivisionGenerator(HDG,ctxHDG,5);
 
+// cellGenerator('data.json');
+
 /*
 ctxAvionND.beginPath();
 ctxAvionND.moveTo(xAvion,0);

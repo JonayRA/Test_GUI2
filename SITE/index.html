@@ -1,60 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title> Test cellule orageuse </title>
-    <h1> Test interface cellule orageuse </h1>
-   	<link rel="stylesheet" type="text/css" href="style.css">
-  </head>
-  <body>
-  	<div id="PFDcanvasContainer", style="width: 600px; height: 600px;">
-  		<canvas id="PFD", style="image-rendering: pixelated; width: 600px; height: 600px;"></canvas>
-  		<canvas id="FMA1", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMA2", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMA3", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMA4", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMA5", style="image-rendering: pixelated;"></canvas>
-		<canvas id="ASI", width="276" height="1308", style="image-rendering: pixelated;"></canvas>
-		<canvas id="VSI", width="117.6" height="1476", style="image-rendering: pixelated;"></canvas>
-		<!--<canvas id="VSItext", style="image-rendering: pixelated;"></canvas>-->
-		<canvas id="ALT", width="225.6" height="1308", style="image-rendering: pixelated;"></canvas>
-		<canvas id="HDG", style="image-rendering: pixelated;"></canvas>
-		<canvas id="AH", style="image-rendering: pixelated;"></canvas>
-		<canvas id="pressure", style="image-rendering: pixelated;"></canvas>
-		<canvas id="NAVPFD", style="image-rendering: pixelated;"></canvas>
-		<canvas id="altIndicator", style="image-rendering: pixelated;"></canvas>
-  	</div>
-  	<button id="resetCase">Réinitialiser le cas</button>
-	<button id="cambiarImagen">Afficher situation future</button>
-	<!--<button id="situationFuture">Afficher situation future</button>-->
-	
-	<div class="dropdown">
-  <button id="toggleButton">
-    <span id="selectedOption">Afficher menu</span>
-  </button>
-  <ul id="menu">
-  	<li>Afficher menu</li>
-    <li>Option 1</li>
-    <li>Option 2</li>
-    <li>Option 3</li>
-  </ul>
-</div>
+    <h1> Bienvenue à l'expérience </h1>
+</head>
+<body>
+    <button id="enlaceBoton">Débuter l'expérience</button>
 
+    <script>
+        // Obtener referencia al botón
+        const enlaceBoton = document.getElementById('enlaceBoton');
 
-
-
-  	<div id="NDcanvasContainer", style="width: 600px; height: 600px;">
-		<!--<canvas id="ND", style="image-rendering: pixelated; width: 600px; height: 600px;"></canvas> -->
-	<!-- Création des sections du FMA (Flight Mode Annunciator) -->
-		<canvas id="ND", style="image-rendering: pixelated;"></canvas>
-
-		<canvas id="avionND", style="image-rendering: pixelated;"></canvas>
-		<!--<canvas id="FMAND2", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMAND3", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMAND4", style="image-rendering: pixelated;"></canvas>
-		<canvas id="FMAND5", style="image-rendering: pixelated;"></canvas> -->
-	</div>
-	<script src="functions.js"></script>
-	<script src="script.js"></script>
-
-  </body>
+        // Agregar un evento click al botón
+        enlaceBoton.addEventListener('click', function() {
+            // Cambiar la ubicación a la página deseada
+            window.location.href = 'contrafactual.html'; // Ruta relativa a la página local
+        });
+    </script>
+</body>
 </html>

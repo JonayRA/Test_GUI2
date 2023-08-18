@@ -436,3 +436,34 @@ ASI.addEventListener('click', function () {
   	alert('La valeur introduite pour la vitesse n\'est pas valide. Svp introduisez une valeur valide.');
   }
 });
+
+function getColor(colorValue) {
+  if (colorValue === 1) {
+    return 'green';
+  } else if (colorValue === 2) {
+    return 'yellow';
+  } else if (colorValue === 3) {
+    return 'red';
+  }
+  return 'black'; 
+}
+
+function cellGenerator(jsonFileName){
+	fetch(jsonFileName)
+    	.then(response => response.json())
+    	.then(data => processData(data));
+
+    for (const item of data) {
+    	const x = ND.width * item.x;
+    	const y = ND.height * item.y;
+    	const colorValue = item.color;
+
+    	ctxND.beginPath();
+    	ctxND.arc(x, y, 5, 0, Math.PI * 2); 
+    	ctxND.fillStyle = getColor(colorValue); 
+    	ctxND.fill();
+    	ctxND.closePath();
+  	}
+}
+
+
