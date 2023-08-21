@@ -40,6 +40,7 @@ const  buttonresetCase = document.getElementById('resetCase');
 const buttonsoumettreContrefactuel = document.getElementById('soumettreContrefactuel');
 const buttonmenu = document.getElementById('menu');
 const buttontoggleButton = document.getElementById('toggleButton');
+const buttonsansChangement = document.getElementById('sansChangement');
 
 let currentImage = 0;
 const imagenes = [
@@ -113,6 +114,7 @@ function showButtonsContrefacutel(){
 	buttonsoumettreContrefactuel.style.display = '';
 	buttonmenu.style.display = '';
 	buttontoggleButton.style.display = '';
+	buttonsansChangement.style.display = 'none';
 }
 
 
@@ -268,7 +270,10 @@ ctxAvionND.stroke(); */
 
 buttonCambiarImagen.addEventListener('click', cambiarImagen);
 buttonresetCase.addEventListener('click', resetCase);
-
+buttonsansChangement.addEventListener('click',function(){
+	waypointChoisi = 0;
+	showButtonsContrefacutel();
+});
 
 
 
