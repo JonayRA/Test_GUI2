@@ -42,7 +42,6 @@ const t43 = 'I';
 const t5 = 'AH';
 //const t6 = 'ALT';
 
-let waypointChoisi = -1;
 
 
 
@@ -356,6 +355,7 @@ waypt1.addEventListener('click', function () {
 
 		if (result) {
   			waypointChoisi = 1;
+  			showButtonsContrefacutel();
 		} else {
 	}} else if (wasDragged == true) {
 		wasDragged = false;
@@ -369,6 +369,7 @@ waypt2.addEventListener('click', function () {
 
 	if (result) {
   		waypointChoisi = 2;
+  		showButtonsContrefacutel();
 	} else {
   		
 	}

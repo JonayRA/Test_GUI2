@@ -36,7 +36,10 @@ let ctxNAVPFD = NAVPFD.getContext('2d');
 let altIndicator = document.getElementById('altIndicator');
 let ctxAltIndicator = altIndicator.getContext('2d');
 const buttonCambiarImagen = document.getElementById('cambiarImagen');
-const  buttonresetCase = document.getElementById('resetCase'); 
+const  buttonresetCase = document.getElementById('resetCase');
+const buttonsoumettreContrefactuel = document.getElementById('soumettreContrefactuel');
+const buttonmenu = document.getElementById('menu');
+const buttontoggleButton = document.getElementById('toggleButton');
 
 let currentImage = 0;
 const imagenes = [
@@ -93,6 +96,24 @@ let canvasWaypt2X = 0;
 let canvasWaypt2Y = 0;
 
 // Definición de funciones
+
+
+let waypointChoisi = -1;
+if (waypointChoisi == -1 || condition != 3){
+	buttonresetCase.style.display = 'none';
+	buttonCambiarImagen.style.display = 'none';
+	buttonsoumettreContrefactuel.style.display = 'none';
+	buttonmenu.style.display = 'none';
+	buttontoggleButton.style.display = 'none';
+}
+
+function showButtonsContrefacutel(){
+	buttonresetCase.style.display = '';
+	buttonCambiarImagen.style.display = '';
+	buttonsoumettreContrefactuel.style.display = '';
+	buttonmenu.style.display = '';
+	buttontoggleButton.style.display = '';
+}
 
 
 let imgND = new Image();
