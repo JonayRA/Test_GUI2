@@ -1,30 +1,3 @@
-/*let PFD = document.getElementById('PFD');
-let ctxPFD = PFD.getContext('2d');
-let FMA1 = document.getElementById('FMA1');
-let ctxFMA1 = FMA1.getContext('2d');
-let FMA2 = document.getElementById('FMA2');
-let ctxFMA2 = FMA2.getContext('2d');
-let FMA3 = document.getElementById('FMA3');
-let ctxFMA3 = FMA3.getContext('2d');
-let FMA4 = document.getElementById('FMA4');
-let ctxFMA4 = FMA4.getContext('2d');
-let FMA5 = document.getElementById('FMA5');
-let ctxFMA5 = FMA5.getContext('2d');
-let ASI = document.getElementById('ASI');
-let ctxASI = ASI.getContext('2d');
-let HDG = document.getElementById('HDG');
-let ctxHDG = HDG.getContext('2d');
-let VSI = document.getElementById('VSI');
-let ctxVSI = VSI.getContext('2d');
-let ALT = document.getElementById('ALT');
-let ctxALT = ALT.getContext('2d');
-let AH = document.getElementById('AH');
-let ctxAH = AH.getContext('2d');
-let VSItext = document.getElementById('VSItext');
-let ctxVSItext = VSItext.getContext('2d');
-
-*/
-
 const FMA1l1text = 'SPEED';
 const FMA1l2text = '';
 const FMA1l3text = '';

@@ -1,4 +1,3 @@
-// Comentario opcional para describir el contenido del archivo
 
 // Declaración de variables globales
 let PFD = document.getElementById('PFD');
@@ -43,33 +42,37 @@ const NDcontainer = document.getElementById('NDcanvasContainer');
 const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
 const NDcontainerHeight = NDcontainer.getBoundingClientRect().height;
 
+
 let canvasAvionND = document.getElementById('avionND');
 let ctxAvionND = canvasAvionND.getContext('2d');
 var xAvion = canvasAvionND.width * 0.5;
 var yAvion = canvasAvionND.height * 0.3;
 
+
 let ND = document.getElementById('ND');
 let ctxND = ND.getContext('2d');
+
 
 let canvasWaypt1 = document.getElementById('waypt1');
 let ctxWaypt1 = canvasWaypt1.getContext('2d');
 let canvasWaypt2 = document.getElementById('waypt2');
 let ctxWaypt2 = canvasWaypt2.getContext('2d');
 
+
 const avionNDinitialPosition = canvasAvionND.getBoundingClientRect();
 const avionNDinitialPositionTop = canvasAvionND.offsetTop;
 const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
-console.log('Definicion avion',avionNDinitialPositionLeft);
+
 
 const canvasWaypt1initialPosition = canvasWaypt1.getBoundingClientRect();
 const canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
 const canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
-console.log('Definicion waypt1',canvasWaypt1PositionLeft);
+
 
 const canvasWaypt2initialPosition = canvasWaypt2.getBoundingClientRect();
 const canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
 const canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
-console.log('Definicion waypt2',canvasWaypt2PositionLeft);
+
 
 let isDragging = false;
 let isDraggingWaypt1 = false;
@@ -507,7 +510,4 @@ ctxPFD.moveTo(0,0);
 ctxPFD.lineTo(PFD.width,PFD.height);
 ctxPFD.strokeStyle = 'white';
 ctxPFD.stroke(); */
-
-// Código principal que utiliza las variables y funciones definidas anteriormente
-
 
