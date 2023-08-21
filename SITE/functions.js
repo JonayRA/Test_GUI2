@@ -69,6 +69,7 @@ const t43 = 'I';
 const t5 = 'AH';
 //const t6 = 'ALT';
 
+var waypointChoisi = -1;
 
 
 
@@ -347,6 +348,27 @@ altIndicator.addEventListener('click', function () {
   
 });
 
+waypt1.addEventListener('click', function () {
+	const message = 'Voulez-vous choisir ce point de route?';
+	const result = confirm(message);
+
+	if (result) {
+  		waypointChoisi = 1;
+	} else {
+	}
+});
+
+waypt2.addEventListener('click', function () {
+	const message = 'Voulez-vous choisir ce point de route?';
+	const result = confirm(message);
+
+	if (result) {
+  		waypointChoisi = 2;
+	} else {
+  		
+	}
+});
+
 function processVSIValue(value){
 	ctxVSI.clearRect(0, 0, VSI.width, VSI.height);
 	drawVSI();
@@ -466,4 +488,46 @@ function cellGenerator(jsonFileName){
   	}
 }
 
+function generateWaypoint(x,y) {
+	x1 = ND.width*x;
+	y1 = ND.height*y;
+	ctxND.beginPath();
+    ctxND.moveTo(x1-40,y1); 
+    ctxND.lineTo(x1,y1+60);
+    ctxND.lineTo(x1+40,y1);
+    ctxND.lineTo(x1,y1-60);
+	ctxND.closePath();
+	ctxND.strokeStyle = 'red';
+	ctxND.lineWidth = 10;
+	ctxND.stroke();
+	ctxND.fill();
+}
 
+function drawWaypoints(){
+	x1 = waypt1.width;
+	y1 = waypt1.height;
+	x2 = waypt2.width;
+	y2 = waypt2.height;
+	ctxWaypt1.beginPath();
+    ctxWaypt1.moveTo(x1/4,y1/2); 
+    ctxWaypt1.lineTo(x1/2,y1/4);
+    ctxWaypt1.lineTo(x1*3/4,y1/2);
+    ctxWaypt1.lineTo(x1/2,y1*3/4);
+	ctxWaypt1.closePath();
+	ctxWaypt1.strokeStyle = 'red';
+	ctxWaypt1.lineWidth = 10;
+	ctxWaypt1.stroke();
+	ctxWaypt1.fill();
+
+
+	ctxWaypt2.beginPath();
+    ctxWaypt2.moveTo(x2/4,y2/2); 
+    ctxWaypt2.lineTo(x2/2,y2/4);
+    ctxWaypt2.lineTo(x2*3/4,y2/2);
+    ctxWaypt2.lineTo(x2/2,y2*3/4);
+	ctxWaypt2.closePath();
+	ctxWaypt2.strokeStyle = 'red';
+	ctxWaypt2.lineWidth = 10;
+	ctxWaypt2.stroke();
+	ctxWaypt2.fill();
+}

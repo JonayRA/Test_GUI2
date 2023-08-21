@@ -51,6 +51,11 @@ var yAvion = canvasAvionND.height * 0.3;
 let ND = document.getElementById('ND');
 let ctxND = ND.getContext('2d');
 
+let canvasWaypt1 = document.getElementById('waypt1');
+let ctxWaypt1 = canvasWaypt1.getContext('2d');
+let canvasWaypt2 = document.getElementById('waypt2');
+let ctxWaypt2 = canvasWaypt2.getContext('2d');
+
 const avionNDinitialPosition = canvasAvionND.getBoundingClientRect();
 const avionNDinitialPositionTop = canvasAvionND.offsetTop;
 const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
@@ -193,7 +198,8 @@ divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
 ASItextGenerator(200);
 horizontalDivisionGenerator(HDG,ctxHDG,5);
-
+generateWaypoint(0.5,0.5);
+drawWaypoints();
 // cellGenerator('data.json');
 
 /*

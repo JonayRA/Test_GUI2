@@ -204,6 +204,18 @@ canvas {
   	width: 160px;
 }
 
+#waypt1 {
+	position: absolute;
+	width: 20px;
+	height: 40px;
+}
+
+#waypt2 {
+	position: absolute;
+	width: 20px;
+	height: 40px;
+}
+
 /*#situationFuture {
 	position: absolute;
 	bottom: 70px;
