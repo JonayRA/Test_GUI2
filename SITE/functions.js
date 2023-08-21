@@ -69,7 +69,7 @@ const t43 = 'I';
 const t5 = 'AH';
 //const t6 = 'ALT';
 
-var waypointChoisi = -1;
+let waypointChoisi = -1;
 
 
 
@@ -219,6 +219,7 @@ function resetCase(){
 
   	let canvasWaypt1differenceY = canvasWaypt1PositionTop - canvasWaypt1.offsetTop;
   	let canvasWaypt1differenceX = canvasWaypt1PositionLeft - canvasWaypt1.offsetLeft;
+  	console.log('Reset',canvasWaypt1PositionTop,canvasWaypt1PositionLeft);
   	canvasWaypt1.style.transform = `translate(${canvasWaypt1differenceX}px, ${canvasWaypt1differenceY}px)`;
   	startX = 0;
   	startY = 0;
@@ -355,7 +356,12 @@ function processAltValue(value) {
   altitudeTextGenerator(value);
 };
 
+
+
+
 altIndicator.addEventListener('click', function () {
+if(waypointChoisi != -1){
+
   const inputValue = prompt('Introduce altitude value:');
   if (inputValue <= 9990 && inputValue >= 10){
   	const alt = Math.round(inputValue / 10) * 10;
@@ -363,8 +369,11 @@ altIndicator.addEventListener('click', function () {
   } else {
   	alert('La valeur introduite pour l\'altitude n\'est pas valide. Svp introduisez une valeur valide.');
   }
-  
+  }
 });
+
+
+
 
 waypt1.addEventListener('click', function () {
 	if(true) {
@@ -400,6 +409,7 @@ function processVSIValue(value){
 }
 
 VSI.addEventListener('click', function () {
+	if(waypointChoisi != -1){
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce vertical speed value:');
   if (inputValue <= 4000 && inputValue >= -4000){
@@ -408,7 +418,7 @@ VSI.addEventListener('click', function () {
   } else {
   	alert('La valeur introduite pour la vitesse verticale n\'est pas valide. Svp introduisez une valeur entre -4000 et 4000.');
   }
-  
+  }
 });
 
 function divisionGenerator(canvas,ctx,numberOfDivisions){
@@ -471,6 +481,7 @@ function processASIValue(value){
 }
 
 ASI.addEventListener('click', function () {
+	if(waypointChoisi != -1){
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce airspeed value:');
   if (inputValue <= 9990 && inputValue >= 10){
@@ -479,6 +490,7 @@ ASI.addEventListener('click', function () {
   } else {
   	alert('La valeur introduite pour la vitesse n\'est pas valide. Svp introduisez une valeur valide.');
   }
+}
 });
 
 function getColor(colorValue) {

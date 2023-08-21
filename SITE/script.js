@@ -59,14 +59,17 @@ let ctxWaypt2 = canvasWaypt2.getContext('2d');
 const avionNDinitialPosition = canvasAvionND.getBoundingClientRect();
 const avionNDinitialPositionTop = canvasAvionND.offsetTop;
 const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
+console.log('Definicion avion',avionNDinitialPositionLeft);
 
 const canvasWaypt1initialPosition = canvasWaypt1.getBoundingClientRect();
 const canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
-const canvasWaypt1PositionLeft = canvasWaypt1PositionTop.offsetLeft;
+const canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
+console.log('Definicion waypt1',canvasWaypt1PositionLeft);
 
 const canvasWaypt2initialPosition = canvasWaypt2.getBoundingClientRect();
 const canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
-const canvasWaypt2PositionLeft = canvasWaypt2PositionTop.offsetLeft;
+const canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
+console.log('Definicion waypt2',canvasWaypt2PositionLeft);
 
 let isDragging = false;
 let isDraggingWaypt1 = false;
@@ -215,6 +218,8 @@ ASItextGenerator(200);
 horizontalDivisionGenerator(HDG,ctxHDG,5);
 generateWaypoint(0.5,0.5);
 drawWaypoints();
+
+
 // cellGenerator('data.json');
 
 /*
@@ -291,30 +296,36 @@ function isWithinBoundsWaypts(x, y) {
 
 // Evento mousedown para comenzar el arrastre del canvas
 canvasAvionND.addEventListener('mousedown', function (event) {
+	if(waypointChoisi != -1){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDragging = true;
     // console.log('Sabe que he clicado');
   }
+}
 });
 
 canvasWaypt1.addEventListener('mousedown', function (event) {
+	if(waypointChoisi != -1){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDraggingWaypt1 = true;
     // console.log('Sabe que he clicado');
   }
+}
 });
 
 canvasWaypt2.addEventListener('mousedown', function (event) {
+	if(waypointChoisi != -1){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDraggingWaypt2 = true;
     // console.log('Sabe que he clicado');
   }
+}
 });
 
 // Evento mousemove para arrastrar el canvas
