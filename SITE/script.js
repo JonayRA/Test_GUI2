@@ -60,11 +60,26 @@ const avionNDinitialPosition = canvasAvionND.getBoundingClientRect();
 const avionNDinitialPositionTop = canvasAvionND.offsetTop;
 const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
 
+const canvasWaypt1initialPosition = canvasWaypt1.getBoundingClientRect();
+const canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
+const canvasWaypt1PositionLeft = canvasWaypt1PositionTop.offsetLeft;
+
+const canvasWaypt2initialPosition = canvasWaypt2.getBoundingClientRect();
+const canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
+const canvasWaypt2PositionLeft = canvasWaypt2PositionTop.offsetLeft;
+
 let isDragging = false;
+let isDraggingWaypt1 = false;
+let isDraggingWaypt2 = false;
+let wasDragged = false;
 let startX;
 let startY;
 let canvasAvionNDX = 0;
 let canvasAvionNDY = 0;
+let canvasWaypt1X = 0;
+let canvasWaypt1Y = 0;
+let canvasWaypt2X = 0;
+let canvasWaypt2Y = 0;
 
 // Definición de funciones
 
@@ -267,12 +282,37 @@ function isWithinBounds(x, y) {
  // console.log('Sabe que estoy en los límites');
 }
 
+function isWithinBoundsWaypts(x, y) {
+  const rect = ND.getBoundingClientRect();
+ // console.log('newCanvasX',x,'newCanvasY',y,'canvasNDX',rect.right,'canvasNDY',rect.top, 'anchura', rect.width, 'altura', rect.height);
+  return x >= -1*rect.width/2 && x <= rect.width/1.2 && y >= -2/3*rect.height && y <= rect.height ;
+ // console.log('Sabe que estoy en los límites');
+}
+
 // Evento mousedown para comenzar el arrastre del canvas
 canvasAvionND.addEventListener('mousedown', function (event) {
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDragging = true;
+    // console.log('Sabe que he clicado');
+  }
+});
+
+canvasWaypt1.addEventListener('mousedown', function (event) {
+  if (event.button === 0) { // Botón izquierdo del ratón
+    startX = event.clientX;
+    startY = event.clientY;
+    isDraggingWaypt1 = true;
+    // console.log('Sabe que he clicado');
+  }
+});
+
+canvasWaypt2.addEventListener('mousedown', function (event) {
+  if (event.button === 0) { // Botón izquierdo del ratón
+    startX = event.clientX;
+    startY = event.clientY;
+    isDraggingWaypt2 = true;
     // console.log('Sabe que he clicado');
   }
 });
@@ -303,6 +343,53 @@ document.addEventListener('mousemove', function (event) {
     startX = event.clientX;
     // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
     startY = event.clientY;
+
+  } else if (isDraggingWaypt1) {
+
+  	const diffX = event.clientX - startX;
+    const diffY = event.clientY - startY;
+    let newCanvasX = canvasWaypt1X + diffX;
+    let newCanvasY = canvasWaypt1Y + diffY;
+    // console.log('diffX',diffX);
+
+    // Verificar si la nueva posición está dentro de los límites del ND canvas
+    if (isWithinBoundsWaypts(newCanvasX, newCanvasY)) {
+    	// console.log('sabe que estoy en los limites')
+    //}
+      canvasWaypt1X = newCanvasX;
+      canvasWaypt1Y = newCanvasY;
+      // console.log('NewCanvasX', newCanvasX);
+    }
+
+    // Actualizar la posición del canvas en el DOM
+    canvasWaypt1.style.transform = `translate(${canvasWaypt1X}px, ${canvasWaypt1Y}px)`;
+
+    startX = event.clientX;
+    // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
+    startY = event.clientY;
+  } else if (isDraggingWaypt2) {
+
+  	const diffX = event.clientX - startX;
+    const diffY = event.clientY - startY;
+    let newCanvasX = canvasWaypt2X + diffX;
+    let newCanvasY = canvasWaypt2Y + diffY;
+    // console.log('diffX',diffX);
+
+    // Verificar si la nueva posición está dentro de los límites del ND canvas
+    if (isWithinBoundsWaypts(newCanvasX, newCanvasY)) {
+    	// console.log('sabe que estoy en los limites')
+    //}
+      canvasWaypt2X = newCanvasX;
+      canvasWaypt2Y = newCanvasY;
+      // console.log('NewCanvasX', newCanvasX);
+    }
+
+    // Actualizar la posición del canvas en el DOM
+    canvasWaypt2.style.transform = `translate(${canvasWaypt2X}px, ${canvasWaypt2Y}px)`;
+
+    startX = event.clientX;
+    // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
+    startY = event.clientY;
   }
 });
 
@@ -310,6 +397,9 @@ document.addEventListener('mousemove', function (event) {
 document.addEventListener('mouseup', function (event) {
   if (event.button === 0) { // Botón izquierdo del ratón
     isDragging = false;
+    isDraggingWaypt1 = false;
+    isDraggingWaypt2 = false;
+    wasDragged = true;
   //  console.log('Sabe que he levantado')
   }
 });

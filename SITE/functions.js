@@ -216,6 +216,24 @@ function resetCase(){
   	startY = 0;
   	canvasAvionNDX = 0;
   	canvasAvionNDY = 0;
+
+  	let canvasWaypt1differenceY = canvasWaypt1PositionTop - canvasWaypt1.offsetTop;
+  	let canvasWaypt1differenceX = canvasWaypt1PositionLeft - canvasWaypt1.offsetLeft;
+  	canvasWaypt1.style.transform = `translate(${canvasWaypt1differenceX}px, ${canvasWaypt1differenceY}px)`;
+  	startX = 0;
+  	startY = 0;
+  	canvasWaypt1X = 0;
+  	canvasWaypt1Y = 0;
+
+  	let canvasWaypt2differenceY = canvasWaypt2PositionTop - canvasWaypt2.offsetTop;
+  	let canvasWaypt2differenceX = canvasWaypt2PositionLeft - canvasWaypt2.offsetLeft;
+  	canvasWaypt2.style.transform = `translate(${canvasWaypt2differenceX}px, ${canvasWaypt2differenceY}px)`;
+  	startX = 0;
+  	startY = 0;
+  	canvasWaypt2X = 0;
+  	canvasWaypt2Y = 0;
+
+
 }
 
 function drawVSI(){
@@ -349,12 +367,16 @@ altIndicator.addEventListener('click', function () {
 });
 
 waypt1.addEventListener('click', function () {
-	const message = 'Voulez-vous choisir ce point de route?';
-	const result = confirm(message);
+	if(true) {
+		const message = 'Voulez-vous choisir ce point de route?';
+		const result = confirm(message);
+	
 
-	if (result) {
-  		waypointChoisi = 1;
-	} else {
+		if (result) {
+  			waypointChoisi = 1;
+		} else {
+	}} else if (wasDragged == true) {
+		wasDragged = false;
 	}
 });
 
