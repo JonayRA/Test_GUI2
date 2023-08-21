@@ -7,10 +7,13 @@
 <body>
     <form>
         <label for="numParticipant"> Numéro participant:</label>
-        <input type="number" id="numParticipant" name="numParticipant"><br><br>
+        <input type="number" id="numParticipant1" name="numParticipant"><br><br>
         
         <label for="condition">Condition:</label>
-        <input type="number" id="condition" name="condition"><br><br>
+        <input type="number" id="condition1" name="condition"><br><br>
+
+        <input type="checkbox" id="consentement" required>
+        <label for="consentement">Avez-vous signé votre consentement informé?</label><br><br>
         
         <button type="button" id="enlaceBoton">Débuter l'expérience</button>
     </form>
@@ -26,7 +29,18 @@
         // Agregar un evento click al botón
         enlaceBoton.addEventListener('click', function() {
             // Cambiar la ubicación a la página deseada
-            window.location.href = 'contrafactual.html'; // Ruta relativa a la página local
+            if (consentement.checked) {
+            const numParticipant = document.getElementById("numParticipant1").value;
+            const condition = document.getElementById("condition1").value;
+            console.log(numParticipant,condition);
+            localStorage.setItem("numParticipant", numParticipant);
+            localStorage.setItem("condition", condition);
+
+
+            window.location.href = "contrafactual.html?numParticipant=" + encodeURIComponent(numParticipant) + "&condition=" + encodeURIComponent(condition); 
+        } else {
+            alert("Assurez-vous d'avoir signé le consentement informé");
+        }
         });
     </script>
 </body>

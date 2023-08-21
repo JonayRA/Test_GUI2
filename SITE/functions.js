@@ -333,7 +333,7 @@ function processAltValue(value) {
 
 
 altIndicator.addEventListener('click', function () {
-if(waypointChoisi != -1){
+if(waypointChoisi != -1 && condition == 3){
 
   const inputValue = prompt('Introduce altitude value:');
   if (inputValue <= 9990 && inputValue >= 10){
@@ -349,7 +349,7 @@ if(waypointChoisi != -1){
 
 
 waypt1.addEventListener('click', function () {
-	if(true) {
+	if(waypointChoisi == -1) {
 		const message = 'Voulez-vous choisir ce point de route?';
 		const result = confirm(message);
 	
@@ -363,6 +363,7 @@ waypt1.addEventListener('click', function () {
 });
 
 waypt2.addEventListener('click', function () {
+	if(waypointChoisi == -1) {
 	const message = 'Voulez-vous choisir ce point de route?';
 	const result = confirm(message);
 
@@ -371,6 +372,7 @@ waypt2.addEventListener('click', function () {
 	} else {
   		
 	}
+}
 });
 
 function processVSIValue(value){
@@ -382,7 +384,7 @@ function processVSIValue(value){
 }
 
 VSI.addEventListener('click', function () {
-	if(waypointChoisi != -1){
+	if(waypointChoisi != -1 && condition == 3){
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce vertical speed value:');
   if (inputValue <= 4000 && inputValue >= -4000){
@@ -454,7 +456,7 @@ function processASIValue(value){
 }
 
 ASI.addEventListener('click', function () {
-	if(waypointChoisi != -1){
+	if(waypointChoisi != -1 && condition == 3){
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce airspeed value:');
   if (inputValue <= 9990 && inputValue >= 10){

@@ -1,5 +1,10 @@
 
 // Declaración de variables globales
+var urlParams = new URLSearchParams(window.location.search);
+const numParticipant = urlParams.get("numParticipant");
+const condition = urlParams.get("condition");
+console.log(numParticipant,condition);
+
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
 let FMA1 = document.getElementById('FMA1');
@@ -299,7 +304,7 @@ function isWithinBoundsWaypts(x, y) {
 
 // Evento mousedown para comenzar el arrastre del canvas
 canvasAvionND.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1){
+	if(waypointChoisi != -1 && condition == 3){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
@@ -310,7 +315,7 @@ canvasAvionND.addEventListener('mousedown', function (event) {
 });
 
 canvasWaypt1.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1){
+	if(waypointChoisi != -1 && condition == 3){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
@@ -321,7 +326,7 @@ canvasWaypt1.addEventListener('mousedown', function (event) {
 });
 
 canvasWaypt2.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1){
+	if(waypointChoisi != -1 && condition == 3){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
