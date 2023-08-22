@@ -28,6 +28,7 @@ const altIndicatorTenthsFont = '50px "Andale Mono", monospace';
 const VSIfont = '72px "Andale Mono", monospace';
 const ASIfont = '90px "Andale Mono", monospace';
 const ASIfontWeight = 200;
+const wayptFont = '80px "Andale Mono", monospace';;
 
 
 
@@ -349,7 +350,7 @@ if(waypointChoisi != -1 && condition == 3){
 
 waypt1.addEventListener('click', function () {
 	if(waypointChoisi == -1) {
-		const message = 'Voulez-vous choisir ce point de route?';
+		const message = 'Voulez-vous choisir le point de route 1?';
 		const result = confirm(message);
 	
 
@@ -364,7 +365,7 @@ waypt1.addEventListener('click', function () {
 
 waypt2.addEventListener('click', function () {
 	if(waypointChoisi == -1) {
-	const message = 'Voulez-vous choisir ce point de route?';
+	const message = 'Voulez-vous choisir le point de route 2?';
 	const result = confirm(message);
 
 	if (result) {
@@ -519,25 +520,37 @@ function drawWaypoints(){
 	x2 = waypt2.width;
 	y2 = waypt2.height;
 	ctxWaypt1.beginPath();
-    ctxWaypt1.moveTo(x1/4,y1/2); 
-    ctxWaypt1.lineTo(x1/2,y1/4);
-    ctxWaypt1.lineTo(x1*3/4,y1/2);
-    ctxWaypt1.lineTo(x1/2,y1*3/4);
+    ctxWaypt1.moveTo(x1/4-10,y1/2); 
+    ctxWaypt1.lineTo(x1/2,y1/4-20);
+    ctxWaypt1.lineTo(x1*3/4+10,y1/2);
+    ctxWaypt1.lineTo(x1/2,y1*3/4+20);
 	ctxWaypt1.closePath();
 	ctxWaypt1.strokeStyle = 'red';
-	ctxWaypt1.lineWidth = 10;
+	ctxWaypt1.lineWidth = 20;
 	ctxWaypt1.stroke();
 	ctxWaypt1.fill();
 
+	ctxWaypt1.font = wayptFont;
+	ctxWaypt1.fontWeight = ASIfontWeight;
+	var waypt1Tag = '1';
+	ctxWaypt1.fillStyle = 'red';
+	ctxWaypt1.fillText(waypt1Tag,x1/2-20,y1*3/4 - 35);
+
 
 	ctxWaypt2.beginPath();
-    ctxWaypt2.moveTo(x2/4,y2/2); 
-    ctxWaypt2.lineTo(x2/2,y2/4);
-    ctxWaypt2.lineTo(x2*3/4,y2/2);
-    ctxWaypt2.lineTo(x2/2,y2*3/4);
+    ctxWaypt2.moveTo(x2/4-10,y2/2); 
+    ctxWaypt2.lineTo(x2/2,y2/4-20);
+    ctxWaypt2.lineTo(x2*3/4+10,y2/2);
+    ctxWaypt2.lineTo(x2/2,y2*3/4+20);
 	ctxWaypt2.closePath();
 	ctxWaypt2.strokeStyle = 'red';
-	ctxWaypt2.lineWidth = 10;
+	ctxWaypt2.lineWidth = 20;
 	ctxWaypt2.stroke();
 	ctxWaypt2.fill();
+
+	ctxWaypt2.font = wayptFont;
+	ctxWaypt2.fontWeight = ASIfontWeight;
+	var waypt2Tag = '2';
+	ctxWaypt2.fillStyle = 'red';
+	ctxWaypt2.fillText(waypt2Tag,x1/2-20,y1*3/4 - 35);
 }

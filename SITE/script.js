@@ -247,7 +247,7 @@ divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
 ASItextGenerator(200);
 horizontalDivisionGenerator(HDG,ctxHDG,5);
-generateWaypoint(0.5,0.5);
+//generateWaypoint(0.5,0.5);
 drawWaypoints();
 
 
