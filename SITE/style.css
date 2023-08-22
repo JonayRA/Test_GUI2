@@ -300,6 +300,13 @@ th {
   border: 2px solid black;
 }
 
+.inputClass {
+	position: absolute;
+  bottom: 300px;
+  right: 10px;
+  width: 160px;
+}
+
 /*#PFD, #ND {
   width: 250vw;
   height: 250vh;

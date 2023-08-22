@@ -41,6 +41,8 @@ const buttonsoumettreContrefactuel = document.getElementById('soumettreContrefac
 const buttonmenu = document.getElementById('menu');
 const buttontoggleButton = document.getElementById('toggleButton');
 const buttonsansChangement = document.getElementById('sansChangement');
+const inputVariableChoisie = document.getElementById("inputVariableChoisie");
+const textInputVar = document.getElementById("input-text");
 
 let currentImage = 0;
 const imagenes = [
@@ -105,14 +107,21 @@ var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
 
 // Definición de funciones
 
-
-let waypointChoisi = -1;
-if (waypointChoisi == -1 || condition != 3){
+function hideButtonsContrefacutel(){
 	buttonresetCase.style.display = 'none';
 	buttonCambiarImagen.style.display = 'none';
 	buttonsoumettreContrefactuel.style.display = 'none';
 	buttonmenu.style.display = 'none';
 	buttontoggleButton.style.display = 'none';
+	inputVariableChoisie.style.display = 'none';
+	buttonsansChangement.style.display = '';
+	textInputVar.value = null;
+}
+
+
+let waypointChoisi = -1;
+if (waypointChoisi == -1 || condition != 3){
+	hideButtonsContrefacutel();
 }
 
 function showButtonsContrefacutel(){
@@ -164,6 +173,8 @@ function cambiarImagen() {
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;*/
 }
+
+
 
 /*
 // Texto secciones PFD
@@ -243,6 +254,10 @@ ctxVSItext.fillText(t43,x5,y5+65);
 
 
 */
+
+/*buttonmenu.addEventListener("change", ()=> {
+	
+});*/
 
 
 let pixelRatio = 10 // window.devicePixelRatio || 1;
@@ -510,10 +525,29 @@ menuItems.forEach(function(item) {
     this.classList.add('selected');
     
     dropdown.classList.remove('open');
+
+    inputVariableChoisie.style.display = '';
+
+    /*inputVariableChoisie.innerHTML = `
+	<input type="text" id="input-text" placeholder="Valeur de la ${option}" class = "inputClass">
+	`;*/
   });
 });
 
+function resetDropdown(){
+	selectedOption.innerText = "Selecciona una opción";
 
+  menuItems.forEach(item => {
+    item.classList.remove("selected");
+    });
+}
+
+buttonsoumettreContrefactuel.addEventListener('click', function(){
+	waypointChoisi = -1;
+	cambiarImagen();
+	hideButtonsContrefacutel();
+	resetDropdown();
+})
 
 
 /*
