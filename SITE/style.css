@@ -283,6 +283,22 @@ canvas {
 }
 
 
+#tableVariables{
+	border-collapse: collapse;
+	position: absolute;
+	right: 20px;
+	top: 25px;
+}
+
+td {
+  border: 2px solid black;
+  border-bottom: 2px solid black;
+  width: 25%;
+  text-align: center;
+}
+th {
+  border: 2px solid black;
+}
 
 /*#PFD, #ND {
   width: 250vw;

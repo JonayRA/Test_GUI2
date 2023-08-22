@@ -44,8 +44,8 @@ const buttonsansChangement = document.getElementById('sansChangement');
 
 let currentImage = 0;
 const imagenes = [
-"IMAGENES/ND_base.jpg",
-"IMAGENES/ND_radar.png"
+"IMAGENES/ND_radar.png",
+"IMAGENES/ND_base.jpg"
 ];
 const NDcontainer = document.getElementById('NDcanvasContainer');
 const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
@@ -123,7 +123,7 @@ imgND.src = imagenes[currentImage];
 function cambiarImagen() {
   currentImage = (currentImage + 1) % imagenes.length;
   imgND.src = imagenes[currentImage];
-  resetCase();
+  // resetCase();
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
