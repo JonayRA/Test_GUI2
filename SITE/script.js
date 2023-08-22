@@ -96,6 +96,13 @@ let canvasWaypt1Y = 0;
 let canvasWaypt2X = 0;
 let canvasWaypt2Y = 0;
 
+var cellConsomRoute = document.getElementById("consomRoute");
+var cellConsomWaypt1 = document.getElementById("consomWaypt1");
+var cellConsomWaypt2 = document.getElementById("consomWaypt2");
+var cellTempsRoute = document.getElementById("tempsRoute");
+var cellTempsWaypt1 = document.getElementById("tempsWaypt1");
+var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
+
 // Definición de funciones
 
 
@@ -119,10 +126,35 @@ function showButtonsContrefacutel(){
 
 
 let imgND = new Image();
-imgND.src = imagenes[currentImage];
+//imgND.src = imagenes[currentImage];
+imgND.src = imagesData[currentImage].src;
+/*var consommationRoute = imagesData[currentImage].consumptionRoute;
+var consommationWaypt1 = imagesData[currentImage].consumptionWaypt1;
+var consommationWaypt2 = imagesData[currentImage].consumptionWaypt2;
+var tempsWaypt1 = imagesData[currentImage].tempsWaypt1;
+var tempsRoute = imagesData[currentImage].tempsroute;
+var tempsWaypt2 = imagesData[currentImage].tempsWaypt2;*/
+
+
+cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
+cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
+cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
+cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
+cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
+cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+
+
+
 function cambiarImagen() {
   currentImage = (currentImage + 1) % imagenes.length;
-  imgND.src = imagenes[currentImage];
+  // imgND.src = imagenes[currentImage];
+  imgND.src = imagesData[currentImage].src;
+  cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
+  cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
+  cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
+  cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
+  cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
+  cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
   // resetCase();
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
