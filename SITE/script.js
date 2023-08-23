@@ -3,6 +3,7 @@
 var urlParams = new URLSearchParams(window.location.search);
 const numParticipant = urlParams.get("numParticipant");
 const condition = urlParams.get("condition");
+const session = urlParams.get("session");
 console.log(numParticipant,condition);
 
 let PFD = document.getElementById('PFD');
@@ -109,7 +110,7 @@ var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
 
 function hideButtonsContrefacutel(){
 	buttonresetCase.style.display = 'none';
-	buttonCambiarImagen.style.display = 'none';
+	buttonCambiarImagen.style.display = '';
 	buttonsoumettreContrefactuel.style.display = 'none';
 	buttonmenu.style.display = 'none';
 	buttontoggleButton.style.display = 'none';

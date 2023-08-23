@@ -206,7 +206,7 @@ canvas {
 
 #sansChangement {
 	position: absolute;
-	bottom: 10px;
+	bottom: 40px;
 	right: 10px;
 	width: 160px;
 }
@@ -215,13 +215,16 @@ canvas {
 	position: absolute;
 	width: 20px;
 	height: 40px;
-	left: 80px;
+	left: 400px;
+	top: 200px;
 }
 
 #waypt2 {
 	position: absolute;
 	width: 20px;
 	height: 40px;
+	left: 180px;
+	top: 350px;
 }
 
 /*#situationFuture {
