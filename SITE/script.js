@@ -533,6 +533,7 @@ const menuItems = document.querySelectorAll('#menu li');
 
 toggleButton.addEventListener('click', function() {
   dropdown.classList.toggle('open');
+  inputVariableChoisie.style.display = "none";
 });
 
 menuItems.forEach(function(item) {
@@ -547,7 +548,11 @@ menuItems.forEach(function(item) {
     
     dropdown.classList.remove('open');
 
-    inputVariableChoisie.style.display = '';
+    if (option!='Autres facteurs'){
+    	inputVariableChoisie.style.display = '';
+    }
+
+    
 
     /*inputVariableChoisie.innerHTML = `
 	<input type="text" id="input-text" placeholder="Valeur de la ${option}" class = "inputClass">
