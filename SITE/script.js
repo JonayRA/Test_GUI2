@@ -158,6 +158,26 @@ function cambiarImagen() {
   currentImage = (currentImage + 1) % imagenes.length;
   // imgND.src = imagenes[currentImage];
   imgND.src = imagesData[currentImage].src;
+  /*cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
+  cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
+  cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
+  cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
+  cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
+  cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+  // resetCase();
+  /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
+  let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
+  canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
+  startX = 0;
+  startY = 0;
+  canvasAvionNDX = 0;
+  canvasAvionNDY = 0;*/
+}
+
+function cambiarCaso() {
+  currentImage = (currentImage + 1) % imagenes.length;
+  // imgND.src = imagenes[currentImage];
+  imgND.src = imagesData[currentImage].src;
   cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
   cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
   cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
@@ -173,6 +193,7 @@ function cambiarImagen() {
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;*/
 }
+
 
 
 
@@ -544,7 +565,7 @@ function resetDropdown(){
 
 buttonsoumettreContrefactuel.addEventListener('click', function(){
 	waypointChoisi = -1;
-	cambiarImagen();
+	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
 })
