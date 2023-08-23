@@ -17,7 +17,7 @@
         <input type="number" id="condition1" name="condition" min="1" max="3"><br><br>
 
         <input type="checkbox" id="consentement" required>
-        <label for="consentement">Avez-vous signé votre consentement informé?</label><br><br>
+        <label for="consentement">Avez-vous signé le consentement informé?</label><br><br>
         
         <button type="button" id="enlaceBoton">Débuter l'expérience</button>
     </form>
@@ -29,6 +29,32 @@
     <script>
         // Obtener referencia al botón
         const enlaceBoton = document.getElementById('enlaceBoton');
+        const sessionInput = document.getElementById("session1");
+        const conditionInput = document.getElementById("condition1");
+
+        sessionInput.addEventListener("input", function() {
+            const value = parseInt(sessionInput.value);
+            const max = parseInt(sessionInput.getAttribute("max"));
+            const min = parseInt(sessionInput.getAttribute("min"));
+
+        if (value > max || value < min) {
+            alert("La valeur est invalide.");
+            sessionInput.value = null;
+        }
+        });
+
+        conditionInput.addEventListener("input", function() {
+            const value = parseInt(conditionInput.value);
+            const max = parseInt(conditionInput.getAttribute("max"));
+            const min = parseInt(conditionInput.getAttribute("min"));
+
+        if (value > max || value < min) {
+            alert("La valeur est invalide.");
+            conditionInput.value = null;
+        }
+        });
+
+
 
         // Agregar un evento click al botón
         enlaceBoton.addEventListener('click', function() {
