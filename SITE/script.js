@@ -341,7 +341,15 @@ buttonCambiarImagen.addEventListener('click', cambiarImagen);
 buttonresetCase.addEventListener('click', resetCase);
 buttonsansChangement.addEventListener('click',function(){
 	waypointChoisi = 0;
-	showButtonsContrefacutel();
+	if (condition == 3){
+		showButtonsContrefacutel();
+	} else {
+		waypointChoisi = -1;
+		cambiarCaso();
+		hideButtonsContrefacutel();
+		resetDropdown();
+	}
+	
 });
 
 
