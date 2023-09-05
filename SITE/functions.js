@@ -17,6 +17,7 @@ const pressureL1text = 'QNH 1013';
 const NAVPFDl1text = 'IMED';
 const NAVPFDl2text = '111.10';
 const NAVPFDl3text = '57NM';
+let variableChanged = '';
 
 
 const FMAfont = '50px "Andale Mono", monospace';
@@ -182,6 +183,8 @@ function NAVPFDtextGenerator(){
 }
 
 function resetCase(){
+	variableChanged = '';
+
 	let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   	let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   	canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
@@ -333,16 +336,19 @@ function processAltValue(value) {
 
 
 altIndicator.addEventListener('click', function () {
-if(waypointChoisi != -1 && condition == 3){
+if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'ALT')){
 
   const inputValue = prompt('Introduce altitude value:');
   if (inputValue <= 9990 && inputValue >= 10){
   	const alt = Math.round(inputValue / 10) * 10;
   	processAltValue(alt);
+  	variableChanged = 'ALT';
   } else {
   	alert('La valeur introduite pour l\'altitude n\'est pas valide. Svp introduisez une valeur valide.');
   }
-  }
+  } else if (variableChanged != '' || variableChanged != 'ALT') {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
 });
 
 

@@ -407,36 +407,45 @@ function isWithinBoundsWaypts(x, y) {
 
 // Evento mousedown para comenzar el arrastre del canvas
 canvasAvionND.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1 && condition == 3){
+	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'avion')){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDragging = true;
+    variableChanged = 'avion';
     // console.log('Sabe que he clicado');
   }
-}
+} else if (variableChanged != '' || variableChanged != 'avion') {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
 });
 
 canvasWaypt1.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1 && condition == 3){
+	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt1')){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDraggingWaypt1 = true;
-    // console.log('Sabe que he clicado');
+    variableChanged = 'waypt1';
+    console.log(variableChanged);
   }
-}
+} else if (variableChanged != '' || variableChanged != 'waypt1') {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
 });
 
 canvasWaypt2.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1 && condition == 3){
+	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt2')){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
     isDraggingWaypt2 = true;
-    // console.log('Sabe que he clicado');
+    variableChanged = 'waypt2';
+    console.log(variableChanged);
   }
-}
+} else if (variableChanged != '' || variableChanged != 'waypt2') {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
 });
 
 // Evento mousemove para arrastrar el canvas
@@ -541,8 +550,12 @@ const selectedOption = document.getElementById('selectedOption');
 const menuItems = document.querySelectorAll('#menu li');
 
 toggleButton.addEventListener('click', function() {
+	if (variableChanged == ''){
   dropdown.classList.toggle('open');
   inputVariableChoisie.style.display = "none";
+	} else if (variableChanged != '') {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
 });
 
 menuItems.forEach(function(item) {
@@ -559,6 +572,7 @@ menuItems.forEach(function(item) {
 
     if (option!='Autres facteurs'){
     	inputVariableChoisie.style.display = '';
+    	variableChanged = 'menu';
     }
 
     
