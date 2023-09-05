@@ -44,6 +44,7 @@ const buttontoggleButton = document.getElementById('toggleButton');
 const buttonsansChangement = document.getElementById('sansChangement');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
+const dataToSave = [];
 
 let currentImage = 0;
 const imagenes = [
@@ -415,7 +416,7 @@ canvasAvionND.addEventListener('mousedown', function (event) {
     variableChanged = 'avion';
     // console.log('Sabe que he clicado');
   }
-} else if (variableChanged != '' || variableChanged != 'avion') {
+} else if ((variableChanged != '' || variableChanged != 'avion') && waypointChoisi != -1) {
 		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
 	}
 });
@@ -429,7 +430,7 @@ canvasWaypt1.addEventListener('mousedown', function (event) {
     variableChanged = 'waypt1';
     console.log(variableChanged);
   }
-} else if (variableChanged != '' || variableChanged != 'waypt1') {
+} else if ((variableChanged != '' || variableChanged != 'waypt1') && waypointChoisi != -1) {
 		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
 	}
 });
@@ -443,7 +444,7 @@ canvasWaypt2.addEventListener('mousedown', function (event) {
     variableChanged = 'waypt2';
     console.log(variableChanged);
   }
-} else if (variableChanged != '' || variableChanged != 'waypt2') {
+} else if ((variableChanged != '' || variableChanged != 'waypt2') && waypointChoisi != -1) {
 		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
 	}
 });
@@ -596,8 +597,19 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
+	pushDataToSave();
 })
 
+function pushDataToSave(){
+	let timestamp = Date.now();
+	dataToSave.push({
+		time: timestamp,
+		participant: numParticipant,
+		condition: condition,
+		session: session
+	})
+	console.log(dataToSave);
+}
 
 /*
 let isDragging = false;
