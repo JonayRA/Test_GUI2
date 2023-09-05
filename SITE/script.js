@@ -689,7 +689,7 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	resetDropdown();
 	// incrementalSave();
 	// saveData();
-	//saveData2();
+	// saveData2();
 })
 
 /*function pushDataToSave(){
