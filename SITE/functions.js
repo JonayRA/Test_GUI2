@@ -560,3 +560,6 @@ function drawWaypoints(){
 	ctxWaypt2.fillStyle = 'red';
 	ctxWaypt2.fillText(waypt2Tag,x1/2-20,y1*3/4 - 35);
 }
+
+
+

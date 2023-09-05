@@ -45,6 +45,7 @@ const buttonsansChangement = document.getElementById('sansChangement');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
 const dataToSave = [];
+var dataToSaveJSON = [];
 
 let currentImage = 0;
 const imagenes = [
@@ -106,6 +107,32 @@ var cellConsomWaypt2 = document.getElementById("consomWaypt2");
 var cellTempsRoute = document.getElementById("tempsRoute");
 var cellTempsWaypt1 = document.getElementById("tempsWaypt1");
 var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
+
+const participantDB = 'participant' + numParticipant;
+let db;
+
+
+const dbRequest = indexedDB.open('dbTestCellule', 1); // Version 1
+
+dbRequest.onupgradeneeded = event => {
+
+  db = event.target.result;
+
+  db.createObjectStore(participantDB);
+
+};
+
+dbRequest.onsuccess = event => {
+  // Aquí también se puede obtener db
+  db = event.target.result; 
+}
+
+dbRequest.onerror = event => {
+  alert("Error al crear DB", event);
+};
+
+
+
 
 // Definición de funciones
 
@@ -592,15 +619,80 @@ function resetDropdown(){
     });
 }
 
+/*function incrementalSave() {
+	let timestamp = Date.now();
+	const dataIncremental = {
+		time: timestamp,
+		participant: numParticipant,
+		condition: condition,
+		session: session
+	}
+
+	const transaction = db.transaction([participantDB], "readwrite");
+	const store = transaction.objectStore(participantDB);
+	store.add(dataIncremental);
+}*/
+
+/*function saveData(){
+	let timestamp = Date.now();
+	dataToSaveJSON.push({
+		time: timestamp,
+		participant: numParticipant,
+		condition: condition,
+		session: session
+	})
+	/*const fs = window.requestFileSystem(window.TEMPORARY, 1024*1024); 
+
+	fs.root.getFile('data.json', {create: true}, function(fileEntry) {
+
+  		fileEntry.createWriter(function(fileWriter) {
+
+    	fileWriter.write(JSON.stringify(dataToSaveJSON));
+
+  	});
+
+	});
+
+	const file = new Blob([dataToSaveJSON], {type: 'text/plain'});
+
+	FileSaver.saveAs(file, 'datos.txt');
+
+}*/
+
+function saveData2(){
+
+	let timestamp = Date.now();
+	dataToSaveJSON.push({
+		time: timestamp,
+		participant: numParticipant,
+		condition: condition,
+		session: session
+	})
+
+	var fileContent = JSON.stringify(dataToSaveJSON);
+	//var bb = new Blob([fileContent ], { type: 'text/plain' });
+	const bb = new Blob([JSON.stringify(dataToSaveJSON, null, 2)], {
+  	type: "application/json",
+	});
+	var a = document.createElement('a');
+	a.download = 'participant'+numParticipant+'.json';
+	a.href = window.URL.createObjectURL(bb);
+	a.click();
+	a.remove();
+}
+
+
 buttonsoumettreContrefactuel.addEventListener('click', function(){
 	waypointChoisi = -1;
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
-	pushDataToSave();
+	// incrementalSave();
+	// saveData();
+	//saveData2();
 })
 
-function pushDataToSave(){
+/*function pushDataToSave(){
 	let timestamp = Date.now();
 	dataToSave.push({
 		time: timestamp,
@@ -609,7 +701,10 @@ function pushDataToSave(){
 		session: session
 	})
 	console.log(dataToSave);
-}
+}*/
+
+
+
 
 /*
 let isDragging = false;
