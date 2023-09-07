@@ -101,6 +101,7 @@ let canvasWaypt1Y = 0;
 let canvasWaypt2X = 0;
 let canvasWaypt2Y = 0;
 
+const tableConsomTemps = document.getElementById("tableVariables");
 var cellConsomRoute = document.getElementById("consomRoute");
 var cellConsomWaypt1 = document.getElementById("consomWaypt1");
 var cellConsomWaypt2 = document.getElementById("consomWaypt2");
@@ -180,6 +181,55 @@ cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
 cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
 cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
 cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+
+/*tableConsomTemps.querySelectorAll("td").forEach(cell => {
+	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
+});*/
+
+function editCell(e){//, waypointChoisi, condition, variableChanged){
+
+	console.log('Aqui tabla');
+
+	const cell = e.target;
+
+	const input = document.createElement("input");
+
+	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'table')){
+	
+	input.value = cell.textContent;
+
+	cell.textContent = '';
+	cell.appendChild(input);
+
+	input.focus();
+
+	input.addEventListener("blur", () => {
+		cell.textContent = input.value;
+		return true;
+	});
+
+	input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") {
+      cell.textContent = input.value; 
+      input.blur();
+      return true;
+      
+    } else if (e.key === "Escape") {
+    	input.blur();
+    	return false;
+    }
+
+  });
+} else if ((variableChanged != '' || variableChanged != 'table') && waypointChoisi != -1) {
+		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+	}
+
+}
+
+tableConsomTemps.querySelectorAll("td").forEach(cell => {
+	cell.addEventListener("click",editCell);
+});
+
 
 
 
