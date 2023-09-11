@@ -204,6 +204,13 @@ canvas {
   	width: 160px;
 }
 
+#finirExperience {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+  	width: 160px;
+}
+
 #sansChangement {
 	position: absolute;
 	bottom: 40px;
@@ -294,13 +301,24 @@ canvas {
 }
 
 td {
-  border: 2px solid black;
-  border-bottom: 2px solid black;
+  border: 2px dashed black;
+  border-bottom: 2px dashed black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   width: 25%;
   text-align: center;
 }
 th {
   border: 2px solid black;
+}
+
+tr#filaCombDispo {
+  /*border-top: 3px solid black;
+  border-bottom: 3px solid black;
+  border-left: 3px solid black;
+  border-right: 3px solid black;*/
+  border: 2px solid black;
+
 }
 
 .inputClass {

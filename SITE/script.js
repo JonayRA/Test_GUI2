@@ -42,6 +42,7 @@ const buttonsoumettreContrefactuel = document.getElementById('soumettreContrefac
 const buttonmenu = document.getElementById('menu');
 const buttontoggleButton = document.getElementById('toggleButton');
 const buttonsansChangement = document.getElementById('sansChangement');
+const buttonFinirExperience = document.getElementById('finirExperience');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
 const dataToSave = [];
@@ -108,6 +109,7 @@ var cellConsomWaypt2 = document.getElementById("consomWaypt2");
 var cellTempsRoute = document.getElementById("tempsRoute");
 var cellTempsWaypt1 = document.getElementById("tempsWaypt1");
 var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
+var cellCombDispo = document.getElementById("combDispo");
 
 const participantDB = 'participant' + numParticipant;
 let db;
@@ -146,6 +148,8 @@ function hideButtonsContrefacutel(){
 	inputVariableChoisie.style.display = 'none';
 	buttonsansChangement.style.display = '';
 	textInputVar.value = null;
+	buttonFinirExperience.style.display = 'none';
+
 }
 
 
@@ -181,6 +185,8 @@ cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
 cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
 cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
 cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
+cellCombDispo.textContent = combDisponible;
 
 /*tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
@@ -263,6 +269,8 @@ function cambiarCaso() {
   cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
   cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
   cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+  var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
+  cellCombDispo.textContent = combDisponible;
   // resetCase();
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
@@ -730,6 +738,8 @@ function saveData2(){
 	a.click();
 	a.remove();
 }
+
+buttonFinirExperience.addEventListener('click',saveData2);
 
 
 buttonsoumettreContrefactuel.addEventListener('click', function(){
