@@ -426,15 +426,28 @@ ctxAvionND.stroke(); */
 buttonCambiarImagen.addEventListener('click', cambiarImagen);
 buttonresetCase.addEventListener('click', resetCase);
 buttonsansChangement.addEventListener('click',function(){
-	waypointChoisi = 0;
-	if (condition == 3){
-		showButtonsContrefacutel();
+	if(waypointChoisi == -1) {
+	const message = 'Voulez-vous rester sur la route?';
+	const result = confirm(message);
+
+	if (result) {
+  		waypointChoisi = 0;
+		if (condition == 3){
+			showButtonsContrefacutel();
+		} else {
+			waypointChoisi = -1;
+			cambiarCaso();
+			hideButtonsContrefacutel();
+			resetDropdown();
+		}
 	} else {
-		waypointChoisi = -1;
-		cambiarCaso();
-		hideButtonsContrefacutel();
-		resetDropdown();
+  		
 	}
+}
+
+
+
+	
 	
 });
 

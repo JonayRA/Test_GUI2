@@ -356,7 +356,7 @@ if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableC
 
 waypt1.addEventListener('click', function () {
 	if(waypointChoisi == -1) {
-		const message = 'Voulez-vous choisir le point de route 1?';
+		const message = 'Voulez-vous choisir le waypoint 1?';
 		const result = confirm(message);
 	
 
@@ -371,7 +371,7 @@ waypt1.addEventListener('click', function () {
 
 waypt2.addEventListener('click', function () {
 	if(waypointChoisi == -1) {
-	const message = 'Voulez-vous choisir le point de route 2?';
+	const message = 'Voulez-vous choisir le waypoint 2?';
 	const result = confirm(message);
 
 	if (result) {
