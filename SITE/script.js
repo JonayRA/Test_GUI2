@@ -117,6 +117,11 @@ let db;
 
 const dbRequest = indexedDB.open('dbTestCellule', 1); // Version 1
 
+const popup = document.getElementById('popup');
+const opcionA = document.getElementById('opcionA');
+const opcionB = document.getElementById('opcionB');
+popup.style.display = 'none';
+
 dbRequest.onupgradeneeded = event => {
 
   db = event.target.result;
@@ -753,16 +758,56 @@ function saveData2(){
 }
 
 buttonFinirExperience.addEventListener('click',saveData2);
+function manejarSeleccion(seleccion) {
 
-
-buttonsoumettreContrefactuel.addEventListener('click', function(){
-	waypointChoisi = -1;
+  // Aquí manejas la opción elegida
+  waypointChoisi = -1;
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
 	// incrementalSave();
 	// saveData();
 	// saveData2();
+  
+  popup.style.display = 'none'; // Ocultar
+  
+}
+
+buttonsoumettreContrefactuel.addEventListener('click', function(){
+
+	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
+
+	popup.style.display = '';
+	console.log('Waypoint choisi',waypointChoisi);
+	// Asignar opciones
+	if (waypointChoisi == 1) {
+		opcionA.textContent = 'Waypoint 2'; 
+		opcionB.textContent = 'Ne pas se dévier';
+	
+	} else if (waypointChoisi == 2) {
+		opcionA.textContent = 'Waypoint 1'; 
+		opcionB.textContent = 'Ne pas se dévier';
+	} else if (waypointChoisi == 0) {
+		console.log('Aqui contrefac');
+		opcionA.textContent = 'Waypoint 1'; 
+		opcionB.textContent = 'Waypoint 2';
+	}
+
+	
+
+	// Detectar click en botones
+	opcionA.addEventListener('click', () => {
+  		manejarSeleccion('A'); 
+	});
+
+	opcionB.addEventListener('click', () => {
+  		manejarSeleccion('B');
+	});
+
+
+
+
+	
 })
 
 /*function pushDataToSave(){
