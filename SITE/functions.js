@@ -463,7 +463,7 @@ function processASIValue(value){
 	ASItextGenerator(value);
 }
 
-ASI.addEventListener('click', function () {
+/*ASI.addEventListener('click', function () {
 	if(waypointChoisi != -1 && condition == 3){
 	console.log('Sabe que he clicado');
   const inputValue = prompt('Introduce airspeed value:');
@@ -474,7 +474,7 @@ ASI.addEventListener('click', function () {
   	alert('La valeur introduite pour la vitesse n\'est pas valide. Svp introduisez une valeur valide.');
   }
 }
-});
+});*/
 
 function getColor(colorValue) {
   if (colorValue === 1) {
