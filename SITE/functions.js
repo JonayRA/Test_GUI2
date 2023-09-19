@@ -44,6 +44,7 @@ const t43 = 'I';
 const t5 = 'AH';
 //const t6 = 'ALT';
 
+var a = -1;
 
 
 
@@ -346,7 +347,7 @@ if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableC
   } else {
   	alert('La valeur introduite pour l\'altitude n\'est pas valide. Svp introduisez une valeur valide.');
   }
-  } else if (variableChanged != '' || variableChanged != 'ALT') {
+  } else if (waypointChoisi != -1 && condition == 3 && (variableChanged != '' || variableChanged != 'ALT')) {
 		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
 	}
 });

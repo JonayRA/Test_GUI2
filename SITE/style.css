@@ -365,3 +365,10 @@ tr#filaCombDispo {
 	left: -300px;
 	font-size: 16px;
 }
+
+#opcionC {
+	position: relative;
+	top: 50px;
+	left: -250px;
+	font-size: 16px;
+}

@@ -120,6 +120,7 @@ const dbRequest = indexedDB.open('dbTestCellule', 1); // Version 1
 const popup = document.getElementById('popup');
 const opcionA = document.getElementById('opcionA');
 const opcionB = document.getElementById('opcionB');
+const opcionC = document.getElementById('opcionC');
 popup.style.display = 'none';
 
 dbRequest.onupgradeneeded = event => {
@@ -208,6 +209,7 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
 	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'table')){
 	
 	input.value = cell.textContent;
+	var a = cell.textContent;
 
 	cell.textContent = '';
 	cell.appendChild(input);
@@ -227,6 +229,7 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
       
     } else if (e.key === "Escape") {
     	input.blur();
+    	cell.textContent = a;
     	return false;
     }
 
@@ -429,7 +432,19 @@ ctxAvionND.lineWidth = 7;
 ctxAvionND.stroke(); */
 
 buttonCambiarImagen.addEventListener('click', cambiarImagen);
-buttonresetCase.addEventListener('click', resetCase);
+buttonresetCase.addEventListener('click', () => {
+	resetCase();
+	cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
+	cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
+	cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
+	cellTempsWaypt1.textContent = imagesData[currentImage].tempsWaypt1;
+	cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
+	cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
+	var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
+	cellCombDispo.textContent = combDisponible;
+} );
+
+
 buttonsansChangement.addEventListener('click',function(){
 	if(waypointChoisi == -1) {
 	const message = 'Voulez-vous rester sur la route?';
@@ -781,16 +796,23 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	console.log('Waypoint choisi',waypointChoisi);
 	// Asignar opciones
 	if (waypointChoisi == 1) {
-		opcionA.textContent = 'Waypoint 2'; 
+		opcionA.textContent = 'Option 2'; 
 		opcionB.textContent = 'Ne pas se dévier';
+		opcionC.textContent = 'Par dessus';
 	
 	} else if (waypointChoisi == 2) {
-		opcionA.textContent = 'Waypoint 1'; 
+		opcionA.textContent = 'Option 1'; 
 		opcionB.textContent = 'Ne pas se dévier';
+		opcionC.textContent = 'Par dessus';
 	} else if (waypointChoisi == 0) {
-		console.log('Aqui contrefac');
-		opcionA.textContent = 'Waypoint 1'; 
-		opcionB.textContent = 'Waypoint 2';
+		//console.log('Aqui contrefac');
+		opcionA.textContent = 'Option 1'; 
+		opcionB.textContent = 'Option 2';
+		opcionC.textContent = 'Par dessus';
+	} else if (waypointChoisi ==3) {
+		opcionA.textContent = 'Option 1'; 
+		opcionB.textContent = 'Option 2';
+		opcionC.textContent = 'Ne pas se dévier';
 	}
 
 	
@@ -803,11 +825,9 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	opcionB.addEventListener('click', () => {
   		manejarSeleccion('B');
 	});
-
-
-
-
-	
+	opcionC.addEventListener('click', () => {
+		manejarSeleccion('C');
+	});	
 })
 
 /*function pushDataToSave(){
