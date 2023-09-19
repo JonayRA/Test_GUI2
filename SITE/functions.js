@@ -355,8 +355,7 @@ if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableC
 
 
 
-waypt1.addEventListener('click', function () {
-	if(waypointChoisi == -1) {
+/*	if(waypointChoisi == -1) {
 		const message = 'Voulez-vous choisir le waypoint 1?';
 		const result = confirm(message);
 	
@@ -382,7 +381,7 @@ waypt2.addEventListener('click', function () {
   		
 	}
 }
-});
+});*/
 
 function processVSIValue(value){
 	ctxVSI.clearRect(0, 0, VSI.width, VSI.height);

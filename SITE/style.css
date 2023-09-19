@@ -218,6 +218,13 @@ canvas {
 	width: 160px;
 }
 
+#eviterDessus {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 160px;
+}
+
 #waypt1 {
 	position: absolute;
 	width: 20px;

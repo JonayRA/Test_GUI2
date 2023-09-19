@@ -45,6 +45,7 @@ const buttonsansChangement = document.getElementById('sansChangement');
 const buttonFinirExperience = document.getElementById('finirExperience');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
+const buttonParDessus = document.getElementById("eviterDessus");
 const dataToSave = [];
 var dataToSaveJSON = [];
 
@@ -121,6 +122,7 @@ const popup = document.getElementById('popup');
 const opcionA = document.getElementById('opcionA');
 const opcionB = document.getElementById('opcionB');
 const opcionC = document.getElementById('opcionC');
+var wayptAlternatif = -1;
 popup.style.display = 'none';
 
 dbRequest.onupgradeneeded = event => {
@@ -147,7 +149,7 @@ dbRequest.onerror = event => {
 
 function hideButtonsContrefacutel(){
 	buttonresetCase.style.display = 'none';
-	buttonCambiarImagen.style.display = '';
+	buttonCambiarImagen.style.display = 'none';
 	buttonsoumettreContrefactuel.style.display = 'none';
 	buttonmenu.style.display = 'none';
 	buttontoggleButton.style.display = 'none';
@@ -155,6 +157,7 @@ function hideButtonsContrefacutel(){
 	buttonsansChangement.style.display = '';
 	textInputVar.value = null;
 	buttonFinirExperience.style.display = 'none';
+	buttonParDessus.style.display = '';
 
 }
 
@@ -166,11 +169,12 @@ if (waypointChoisi == -1 || condition != 3){
 
 function showButtonsContrefacutel(){
 	buttonresetCase.style.display = '';
-	buttonCambiarImagen.style.display = '';
+	buttonCambiarImagen.style.display = 'none';
 	buttonsoumettreContrefactuel.style.display = '';
 	buttonmenu.style.display = '';
 	buttontoggleButton.style.display = '';
 	buttonsansChangement.style.display = 'none';
+	buttonParDessus.style.display = 'none';
 }
 
 
@@ -279,7 +283,7 @@ function cambiarCaso() {
   cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
   var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
   cellCombDispo.textContent = combDisponible;
-  // resetCase();
+  resetCase(); // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
@@ -290,7 +294,45 @@ function cambiarCaso() {
 }
 
 
+function selectionDeuxiemeOption(waypointChoisi){
 
+	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
+
+	popup.style.display = '';
+	if (waypointChoisi == 1) {
+		opcionA.textContent = 'Option 2'; 
+		opcionB.textContent = 'Ne pas se dévier';
+		opcionC.textContent = 'Par dessus';
+	
+	} else if (waypointChoisi == 2) {
+		opcionA.textContent = 'Option 1'; 
+		opcionB.textContent = 'Ne pas se dévier';
+		opcionC.textContent = 'Par dessus';
+	} else if (waypointChoisi == 0) {
+		//console.log('Aqui contrefac');
+		opcionA.textContent = 'Option 1'; 
+		opcionB.textContent = 'Option 2';
+		opcionC.textContent = 'Par dessus';
+	} else if (waypointChoisi ==3) {
+		opcionA.textContent = 'Option 1'; 
+		opcionB.textContent = 'Option 2';
+		opcionC.textContent = 'Ne pas se dévier';
+	}
+
+	
+
+	// Detectar click en botones
+	opcionA.addEventListener('click', () => {
+  		manejarSeleccion('A',waypointChoisi); 
+	});
+
+	opcionB.addEventListener('click', () => {
+  		manejarSeleccion('B',waypointChoisi);
+	});
+	opcionC.addEventListener('click', () => {
+		manejarSeleccion('C',waypointChoisi);
+	});	
+}
 
 /*
 // Texto secciones PFD
@@ -414,6 +456,54 @@ horizontalDivisionGenerator(HDG,ctxHDG,5);
 drawWaypoints();
 
 
+
+waypt1.addEventListener('click', function () {
+	if(waypointChoisi == -1) {
+		const message = 'Voulez-vous choisir le waypoint 1?';
+		const result = confirm(message);
+	
+
+		if (result) {
+  			waypointChoisi = 1;
+  			//showButtonsContrefacutel();
+  			if (condition == 3){
+  				selectionDeuxiemeOption(1);
+  			} else if (condition != 3){
+  				waypointChoisi = -1;
+				cambiarCaso();
+				hideButtonsContrefacutel();
+				resetDropdown();
+  			}
+  			
+		} else {
+	}} else if (wasDragged == true) {
+		wasDragged = false;
+	}
+});
+
+waypt2.addEventListener('click', function () {
+	if(waypointChoisi == -1) {
+	const message = 'Voulez-vous choisir le waypoint 2?';
+	const result = confirm(message);
+
+	if (result) {
+  			waypointChoisi = 2;
+  			//showButtonsContrefacutel();
+  			if (condition == 3){
+  				selectionDeuxiemeOption(1);
+  			} else if (condition != 3){
+  				waypointChoisi = -1;
+				cambiarCaso();
+				hideButtonsContrefacutel();
+				resetDropdown();
+  			}
+	} else {
+  		
+	}
+}
+});
+
+
 // cellGenerator('data.json');
 
 /*
@@ -452,24 +542,34 @@ buttonsansChangement.addEventListener('click',function(){
 
 	if (result) {
   		waypointChoisi = 0;
-		if (condition == 3){
+		/*if (condition == 3){
 			showButtonsContrefacutel();
 		} else {
 			waypointChoisi = -1;
 			cambiarCaso();
 			hideButtonsContrefacutel();
 			resetDropdown();
-		}
+		}*/
+		selectionDeuxiemeOption(waypointChoisi);
 	} else {
   		
 	}
-}
-
-
-
-	
-	
+}	
 });
+
+buttonParDessus.addEventListener('click',function(){
+	if(waypointChoisi == -1) {
+		const message = 'Voulez vous éviter par dessus?';
+		const result = confirm(message);
+
+		if (result){
+			waypointChoisi = 3;
+			selectionDeuxiemeOption(waypointChoisi);
+		} else {
+
+		}
+	}
+})
 
 
 
@@ -773,13 +873,50 @@ function saveData2(){
 }
 
 buttonFinirExperience.addEventListener('click',saveData2);
-function manejarSeleccion(seleccion) {
+function manejarSeleccion(seleccion,waypointChoisi) {
 
-  // Aquí manejas la opción elegida
-  waypointChoisi = -1;
+if (seleccion == 'A'){
+	if (waypointChoisi == 0){
+		wayptAlternatif = 1;
+	} else if (waypointChoisi == 1) {
+		wayptAlternatif = 2;
+	} else if (waypointChoisi == 2){
+		wayptAlternatif = 1;
+	} else if (waypointChoisi == 3){
+		wayptAlternatif = 1;
+	}
+
+} else if (seleccion == 'B'){
+	if (waypointChoisi == 0){
+		wayptAlternatif = 2;
+	} else if (waypointChoisi == 1) {
+		wayptAlternatif = 0;
+	} else if (waypointChoisi == 2){
+		wayptAlternatif = 0;
+	} else if (waypointChoisi == 3){
+		wayptAlternatif = 2;
+	}
+
+} else if (seleccion == 'C'){
+	if (waypointChoisi == 0){
+		wayptAlternatif = 3;
+	} else if (waypointChoisi == 1) {
+		wayptAlternatif = 3;
+	} else if (waypointChoisi == 2){
+		wayptAlternatif = 3;
+	} else if (waypointChoisi == 3){
+		wayptAlternatif = 0;
+	}
+
+}
+
+
+
+  	/*waypointChoisi = -1;
 	cambiarCaso();
 	hideButtonsContrefacutel();
-	resetDropdown();
+	resetDropdown();*/
+	showButtonsContrefacutel();
 	// incrementalSave();
 	// saveData();
 	// saveData2();
@@ -790,9 +927,14 @@ function manejarSeleccion(seleccion) {
 
 buttonsoumettreContrefactuel.addEventListener('click', function(){
 
+	waypointChoisi = -1;
+	cambiarCaso();
+	hideButtonsContrefacutel();
+	resetDropdown();
+
 	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
 
-	popup.style.display = '';
+	/*popup.style.display = '';
 	console.log('Waypoint choisi',waypointChoisi);
 	// Asignar opciones
 	if (waypointChoisi == 1) {
@@ -827,7 +969,7 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	});
 	opcionC.addEventListener('click', () => {
 		manejarSeleccion('C');
-	});	
+	});	*/
 })
 
 /*function pushDataToSave(){
