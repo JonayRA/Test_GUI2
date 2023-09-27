@@ -111,6 +111,18 @@ var cellTempsRoute = document.getElementById("tempsRoute");
 var cellTempsWaypt1 = document.getElementById("tempsWaypt1");
 var cellTempsWaypt2 = document.getElementById("tempsWaypt2");
 var cellCombDispo = document.getElementById("combDispo");
+var cellConsomDessus = document.getElementById("consomDessus");
+var cellTempsDessus = document.getElementById("tempsDessus");
+
+const tableALTCellule = document.getElementById("tableALTCellule");
+var cellAltZoneVerte = document.getElementById("altZoneVerte");
+var cellAltZoneJaune = document.getElementById("altZoneJaune");
+var cellAltZoneRouge = document.getElementById("altZoneRouge");
+var cellAltParDessus = document.getElementById("altParDessus");
+
+const tableMouvementCellule = document.getElementById("tableMouvementCellule");
+var cellDirCellule = document.getElementById("dirCellule");
+var cellVitesseCellule = document.getElementById("vitesseCellule");
 
 const participantDB = 'participant' + numParticipant;
 let db;
@@ -197,6 +209,14 @@ cellTempsRoute.textContent = imagesData[currentImage].tempsroute;
 cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
 var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
 cellCombDispo.textContent = combDisponible;
+cellConsomDessus.textContent = imagesData[currentImage].consumptionDessus;
+cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
+cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
+cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
+cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
+cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
+cellDirCellule.textContent = imagesData[currentImage].dirCellule;
+cellVitesseCellule = imagesData[currentImage].vitesseCellule;
 
 /*tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
@@ -248,6 +268,14 @@ tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell);
 });
 
+tableALTCellule.querySelectorAll("td").forEach(cell => {
+	cell.addEventListener("click",editCell);
+});
+
+tableMouvementCellule.querySelectorAll("td").forEach(cell => {
+	cell.addEventListener("click",editCell);
+});
+
 
 
 
@@ -283,6 +311,15 @@ function cambiarCaso() {
   cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
   var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
   cellCombDispo.textContent = combDisponible;
+  cellConsomDessus.textContent = imagesData[currentImage].consumptionDessus;
+cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
+cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
+cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
+cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
+cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
+cellDirCellule.textContent = imagesData[currentImage].dirCellule;
+cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+
   resetCase(); // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
@@ -490,7 +527,7 @@ waypt2.addEventListener('click', function () {
   			waypointChoisi = 2;
   			//showButtonsContrefacutel();
   			if (condition == 3){
-  				selectionDeuxiemeOption(1);
+  				selectionDeuxiemeOption(2);
   			} else if (condition != 3){
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -532,6 +569,15 @@ buttonresetCase.addEventListener('click', () => {
 	cellTempsWaypt2.textContent = imagesData[currentImage].tempsWaypt2;
 	var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
 	cellCombDispo.textContent = combDisponible;
+	cellConsomDessus.textContent = imagesData[currentImage].consumptionDessus;
+cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
+cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
+cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
+cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
+cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
+cellDirCellule.textContent = imagesData[currentImage].dirCellule;
+cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+
 } );
 
 
@@ -640,7 +686,8 @@ canvasAvionND.addEventListener('mousedown', function (event) {
 });
 
 canvasWaypt1.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt1')){
+	//if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt1')){
+	if((waypointChoisi == 1 || wayptAlternatif == 1 ) && condition == 3 && (variableChanged == '' || variableChanged == 'waypt1')){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;
@@ -654,7 +701,8 @@ canvasWaypt1.addEventListener('mousedown', function (event) {
 });
 
 canvasWaypt2.addEventListener('mousedown', function (event) {
-	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt2')){
+	//if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'waypt2')){
+	if((waypointChoisi == 2 || wayptAlternatif == 2 ) && condition == 3 && (variableChanged == '' || variableChanged == 'waypt2')){
   if (event.button === 0) { // Botón izquierdo del ratón
     startX = event.clientX;
     startY = event.clientY;

@@ -307,6 +307,26 @@ canvas {
 	top: 25px;
 }
 
+
+#tableALTCellule{
+	border-collapse: collapse;
+	position: absolute;
+	right: 900px;
+	top: 25px;
+	border: 2px solid black;
+	width: 600px;
+}
+
+#tableMouvementCellule{
+	border-collapse: collapse;
+	position: absolute;
+	right: 1525px;
+	top: 25px;
+	border: 2px solid black;
+	width: 600px;
+}
+
+
 td {
   border: 2px dashed black;
   border-bottom: 2px dashed black;
@@ -314,10 +334,13 @@ td {
   border-right: 2px solid black;
   width: 25%;
   text-align: center;
+  width: 20%;
 }
 th {
   border: 2px solid black;
 }
+
+
 
 tr#filaCombDispo {
   /*border-top: 3px solid black;
@@ -329,7 +352,7 @@ tr#filaCombDispo {
 }
 
 .inputClass {
-	position: absolute;
+  position: absolute;
   bottom: 300px;
   right: 10px;
   width: 160px;
