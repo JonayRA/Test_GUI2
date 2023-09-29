@@ -320,8 +320,8 @@ canvas {
 #tableMouvementCellule{
 	border-collapse: collapse;
 	position: absolute;
-	right: 1525px;
-	top: 25px;
+	right: 900px;
+	top: 80px;
 	border: 2px solid black;
 	width: 600px;
 }
