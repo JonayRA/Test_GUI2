@@ -103,6 +103,7 @@ let canvasWaypt1Y = 0;
 let canvasWaypt2X = 0;
 let canvasWaypt2Y = 0;
 
+
 const tableConsomTemps = document.getElementById("tableVariables");
 var cellConsomRoute = document.getElementById("consomRoute");
 var cellConsomWaypt1 = document.getElementById("consomWaypt1");
@@ -183,8 +184,8 @@ function showButtonsContrefacutel(){
 	buttonresetCase.style.display = '';
 	buttonCambiarImagen.style.display = 'none';
 	buttonsoumettreContrefactuel.style.display = '';
-	buttonmenu.style.display = '';
-	buttontoggleButton.style.display = '';
+	buttonmenu.style.display = 'none';
+	buttontoggleButton.style.display = 'none';
 	buttonsansChangement.style.display = 'none';
 	buttonParDessus.style.display = 'none';
 }
@@ -217,6 +218,8 @@ cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
 cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+var altitude = imagesData[currentImage].altVol;
+altitudeTextGenerator(altitude)
 
 /*tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
@@ -226,11 +229,13 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
 
 	console.log('Aqui tabla');
 
+
 	const cell = e.target;
+	console.log('La celda es', cell);
 
 	const input = document.createElement("input");
 
-	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'table')){
+	if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || (variableChanged == 'table' && cell.id == celdaEditada))){
 	
 	input.value = cell.textContent;
 	var a = cell.textContent;
@@ -249,6 +254,14 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
     if(e.key === "Enter") {
       cell.textContent = input.value; 
       input.blur();
+      variableChanged = 'table';
+      celdaEditada = cell.id;
+
+      /*if(celdaEditada == 'vitesseCellule' && (celda.textContent != 0 || celda.textContent != 1 || celda.textContent != 2)){
+      	prompt
+      }*/
+
+
       return true;
       
     } else if (e.key === "Escape") {
@@ -258,7 +271,7 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
     }
 
   });
-} else if ((variableChanged != '' || variableChanged != 'table') && waypointChoisi != -1) {
+} else if ((variableChanged != '' || variableChanged != 'table' || celdaEditada != cell.id) && waypointChoisi != -1) {
 		alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
 	}
 
@@ -275,6 +288,45 @@ tableALTCellule.querySelectorAll("td").forEach(cell => {
 tableMouvementCellule.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell);
 });
+
+
+function calculadoraVariablesCS(){
+
+
+	// Distancias presentes
+
+	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent));
+	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent));
+	var distRougeDroit = Math.abs(Math.sqrt((XcenterRed - Xwaypt1)**2 + (YcenterRed - Ywaypt1)**2)-radiusRouge);
+	var distRougeGauche = Math.abs(Math.sqrt((XcenterRed - Xwaypt2)**2 + (YcenterRed - Ywaypt2)**2)-radiusRouge);
+	var distJauneDroit = Math.abs(Math.sqrt((XcenterJaune - Xwaypt1)**2 + (YcenterJaune - Ywaypt1)**2)-radiusJaune);
+	var distJauneGauche = Math.abs(Math.sqrt((XcenterJaune - Xwaypt2)**2 + (YcenterJaune - Ywaypt2)**2)-radiusJaune);
+	var distRougeRoute = Math.abs(XcenterRed - 0.5 - radiusRouge);
+	var distJauneRoute = Math.abs(XcenterYellow - 0.5 - radiusJaune);
+
+	
+	var futureXcenterRed = 0;
+	var futureXcenterYellow = 0;
+
+
+	// Distancias futuras
+	var futureDistRougeDroit = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (YcenterRed - Ywaypt1)**2)-radiusRouge);
+	var futureDistRougeGauche = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (YcenterRed - Ywaypt2)**2)-radiusRouge);
+	var futureDistJauneDroit = Math.abs(Math.sqrt((futureXcenterJaune - Xwaypt1)**2 + (YcenterJaune - Ywaypt1)**2)-radiusJaune);
+	var futureDistJauneGauche = Math.abs(Math.sqrt((futureXcenterJaune - Xwaypt2)**2 + (YcenterJaune - Ywaypt2)**2)-radiusJaune);
+	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5 - radiusRouge);
+	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5 - radiusJaune);
+
+
+	// Combustible
+	var combDisponibleCS = parseFloat(cellCombDispo.textContent);
+	var consomRouteCS = (combDisponibleCS - parseFloat(cellConsomRoute.textContent))/combDisponibleCS;
+	var consumptionWaypt1CS = (combDisponibleCS - parseFloat(cellConsomWaypt1.textContent))/combDisponibleCS;
+	var consumptionWaypt2CS = (combDisponibleCS - parseFloat(cellConsomWaypt2.textContent))/combDisponibleCS;
+	var consumptionDessusCS = (combDisponibleCS - parseFloat(cellConsomDessus.textContent))/combDisponibleCS;
+
+
+}
 
 
 
@@ -322,7 +374,23 @@ cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule = imagesData[currentImage].vitesseCellule;
 
-  resetCase(); // Esto habrá que cambiarlo por coger la posición de la info de la imagen
+var Xwaypt1 = imagesData[currentImage].waypt1X;
+var Ywaypt1 = imagesData[currentImage].waypt1Y;
+var Xwaypt2 = imagesData[currentImage].waypt2X;
+var Ywaypt2 = imagesData[currentImage].waypt2Y;
+var Xjaune = imagesData[currentImage].XcenterYellow;
+var Yjaune = imagesData[currentImage].YcenterYellow;
+var Xrouge = imagesData[currentImage].XcenterRed;
+var Yrouge = imagesData[currentImage].YcenterRed;
+var radiusRouge = imagesData[currentImage].radiusYellow;
+var radiusJaune = imagesData[currentImage].radiusRed;
+
+resetCase();
+
+var altitude = imagesData[currentImage].altVol;
+altitudeTextGenerator(altitude)
+
+   // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
   canvasAvionND.style.transform = `translate(${avionNDdifferenceX}px, ${avionNDdifferenceY}px)`;
@@ -485,7 +553,7 @@ pressureTextGenerator();
 NAVPFDtextGenerator();
 drawVSI();
 drawAltIndicatorBox();
-altitudeTextGenerator(3510);
+altitudeTextGenerator(35510);
 drawVSIindicatorBox(000);
 divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
@@ -572,6 +640,10 @@ buttonresetCase.addEventListener('click', () => {
 	var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
 	cellCombDispo.textContent = combDisponible;
 	cellConsomDessus.textContent = imagesData[currentImage].consumptionDessus;
+
+
+
+
 // cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
 // cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
 cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
@@ -580,6 +652,19 @@ cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule = imagesData[currentImage].vitesseCellule;
 
+var Xwaypt1 = imagesData[currentImage].waypt1X;
+var Ywaypt1 = imagesData[currentImage].waypt1Y;
+var Xwaypt2 = imagesData[currentImage].waypt2X;
+var Ywaypt2 = imagesData[currentImage].waypt2Y;
+var Xjaune = imagesData[currentImage].XcenterYellow;
+var Yjaune = imagesData[currentImage].YcenterYellow;
+var Xrouge = imagesData[currentImage].XcenterRed;
+var Yrouge = imagesData[currentImage].YcenterRed;
+var radiusRouge = imagesData[currentImage].radiusYellow;
+var radiusJaune = imagesData[currentImage].radiusRed;
+
+var altitude = imagesData[currentImage].altVol;
+altitudeTextGenerator(altitude)
 } );
 
 
@@ -589,6 +674,7 @@ buttonsansChangement.addEventListener('click',function(){
 	const result = confirm(message);
 
 	if (result) {
+		//calculadoraVariablesCS();
   		waypointChoisi = 0;
 		/*if (condition == 3){
 			showButtonsContrefacutel();
@@ -973,6 +1059,24 @@ if (seleccion == 'A'){
 	}
 
 }
+
+/*function calculadoraVariablesCS(){
+	// Distancias presentes
+
+	var distJauneDessus = parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent);
+	var distRougeDessus = parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent);
+	console.log('Distancias',distJauneDessus,distRougeDessus);
+	
+	
+	cellDirCellule.textContent = imagesData[currentImage].dirCellule;
+	cellVitesseCellule
+
+	// Distancias futuras
+
+	// Combustible
+
+
+}*/
 
 
 

@@ -18,6 +18,7 @@ const NAVPFDl1text = 'IMED';
 const NAVPFDl2text = '111.10';
 const NAVPFDl3text = '57NM';
 let variableChanged = '';
+let celdaEditada = '';
 
 
 const FMAfont = '50px "Andale Mono", monospace';
@@ -185,6 +186,7 @@ function NAVPFDtextGenerator(){
 
 function resetCase(){
 	variableChanged = '';
+	celdaEditada = '';
 
 	let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   	let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
@@ -340,7 +342,7 @@ altIndicator.addEventListener('click', function () {
 if(waypointChoisi != -1 && condition == 3 && (variableChanged == '' || variableChanged == 'ALT')){
 
   const inputValue = prompt('Introduce altitude value:');
-  if (inputValue <= 9990 && inputValue >= 10){
+  if (inputValue <= 99990 && inputValue >= 10){
   	const alt = Math.round(inputValue / 10) * 10;
   	processAltValue(alt);
   	variableChanged = 'ALT';
@@ -532,9 +534,9 @@ function drawWaypoints(){
     ctxWaypt1.lineTo(x1/2,y1*3/4+20);
 	ctxWaypt1.closePath();
 	ctxWaypt1.strokeStyle = 'red';
-	ctxWaypt1.lineWidth = 20;
+	ctxWaypt1.lineWidth = 10;
 	ctxWaypt1.stroke();
-	ctxWaypt1.fill();
+	//ctxWaypt1.fill();
 
 	ctxWaypt1.font = wayptFont;
 	ctxWaypt1.fontWeight = ASIfontWeight;
@@ -550,9 +552,9 @@ function drawWaypoints(){
     ctxWaypt2.lineTo(x2/2,y2*3/4+20);
 	ctxWaypt2.closePath();
 	ctxWaypt2.strokeStyle = 'red';
-	ctxWaypt2.lineWidth = 20;
+	ctxWaypt2.lineWidth = 10;
 	ctxWaypt2.stroke();
-	ctxWaypt2.fill();
+	//ctxWaypt2.fill();
 
 	ctxWaypt2.font = wayptFont;
 	ctxWaypt2.fontWeight = ASIfontWeight;
