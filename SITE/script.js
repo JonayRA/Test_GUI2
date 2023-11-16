@@ -295,8 +295,8 @@ function calculadoraVariablesCS(){
 
 	// Distancias presentes
 
-	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent));
-	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent));
+	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
+	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
 	var distRougeDroit = Math.abs(Math.sqrt((XcenterRed - Xwaypt1)**2 + (YcenterRed - Ywaypt1)**2)-radiusRouge);
 	var distRougeGauche = Math.abs(Math.sqrt((XcenterRed - Xwaypt2)**2 + (YcenterRed - Ywaypt2)**2)-radiusRouge);
 	var distJauneDroit = Math.abs(Math.sqrt((XcenterJaune - Xwaypt1)**2 + (YcenterJaune - Ywaypt1)**2)-radiusJaune);
