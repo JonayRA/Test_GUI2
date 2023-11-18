@@ -184,7 +184,12 @@ function NAVPFDtextGenerator(){
 	ctxNAVPFD.fillText(NAVPFDl3text,x,y);
 }
 
-function resetCase(){
+function resetCase2(){
+	variableChanged = '';
+	celdaEditada = '';
+}
+
+function resetCase(canvasWaypt1PositionTop,canvasWaypt1PositionLeft,canvasWaypt2PositionTop,canvasWaypt2PositionLeft){
 	variableChanged = '';
 	celdaEditada = '';
 
@@ -289,7 +294,7 @@ function VSItextGenerator(vertSpeed){
 }
 
 
-function altitudeTextGenerator(altitude){
+function altitudeTextGenerator(altitude,color){
 	ctxAltIndicator.clearRect(0, 0, altIndicator.width, altIndicator.height);
 	drawAltIndicatorBox();
 	var altitudeInt = Math.floor(altitude/100);
@@ -317,14 +322,14 @@ function altitudeTextGenerator(altitude){
 	var textWidth = ctxAltIndicator.measureText(altitudeIntString).width;
 	var x = ALT.width/2 - textWidth/1.8;
 	var y = altIndicator.height*3/5 + 5;
-	ctxAltIndicator.fillStyle = 'lime';
+	ctxAltIndicator.fillStyle = color; //lime
 	ctxAltIndicator.fillText(altitudeIntString,x,y);
 	// Tenths
 	ctxAltIndicator.font =altIndicatorTenthsFont;
 	var textWidth = ctxAltIndicator.measureText(altitudeTenthsString).width;
 	var x = altIndicator.width*2/3;
 	var y = altIndicator.height*3/5 + 5;
-	ctxAltIndicator.fillStyle = 'lime';
+	ctxAltIndicator.fillStyle = color; //lime
 	ctxAltIndicator.fillText(altitudeTenthsString,x,y-5);
 	ctxAltIndicator.fillText(altitudeTenthsStringl1,x,y-50);
 	ctxAltIndicator.fillText(altitudeTenthsStringl3,x,y+40);
@@ -522,7 +527,7 @@ function generateWaypoint(x,y) {
 	ctxND.fill();
 }
 
-function drawWaypoints(){
+function drawWaypoints(colorWp1,colorWp2){
 	x1 = waypt1.width;
 	y1 = waypt1.height;
 	x2 = waypt2.width;
@@ -533,7 +538,7 @@ function drawWaypoints(){
     ctxWaypt1.lineTo(x1*3/4+10,y1/2);
     ctxWaypt1.lineTo(x1/2,y1*3/4+20);
 	ctxWaypt1.closePath();
-	ctxWaypt1.strokeStyle = 'red';
+	ctxWaypt1.strokeStyle = colorWp1;
 	ctxWaypt1.lineWidth = 10;
 	ctxWaypt1.stroke();
 	//ctxWaypt1.fill();
@@ -541,7 +546,7 @@ function drawWaypoints(){
 	ctxWaypt1.font = wayptFont;
 	ctxWaypt1.fontWeight = ASIfontWeight;
 	var waypt1Tag = '1';
-	ctxWaypt1.fillStyle = 'red';
+	ctxWaypt1.fillStyle = colorWp1;
 	ctxWaypt1.fillText(waypt1Tag,x1/2-20,y1*3/4 - 35);
 
 
@@ -551,7 +556,7 @@ function drawWaypoints(){
     ctxWaypt2.lineTo(x2*3/4+10,y2/2);
     ctxWaypt2.lineTo(x2/2,y2*3/4+20);
 	ctxWaypt2.closePath();
-	ctxWaypt2.strokeStyle = 'red';
+	ctxWaypt2.strokeStyle = colorWp2;
 	ctxWaypt2.lineWidth = 10;
 	ctxWaypt2.stroke();
 	//ctxWaypt2.fill();
@@ -559,7 +564,7 @@ function drawWaypoints(){
 	ctxWaypt2.font = wayptFont;
 	ctxWaypt2.fontWeight = ASIfontWeight;
 	var waypt2Tag = '2';
-	ctxWaypt2.fillStyle = 'red';
+	ctxWaypt2.fillStyle = colorWp2;
 	ctxWaypt2.fillText(waypt2Tag,x1/2-20,y1*3/4 - 35);
 }
 

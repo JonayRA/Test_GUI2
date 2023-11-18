@@ -46,6 +46,12 @@ const buttonFinirExperience = document.getElementById('finirExperience');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
 const buttonParDessus = document.getElementById("eviterDessus");
+let menuOpcionesMovCel = document.getElementById("botonesTablaMovCel");
+let botonOpcion1 = document.getElementById("opcion1");
+let botonOpcion2 = document.getElementById("opcion2");
+let botonOpcion3 = document.getElementById("opcion3");
+let botonAnnuler = document.getElementById("annuler");
+menuOpcionesMovCel.style.display = 'none';
 const dataToSave = [];
 var dataToSaveJSON = [];
 
@@ -80,14 +86,15 @@ const avionNDinitialPositionTop = canvasAvionND.offsetTop;
 const avionNDinitialPositionLeft = canvasAvionND.offsetLeft;
 
 
+
 const canvasWaypt1initialPosition = canvasWaypt1.getBoundingClientRect();
-const canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
-const canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
+let canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
+let canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
 
 
 const canvasWaypt2initialPosition = canvasWaypt2.getBoundingClientRect();
-const canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
-const canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
+let canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
+let canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
 
 
 let isDragging = false;
@@ -135,6 +142,8 @@ const popup = document.getElementById('popup');
 const opcionA = document.getElementById('opcionA');
 const opcionB = document.getElementById('opcionB');
 const opcionC = document.getElementById('opcionC');
+const bouttonMontrerSituation = document.getElementById("montrerSituation");
+const bouttonRetournerDeuxiemeOption = document.getElementById("retourDeuxiemeOption");
 var wayptAlternatif = -1;
 popup.style.display = 'none';
 
@@ -158,6 +167,12 @@ dbRequest.onerror = event => {
 
 
 
+
+
+
+
+
+
 // Definición de funciones
 
 function hideButtonsContrefacutel(){
@@ -171,6 +186,7 @@ function hideButtonsContrefacutel(){
 	textInputVar.value = null;
 	buttonFinirExperience.style.display = 'none';
 	buttonParDessus.style.display = '';
+	bouttonRetournerDeuxiemeOption.style.display = 'none';
 
 }
 
@@ -188,6 +204,11 @@ function showButtonsContrefacutel(){
 	buttontoggleButton.style.display = 'none';
 	buttonsansChangement.style.display = 'none';
 	buttonParDessus.style.display = 'none';
+	bouttonRetournerDeuxiemeOption.style.display = 'none';
+	var celdas = document.querySelectorAll('#tableMouvementCellule' + ' .celda');
+  	celdas.forEach(function(celda) {
+    celda.style.backgroundColor = 'green';
+  	});
 }
 
 
@@ -219,7 +240,9 @@ cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule = imagesData[currentImage].vitesseCellule;
 var altitude = imagesData[currentImage].altVol;
-altitudeTextGenerator(altitude)
+altitudeTextGenerator(altitude, 'lime')
+
+
 
 /*tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
@@ -277,6 +300,60 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
 
 }
 
+
+function botonClicado(opcion,cell) {
+        // Asignar el texto del botón seleccionado a la variable
+        cell.textContent = opcion;
+        // Puedes hacer más acciones aquí según la opción seleccionada
+
+        // Cerrar el modal después de seleccionar una opción
+        menuOpcionesMovCel.style.display = 'none';
+        variableChanged = 'table';
+        celdaEditada = cell.id;
+}
+
+
+function editCellMouvement(e) {
+    const cell = e.target;
+
+    const select = document.createElement("select");
+    console.log(typeof cell.id);
+    if (waypointChoisi !== -1 && condition == 3 && (variableChanged == '' || (variableChanged == 'table' && cell.id == celdaEditada))) {
+        // Agrega opciones al elemento select
+        if (cell.id == 'dirCellule'){
+        	var opciones = ["Sans mouvement", "Droite", "Gauche"];
+        } else if (cell.id == 'vitesseCellule'){
+        	var opciones = ["Sans mouvement", "Lente", "Rapide"];
+        }
+
+        botonOpcion1.textContent = opciones[0];
+        botonOpcion2.textContent = opciones[1];
+        botonOpcion3.textContent = opciones[2];
+
+        menuOpcionesMovCel.style.display = 'block';
+
+        
+
+    	// Asignar eventos de clic a cada botón con la respectiva opción
+    	botonOpcion1.onclick = function() { botonClicado(opciones[0],cell); };
+    	botonOpcion2.onclick = function() { botonClicado(opciones[1],cell); };
+    	botonOpcion3.onclick = function() { botonClicado(opciones[2],cell); };
+    	botonAnnuler.onclick = function() { menuOpcionesMovCel.style.display = 'none'; };
+
+
+    } else if ((variableChanged !== '' || variableChanged !== 'table' || celdaEditada !== cell.id) && waypointChoisi !== -1) {
+        alert("Vous avez déjà modifié un facteur, veuillez réinitialiser le cas pour pouvoir modifier un autre facteur.");
+    }
+}
+
+
+
+
+
+
+
+
+
 tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell);
 });
@@ -286,7 +363,7 @@ tableALTCellule.querySelectorAll("td").forEach(cell => {
 });
 
 tableMouvementCellule.querySelectorAll("td").forEach(cell => {
-	cell.addEventListener("click",editCell);
+	cell.addEventListener("click",editCellMouvement);
 });
 
 
@@ -374,6 +451,8 @@ cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule = imagesData[currentImage].vitesseCellule;
 
+
+
 var Xwaypt1 = imagesData[currentImage].waypt1X;
 var Ywaypt1 = imagesData[currentImage].waypt1Y;
 var Xwaypt2 = imagesData[currentImage].waypt2X;
@@ -385,10 +464,33 @@ var Yrouge = imagesData[currentImage].YcenterRed;
 var radiusRouge = imagesData[currentImage].radiusYellow;
 var radiusJaune = imagesData[currentImage].radiusRed;
 
-resetCase();
+var XposWapt1 = Xwaypt1 * NDcontainerWidth;
+var YposWapt1 = Ywaypt1 * NDcontainerHeight;
+
+canvasWaypt1.style.top = YposWapt1 + 'px';
+canvasWaypt1.style.left = XposWapt1 + 'px';
+
+var XposWapt2 = Xwaypt2 * NDcontainerWidth;
+var YposWapt2 = Ywaypt2 * NDcontainerHeight;
+
+canvasWaypt2.style.top = YposWapt2 + 'px';
+canvasWaypt2.style.left = XposWapt2 + 'px';
+
+canvasWaypt1PositionTop = canvasWaypt1.style.top;
+canvasWaypt1PositionLeft = canvasWaypt1.style.left
+canvasWaypt2PositionTop = canvasWaypt2.style.top;
+canvasWaypt2PositionLeft = canvasWaypt2.style.left
+
+drawWaypoints('red','red');
+
+resetCase2();
+
+
+
+//resetCase();
 
 var altitude = imagesData[currentImage].altVol;
-altitudeTextGenerator(altitude)
+altitudeTextGenerator(altitude, 'lime')
 
    // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
@@ -438,8 +540,22 @@ function selectionDeuxiemeOption(waypointChoisi){
 	});
 	opcionC.addEventListener('click', () => {
 		manejarSeleccion('C',waypointChoisi);
-	});	
+	});
+	bouttonMontrerSituation.addEventListener('click',()=>{
+		popup.style.display = 'none';
+		bouttonRetournerDeuxiemeOption.style.display = 'block';
+		buttonParDessus.style.display = 'none';
+		buttonsansChangement.style.display = 'none';
+	});
 }
+
+bouttonRetournerDeuxiemeOption.addEventListener('click', ()=>{
+	bouttonRetournerDeuxiemeOption.style.display = 'none';
+	popup.style.display = '';
+	buttonParDessus.style.display = 'block';
+	buttonsansChangement.style.display = 'block';
+
+});
 
 /*
 // Texto secciones PFD
@@ -553,14 +669,14 @@ pressureTextGenerator();
 NAVPFDtextGenerator();
 drawVSI();
 drawAltIndicatorBox();
-altitudeTextGenerator(35510);
+altitudeTextGenerator(35510, 'lime');
 drawVSIindicatorBox(000);
 divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
 ASItextGenerator(200);
 horizontalDivisionGenerator(HDG,ctxHDG,5);
 //generateWaypoint(0.5,0.5);
-drawWaypoints();
+drawWaypoints('red','red');
 
 
 
@@ -630,7 +746,11 @@ ctxAvionND.stroke(); */
 
 buttonCambiarImagen.addEventListener('click', cambiarImagen);
 buttonresetCase.addEventListener('click', () => {
-	resetCase();
+	canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
+	canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
+	canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
+	canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
+	resetCase(canvasWaypt1PositionTop,canvasWaypt1PositionLeft,canvasWaypt2PositionTop,canvasWaypt2PositionLeft);
 	cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
 	cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
 	cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
@@ -664,7 +784,7 @@ var radiusRouge = imagesData[currentImage].radiusYellow;
 var radiusJaune = imagesData[currentImage].radiusRed;
 
 var altitude = imagesData[currentImage].altVol;
-altitudeTextGenerator(altitude)
+altitudeTextGenerator(altitude, 'lime')
 } );
 
 
@@ -1028,34 +1148,98 @@ function manejarSeleccion(seleccion,waypointChoisi) {
 if (seleccion == 'A'){
 	if (waypointChoisi == 0){
 		wayptAlternatif = 1;
+		drawWaypoints('green','red');
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 1) {
 		wayptAlternatif = 2;
+		drawWaypoints('green','green')
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsWaypt2.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 2){
 		wayptAlternatif = 1;
+		drawWaypoints('green','green')
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsWaypt2.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 3){
 		wayptAlternatif = 1;
+		drawWaypoints('green','red')
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsDessus.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	}
 
 } else if (seleccion == 'B'){
 	if (waypointChoisi == 0){
 		wayptAlternatif = 2;
+		drawWaypoints('red','green')
+		// cellTempsWaypt2.style.backgroundColor = 'green';
+		// cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 1) {
 		wayptAlternatif = 0;
+		drawWaypoints('green','red')
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 2){
 		wayptAlternatif = 0;
+		drawWaypoints('red','green')
+		cellTempsWaypt2.style.backgroundColor = 'green';
+		cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 3){
 		wayptAlternatif = 2;
+		drawWaypoints('red','green')
+		// cellTempsWaypt2.style.backgroundColor = 'green';
+		// cellTempsDessus.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	}
 
 } else if (seleccion == 'C'){
 	if (waypointChoisi == 0){
 		wayptAlternatif = 3;
+		// cellTempsDessus.style.backgroundColor = 'green';
+		// cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 1) {
 		wayptAlternatif = 3;
+		drawWaypoints('green','red')
+		// cellTempsWaypt1.style.backgroundColor = 'green';
+		// cellTempsDessus.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellConsomWaypt1.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 2){
 		wayptAlternatif = 3;
+		drawWaypoints('red','green')
+		// cellTempsWaypt2.style.backgroundColor = 'green';
+		// cellTempsDessus.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellConsomWaypt2.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 3){
 		wayptAlternatif = 0;
+		// cellTempsDessus.style.backgroundColor = 'green';
+		// cellTempsRoute.style.backgroundColor = 'green';
+		cellConsomRoute.style.backgroundColor = 'green';
+		cellConsomDessus.style.backgroundColor = 'green';
+		cellAltParDessus.style.backgroundColor = 'green';
 	}
 
 }
@@ -1084,6 +1268,10 @@ if (seleccion == 'A'){
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();*/
+	altitudeTextGenerator(altitude,'green');
+	cellCombDispo.style.backgroundColor = 'green';
+	cellAltZoneJaune.style.backgroundColor = 'green';
+	cellAltZoneRouge.style.backgroundColor = 'green';
 	showButtonsContrefacutel();
 	// incrementalSave();
 	// saveData();
@@ -1095,6 +1283,11 @@ if (seleccion == 'A'){
 
 buttonsoumettreContrefactuel.addEventListener('click', function(){
 
+	var celdas = document.querySelectorAll('.celda');
+	celdas.forEach(function(tabla) {
+    tabla.style.backgroundColor = 'hsl(0, 0%, 90%)';
+    console.log('Color cambiado');
+  	});
 	waypointChoisi = -1;
 	cambiarCaso();
 	hideButtonsContrefacutel();
