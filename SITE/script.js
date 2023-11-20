@@ -348,72 +348,7 @@ function editCellMouvement(e) {
 
 
 
-async function getRecommendationCS(featuresInput){
 
-	let myheaders = new Headers();
-
-  // headers.set('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
-  myheaders.append('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
-  myheaders.append('x-requested-with', 'XMLHttpRequest');
-  myheaders.append('Content-Type', 'application/json');
-  myheaders.append('origin', 'https://cognitiveshadow.com');
-  myheaders.append('accept', 'application/json');
-
-
-let requestBody = {
-  //decisions: {
-  //  "Waypoint": waypointDecided
-  //},
-  learning: true,
-  predictionMode: "ACTIVE",
-  features : featuresInput
-  /*features: {
-  "Consommation dessus": 0.8328,
-  "Consommation droite": 0.0324,
-  "Consommation gauche": 0.4075,
-  "Consommation route": 0.7881,
-  "Dist jaune-dessus": 0.325,
-  "Dist jaune-droite": 0.8012,
-  "Dist jaune-gauche": 0.4344,
-  "Dist jaune-route": 0.225,
-  "Dist rouge-dessus": 0.9416,
-  "Dist rouge-droite": 0.1627,
-  "Dist rouge-gauche": 0.8773,
-  "Dist rouge-route": 0.1617,
-  "Future dist jaune-droite": 0.9107,
-  "Future dist jaune-gauche": 0.5691,
-  "Future dist jaune-route": 0.6687,
-  "Future dist rouge-droite": 0.9201,
-  "Future dist rouge-gauche": 0.9377,
-  "Future dist rouge-route": 0.7518
-  }*/
-};
-
-participant = 221;
-
-url3 = 'https://cognitiveshadow.com/api/problems/190/users/' + participant.toString() + '/recommend';
-
-
-var requestOptions = {
-  method: 'POST',
-  headers: myheaders,
-  body: JSON.stringify(requestBody)
-  // mode: 'cors',
-  // credentials: 'include',
-};
-
-return await fetch(url3, requestOptions)
-  .then(response => response.json())
-  .then(data => {
-    // Manipular la respuesta del servidor
-    console.log(data);
-    let a = data.predictions[0];
-    console.log("a", a);
-    return a;
-    
-  })
-
-}
 
 
 
@@ -434,7 +369,7 @@ tableMouvementCellule.querySelectorAll("td").forEach(cell => {
 
 function calculadoraVariablesCS(){
 
-	
+	/*
 	// Distancias presentes
 
 	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
@@ -467,7 +402,7 @@ function calculadoraVariablesCS(){
 	var consumptionWaypt2CS = (combDisponibleCS - parseFloat(cellConsomWaypt2.textContent))/combDisponibleCS;
 	var consumptionDessusCS = (combDisponibleCS - parseFloat(cellConsomDessus.textContent))/combDisponibleCS;
 
-	
+	*/
 
 	let feautresRequest
 	return feautresRequest =  {features: {
