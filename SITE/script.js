@@ -54,7 +54,7 @@ let botonAnnuler = document.getElementById("annuler");
 menuOpcionesMovCel.style.display = 'none';
 const dataToSave = [];
 var dataToSaveJSON = [];
-
+let recomendacionCS;
 let currentImage = 0;
 const imagenes = [
 "IMAGENES/ND_radar.png",
@@ -348,7 +348,72 @@ function editCellMouvement(e) {
 
 
 
+async function getRecommendationCS(featuresInput){
 
+	let myheaders = new Headers();
+
+  // headers.set('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
+  myheaders.append('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
+  myheaders.append('x-requested-with', 'XMLHttpRequest');
+  myheaders.append('Content-Type', 'application/json');
+  myheaders.append('origin', 'https://cognitiveshadow.com');
+  myheaders.append('accept', 'application/json');
+
+
+let requestBody = {
+  //decisions: {
+  //  "Waypoint": waypointDecided
+  //},
+  learning: true,
+  predictionMode: "ACTIVE",
+  features : featuresInput
+  /*features: {
+  "Consommation dessus": 0.8328,
+  "Consommation droite": 0.0324,
+  "Consommation gauche": 0.4075,
+  "Consommation route": 0.7881,
+  "Dist jaune-dessus": 0.325,
+  "Dist jaune-droite": 0.8012,
+  "Dist jaune-gauche": 0.4344,
+  "Dist jaune-route": 0.225,
+  "Dist rouge-dessus": 0.9416,
+  "Dist rouge-droite": 0.1627,
+  "Dist rouge-gauche": 0.8773,
+  "Dist rouge-route": 0.1617,
+  "Future dist jaune-droite": 0.9107,
+  "Future dist jaune-gauche": 0.5691,
+  "Future dist jaune-route": 0.6687,
+  "Future dist rouge-droite": 0.9201,
+  "Future dist rouge-gauche": 0.9377,
+  "Future dist rouge-route": 0.7518
+  }*/
+};
+
+participant = 221;
+
+url3 = 'https://cognitiveshadow.com/api/problems/190/users/' + participant.toString() + '/recommend';
+
+
+var requestOptions = {
+  method: 'POST',
+  headers: myheaders,
+  body: JSON.stringify(requestBody)
+  // mode: 'cors',
+  // credentials: 'include',
+};
+
+return await fetch(url3, requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    // Manipular la respuesta del servidor
+    console.log(data);
+    let a = data.predictions[0];
+    console.log("a", a);
+    return a;
+    
+  })
+
+}
 
 
 
@@ -369,15 +434,15 @@ tableMouvementCellule.querySelectorAll("td").forEach(cell => {
 
 function calculadoraVariablesCS(){
 
-
+	
 	// Distancias presentes
 
 	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
 	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
-	var distRougeDroit = Math.abs(Math.sqrt((XcenterRed - Xwaypt1)**2 + (YcenterRed - Ywaypt1)**2)-radiusRouge);
-	var distRougeGauche = Math.abs(Math.sqrt((XcenterRed - Xwaypt2)**2 + (YcenterRed - Ywaypt2)**2)-radiusRouge);
-	var distJauneDroit = Math.abs(Math.sqrt((XcenterJaune - Xwaypt1)**2 + (YcenterJaune - Ywaypt1)**2)-radiusJaune);
-	var distJauneGauche = Math.abs(Math.sqrt((XcenterJaune - Xwaypt2)**2 + (YcenterJaune - Ywaypt2)**2)-radiusJaune);
+	var distRougeDroit = Math.abs(Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
+	var distRougeGauche = Math.abs(Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
+	var distJauneDroit = Math.abs(Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
+	var distJauneGauche = Math.abs(Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
 	var distRougeRoute = Math.abs(XcenterRed - 0.5 - radiusRouge);
 	var distJauneRoute = Math.abs(XcenterYellow - 0.5 - radiusJaune);
 
@@ -401,6 +466,33 @@ function calculadoraVariablesCS(){
 	var consumptionWaypt1CS = (combDisponibleCS - parseFloat(cellConsomWaypt1.textContent))/combDisponibleCS;
 	var consumptionWaypt2CS = (combDisponibleCS - parseFloat(cellConsomWaypt2.textContent))/combDisponibleCS;
 	var consumptionDessusCS = (combDisponibleCS - parseFloat(cellConsomDessus.textContent))/combDisponibleCS;
+
+	
+
+	let feautresRequest
+	return feautresRequest =  {features: {
+  	"Consommation dessus": 0.8328,
+  	"Consommation droite": 0.0324,
+  	"Consommation gauche": 0.4075,
+  	"Consommation route": 0.7881,
+  	"Dist jaune-dessus": 0.325,
+  	"Dist jaune-droite": 0.8012,
+  	"Dist jaune-gauche": 0.4344,
+  	"Dist jaune-route": 0.225,
+  	"Dist rouge-dessus": 0.9416,
+  	"Dist rouge-droite": 0.1627,
+  	"Dist rouge-gauche": 0.8773,
+  	"Dist rouge-route": 0.1617,
+  	"Future dist jaune-droite": 0.9107,
+  	"Future dist jaune-gauche": 0.5691,
+  	"Future dist jaune-route": 0.6687,
+  	"Future dist rouge-droite": 0.9201,
+  	"Future dist rouge-gauche": 0.9377,
+  	"Future dist rouge-route": 0.7518
+  }};
+
+
+
 
 
 }
@@ -680,17 +772,58 @@ drawWaypoints('red','red');
 
 
 
-waypt1.addEventListener('click', function () {
+waypt1.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
 		const message = 'Voulez-vous choisir le waypoint 1?';
 		const result = confirm(message);
-	
 
 		if (result) {
   			waypointChoisi = 1;
+
+  			if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+  			let feautresCalculadas = calculadoraVariablesCS();
+
+  			console.log('Feautres', feautresCalculadas.features);
+
+  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			let recommendation;
+
+  			//console.log(promesaCS);
+
+  			/*promesaCS.then((data) => {
+  				console.log(data);
+       			recomendacionCS = data;
+       			// console.log('data', data, data.predictions, typeof data.predictions)
+    		})*/
+			
+			console.log(recomendacionCS, typeof recomendacionCS)
+		
+			/*if (recomendacionCS == 1){
+    			recommendation = 'l\'option 1';
+    		} else*/
+    		if (recomendacionCS != waypointChoisi){
+    		if (recomendacionCS == 2){
+    			recommendation = 'l\'option 2';
+    		} else if (recomendacionCS == 3) {
+    			recommendation = 'par dessus'
+    		} else if (recomendacionCS == 0) {
+    			recommendation = 'ne pas se dévier'
+    		}
+
+
+    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		
+    		if (aceptarSuggestion){
+    			
+    			waypointChoisi = recomendacionCS;
+    		} else {
+    		}}
   			//showButtonsContrefacutel();
+  			}
+
   			if (condition == 3){
-  				selectionDeuxiemeOption(1);
+  				selectionDeuxiemeOption(waypointChoisi);
   			} else if (condition != 3){
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -704,7 +837,7 @@ waypt1.addEventListener('click', function () {
 	}
 });
 
-waypt2.addEventListener('click', function () {
+waypt2.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
 	const message = 'Voulez-vous choisir le waypoint 2?';
 	const result = confirm(message);
@@ -712,8 +845,45 @@ waypt2.addEventListener('click', function () {
 	if (result) {
   			waypointChoisi = 2;
   			//showButtonsContrefacutel();
+  			
+  			if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+  			let feautresCalculadas = calculadoraVariablesCS();
+
+  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			let recommendation;
+
+  			//console.log(promesaCS);
+
+  			/*promesaCS.then((data) => {
+  				console.log(data);
+       			recomendacionCS = data;
+       			// console.log('data', data, data.predictions, typeof data.predictions)
+    		})*/
+			
+		
+			if (recomendacionCS == 1){
+    			recommendation = 'l\'option 1';
+    		/*} else if (recomendacionCS == 2){
+    			recommendation = 'l\'option 2';*/
+    		} else if (recomendacionCS == 3) {
+    			recommendation = 'par dessus'
+    		} else if (recomendacionCS == 0) {
+    			recommendation = 'ne pas se dévier'
+    		}
+
+
+    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		if (aceptarSuggestion){
+    			console.log('Aqui', waypointChoisi)
+    			waypointChoisi = recomendacionCS;
+    		} else {
+    		}}
+
+    		console.log(recomendacionCS, waypointChoisi);
+
   			if (condition == 3){
-  				selectionDeuxiemeOption(2);
+  				selectionDeuxiemeOption(waypointChoisi);
   			} else if (condition != 3){
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -788,7 +958,7 @@ altitudeTextGenerator(altitude, 'lime')
 } );
 
 
-buttonsansChangement.addEventListener('click',function(){
+buttonsansChangement.addEventListener('click', async function(){
 	if(waypointChoisi == -1) {
 	const message = 'Voulez-vous rester sur la route?';
 	const result = confirm(message);
@@ -804,8 +974,49 @@ buttonsansChangement.addEventListener('click',function(){
 			hideButtonsContrefacutel();
 			resetDropdown();
 		}*/
-		if (condition == 3){
-		selectionDeuxiemeOption(waypointChoisi);
+		
+
+		if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+			let feautresCalculadas = calculadoraVariablesCS();
+
+  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			let recommendation;
+
+  			//console.log(promesaCS);
+
+  			/*promesaCS.then((data) => {
+  				console.log(data);
+       			recomendacionCS = data;
+       			// console.log('data', data, data.predictions, typeof data.predictions)
+    		})*/
+			
+			console.log(recomendacionCS, typeof recomendacionCS)
+		
+			if (recomendacionCS == 1){
+    			recommendation = 'l\'option 1';
+    		} else if (recomendacionCS == 2){
+    			recommendation = 'l\'option 2';
+    		} else if (recomendacionCS == 3) {
+    			recommendation = 'par dessus'
+    		}/* else if (recomendacionCS == 0) {
+    			recommendation = 'ne pas se dévier'
+    		}*/
+
+
+    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		if (aceptarSuggestion){
+    			
+    			waypointChoisi = recomendacionCS;
+    		} else {
+    		}}
+
+
+
+
+
+			if (condition == 3){
+				selectionDeuxiemeOption(waypointChoisi);
 	}else if (condition != 3){
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -818,13 +1029,58 @@ buttonsansChangement.addEventListener('click',function(){
 }	
 });
 
-buttonParDessus.addEventListener('click',function(){
+buttonParDessus.addEventListener('click', async function(){
 	if(waypointChoisi == -1) {
 		const message = 'Voulez vous éviter par dessus?';
 		const result = confirm(message);
 
 		if (result){
 			waypointChoisi = 3;
+
+
+			if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+			let feautresCalculadas = calculadoraVariablesCS();
+  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			let recommendation;
+
+  			//console.log(promesaCS);
+
+  			/*promesaCS.then((data) => {
+  				console.log(data);
+       			recomendacionCS = data;
+       			// console.log('data', data, data.predictions, typeof data.predictions)
+    		})*/
+			
+			console.log(recomendacionCS, typeof recomendacionCS)
+		
+			if (recomendacionCS == 1){
+    			recommendation = 'l\'option 1';
+    		} else if (recomendacionCS == 2){
+    			recommendation = 'l\'option 2';
+    		/*} else if (recomendacionCS == 3) {
+    			recommendation = 'par dessus'*/
+    		} else if (recomendacionCS == 0) {
+    			recommendation = 'ne pas se dévier'
+    		}
+
+
+    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		if (aceptarSuggestion){
+    			
+    			waypointChoisi = recomendacionCS;
+    		} else {
+    		}}
+
+
+
+
+
+
+
+
+
+
 			if (condition == 3){
 			selectionDeuxiemeOption(waypointChoisi);
 		}else if (condition != 3){
@@ -1343,6 +1599,65 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
 	})
 	console.log(dataToSave);
 }*/
+
+/*
+function sendCaseToCS(waypointDecided, participant){
+	let myheaders = new Headers();
+
+	// headers.set('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
+	myheaders.append('Authorization', 'Basic ' + btoa(usuario + ":" + contraseña));
+	myheaders.append('x-requested-with', 'XMLHttpRequest');
+	myheaders.append('Content-Type', 'application/json');
+	myheaders.append('origin', 'https://cognitiveshadow.com');
+	myheaders.append('accept', 'application/json');
+
+
+let requestBody = {
+  decisions: {
+    "Waypoint": waypointDecided
+  },
+  learning: true,
+  predictionMode: "ACTIVE",
+  features: {
+  "Consommation dessus": 0.8328,
+  "Consommation droite": 0.0324,
+  "Consommation gauche": 0.4075,
+  "Consommation route": 0.7881,
+  "Dist jaune-dessus": ,
+  "Dist jaune-droite": 0.8012,
+  "Dist jaune-gauche": 0.4344,
+  "Dist jaune-route": 0.225,
+  "Dist rouge-dessus": 0.9416,
+  "Dist rouge-droite": 0.1627,
+  "Dist rouge-gauche": 0.8773,
+  "Dist rouge-route": 0.1617,
+  "Future dist jaune-droite": 0.9107,
+  "Future dist jaune-gauche": 0.5691,
+  "Future dist jaune-route": 0.6687,
+  "Future dist rouge-droite": 0.9201,
+  "Future dist rouge-gauche": 0.9377,
+  "Future dist rouge-route": 0.7518
+  }
+};
+
+participant = 222;
+
+url3 = 'https://cognitiveshadow.com/api/problems/192/users/' + participant.toString() + '/capture';
+
+
+var requestOptions = {
+  method: 'POST',
+  headers: myheaders,
+  body: JSON.stringify(requestBody)
+  // mode: 'cors',
+  // credentials: 'include',
+};
+
+fetch(url3, requestOptions)
+
+}*/
+
+
 
 
 
