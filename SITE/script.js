@@ -241,6 +241,16 @@ cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 var altitude = imagesData[currentImage].altVol;
 altitudeTextGenerator(altitude, 'lime')
+var Xwaypt1 = imagesData[currentImage].waypt1X;
+var Ywaypt1 = imagesData[currentImage].waypt1Y;
+var Xwaypt2 = imagesData[currentImage].waypt2X;
+var Ywaypt2 = imagesData[currentImage].waypt2Y;
+var Xjaune = imagesData[currentImage].XcenterYellow;
+var Yjaune = imagesData[currentImage].YcenterYellow;
+var Xrouge = imagesData[currentImage].XcenterRed;
+var Yrouge = imagesData[currentImage].YcenterRed;
+var radiusRouge = imagesData[currentImage].radiusYellow;
+var radiusJaune = imagesData[currentImage].radiusRed;
 
 
 
@@ -367,70 +377,7 @@ tableMouvementCellule.querySelectorAll("td").forEach(cell => {
 });
 
 
-function calculadoraVariablesCS(){
 
-	/*
-	// Distancias presentes
-
-	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
-	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
-	var distRougeDroit = Math.abs(Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
-	var distRougeGauche = Math.abs(Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
-	var distJauneDroit = Math.abs(Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
-	var distJauneGauche = Math.abs(Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
-	var distRougeRoute = Math.abs(XcenterRed - 0.5 - radiusRouge);
-	var distJauneRoute = Math.abs(XcenterYellow - 0.5 - radiusJaune);
-
-	
-	var futureXcenterRed = 0;
-	var futureXcenterYellow = 0;
-
-
-	// Distancias futuras
-	var futureDistRougeDroit = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (YcenterRed - Ywaypt1)**2)-radiusRouge);
-	var futureDistRougeGauche = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (YcenterRed - Ywaypt2)**2)-radiusRouge);
-	var futureDistJauneDroit = Math.abs(Math.sqrt((futureXcenterJaune - Xwaypt1)**2 + (YcenterJaune - Ywaypt1)**2)-radiusJaune);
-	var futureDistJauneGauche = Math.abs(Math.sqrt((futureXcenterJaune - Xwaypt2)**2 + (YcenterJaune - Ywaypt2)**2)-radiusJaune);
-	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5 - radiusRouge);
-	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5 - radiusJaune);
-
-
-	// Combustible
-	var combDisponibleCS = parseFloat(cellCombDispo.textContent);
-	var consomRouteCS = (combDisponibleCS - parseFloat(cellConsomRoute.textContent))/combDisponibleCS;
-	var consumptionWaypt1CS = (combDisponibleCS - parseFloat(cellConsomWaypt1.textContent))/combDisponibleCS;
-	var consumptionWaypt2CS = (combDisponibleCS - parseFloat(cellConsomWaypt2.textContent))/combDisponibleCS;
-	var consumptionDessusCS = (combDisponibleCS - parseFloat(cellConsomDessus.textContent))/combDisponibleCS;
-
-	*/
-
-	let feautresRequest
-	return feautresRequest =  {features: {
-  	"Consommation dessus": 0.8328,
-  	"Consommation droite": 0.0324,
-  	"Consommation gauche": 0.4075,
-  	"Consommation route": 0.7881,
-  	"Dist jaune-dessus": 0.325,
-  	"Dist jaune-droite": 0.8012,
-  	"Dist jaune-gauche": 0.4344,
-  	"Dist jaune-route": 0.225,
-  	"Dist rouge-dessus": 0.9416,
-  	"Dist rouge-droite": 0.1627,
-  	"Dist rouge-gauche": 0.8773,
-  	"Dist rouge-route": 0.1617,
-  	"Future dist jaune-droite": 0.9107,
-  	"Future dist jaune-gauche": 0.5691,
-  	"Future dist jaune-route": 0.6687,
-  	"Future dist rouge-droite": 0.9201,
-  	"Future dist rouge-gauche": 0.9377,
-  	"Future dist rouge-route": 0.7518
-  }};
-
-
-
-
-
-}
 
 
 
@@ -528,6 +475,75 @@ altitudeTextGenerator(altitude, 'lime')
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;*/
 }
+
+
+function calculadoraVariablesCS(){
+
+	
+	// Distancias presentes
+
+	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
+	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
+	var distRougeDroit = Math.abs(Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
+	var distRougeGauche = Math.abs(Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
+	var distJauneDroit = Math.abs(Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
+	var distJauneGauche = Math.abs(Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
+	var distRougeRoute = Math.abs(Xrouge - 0.5 - radiusRouge);
+	var distJauneRoute = Math.abs(Xjaune - 0.5 - radiusJaune);
+
+	
+	var futureXcenterRed = 0;
+	var futureXcenterYellow = 0;
+
+
+	// Distancias futuras
+	var futureDistRougeDroit = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
+	var futureDistRougeGauche = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
+	var futureDistJauneDroit = Math.abs(Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
+	var futureDistJauneGauche = Math.abs(Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
+	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5 - radiusRouge);
+	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5 - radiusJaune);
+
+
+	// Combustible
+	var combDisponibleCS = parseFloat(cellCombDispo.textContent);
+	var consomRouteCS = Math.abs((combDisponibleCS - parseFloat(cellConsomRoute.textContent)))/combDisponibleCS;
+	var consumptionWaypt1CS = Math.abs((combDisponibleCS - parseFloat(cellConsomWaypt1.textContent)))/combDisponibleCS;
+	var consumptionWaypt2CS = Math.abs((combDisponibleCS - parseFloat(cellConsomWaypt2.textContent)))/combDisponibleCS;
+	var consumptionDessusCS = Math.abs((combDisponibleCS - parseFloat(cellConsomDessus.textContent)))/combDisponibleCS;
+
+	
+
+	let feautresRequest
+	return feautresRequest =  {features: {
+  	"Consommation dessus": consumptionDessusCS,
+  	"Consommation droite": consumptionWaypt2CS,
+  	"Consommation gauche": consumptionWaypt1CS,
+  	"Consommation route": consomRouteCS,
+  	"Dist jaune-dessus": distRougeDessus,
+  	"Dist jaune-droite": distJauneDroit,
+  	"Dist jaune-gauche": distJauneGauche,
+  	"Dist jaune-route": distJauneRoute,
+  	"Dist rouge-dessus": distRougeDessus,
+  	"Dist rouge-droite": distRougeDroit,
+  	"Dist rouge-gauche": distRougeGauche,
+  	"Dist rouge-route": distRougeRoute,
+  	"Future dist jaune-droite": futureDistJauneDroit,
+  	"Future dist jaune-gauche": futureDistJauneGauche,
+  	"Future dist jaune-route": futureDistRougeRoute,
+  	"Future dist rouge-droite": futureDistJauneDroit,
+  	"Future dist rouge-gauche": futureDistRougeGauche,
+  	"Future dist rouge-route": futureDistRougeRoute
+  }};
+
+  
+
+
+}
+
+
+
+
 
 
 function selectionDeuxiemeOption(waypointChoisi){
@@ -719,6 +735,8 @@ waypt1.addEventListener('click', async function () {
 
   			let feautresCalculadas = calculadoraVariablesCS();
 
+  			console.log('features Request', feautresCalculadas);
+
   			console.log('Feautres', feautresCalculadas.features);
 
   			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
@@ -747,7 +765,7 @@ waypt1.addEventListener('click', async function () {
     		}
 
 
-    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		
     		if (aceptarSuggestion){
     			
@@ -808,7 +826,7 @@ waypt2.addEventListener('click', async function () {
     		}
 
 
-    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		if (aceptarSuggestion){
     			console.log('Aqui', waypointChoisi)
     			waypointChoisi = recomendacionCS;
@@ -939,7 +957,7 @@ buttonsansChangement.addEventListener('click', async function(){
     		}*/
 
 
-    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		if (aceptarSuggestion){
     			
     			waypointChoisi = recomendacionCS;
@@ -1000,7 +1018,7 @@ buttonParDessus.addEventListener('click', async function(){
     		}
 
 
-    		var aceptarSuggestion = confirm("Le système suggère " + recommendation);
+    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		if (aceptarSuggestion){
     			
     			waypointChoisi = recomendacionCS;
@@ -1386,8 +1404,8 @@ if (seleccion == 'A'){
 	} else if (waypointChoisi == 2){
 		wayptAlternatif = 0;
 		drawWaypoints('red','green')
-		cellTempsWaypt2.style.backgroundColor = 'green';
-		cellTempsRoute.style.backgroundColor = 'green';
+		//cellTempsWaypt2.style.backgroundColor = 'green';
+		//cellTempsRoute.style.backgroundColor = 'green';
 		cellConsomRoute.style.backgroundColor = 'green';
 		cellConsomWaypt2.style.backgroundColor = 'green';
 	} else if (waypointChoisi == 3){
