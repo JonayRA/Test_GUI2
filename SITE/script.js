@@ -238,7 +238,7 @@ cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
 cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
 cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
-cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 var altitude = imagesData[currentImage].altVol;
 altitudeTextGenerator(altitude, 'lime')
 
@@ -449,7 +449,7 @@ cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
 cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
 cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
-cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 
 
 
@@ -770,7 +770,7 @@ cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
 cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
 cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
 cellDirCellule.textContent = imagesData[currentImage].dirCellule;
-cellVitesseCellule = imagesData[currentImage].vitesseCellule;
+cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 
 var Xwaypt1 = imagesData[currentImage].waypt1X;
 var Ywaypt1 = imagesData[currentImage].waypt1Y;
