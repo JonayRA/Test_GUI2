@@ -817,9 +817,9 @@ waypt1.addEventListener('click', async function () {
   				await sendTrainingCase(220, feautresCalculadas.features, waypointChoisi);
     		}
 
-  			if (condition == 3){
+  			if (condition == 3 && session == 1){
   				selectionDeuxiemeOption(waypointChoisi);
-  			} else if (condition != 3){
+  			} else if (condition != 3 || (condition == 3 && session != 1)){
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -881,9 +881,9 @@ waypt2.addEventListener('click', async function () {
     		}
 
 
-  			if (condition == 3){
+  			if (condition == 3 && session == 1){
   				selectionDeuxiemeOption(waypointChoisi);
-  			} else if (condition != 3){
+  			} else if (condition != 3 || (condition == 3 && session != 1)){
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1019,9 +1019,9 @@ buttonsansChangement.addEventListener('click', async function(){
 
 
 
-			if (condition == 3){
+			if (condition == 3 && session == 1){
 				selectionDeuxiemeOption(waypointChoisi);
-	}else if (condition != 3){
+	}else if (condition != 3 || (condition == 3 && session != 1)){
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1090,9 +1090,9 @@ buttonParDessus.addEventListener('click', async function(){
 
 
 
-			if (condition == 3){
+			if (condition == 3 && session ==1){
 			selectionDeuxiemeOption(waypointChoisi);
-		}else if (condition != 3){
+		}else if (condition != 3 || (condition == 3 && session != 1)){
 				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
