@@ -773,7 +773,12 @@ waypt1.addEventListener('click', async function () {
     		} else {
     		}}
   			//showButtonsContrefacutel();
-  			}
+  			}else if((condition == 2 || condition == 3) && (session == 1)){
+
+    			let feautresCalculadas = calculadoraVariablesCS();
+
+  				await sendTrainingCase(220, feautresCalculadas.features, waypointChoisi);
+    		}
 
   			if (condition == 3){
   				selectionDeuxiemeOption(waypointChoisi);
@@ -831,9 +836,13 @@ waypt2.addEventListener('click', async function () {
     			console.log('Aqui', waypointChoisi)
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}}
+    		}} else if((condition == 2 || condition == 3) && (session == 1)){
 
-    		console.log(recomendacionCS, waypointChoisi);
+    			let feautresCalculadas = calculadoraVariablesCS();
+
+  				await sendTrainingCase(220, feautresCalculadas.features, waypointChoisi);
+    		}
+
 
   			if (condition == 3){
   				selectionDeuxiemeOption(waypointChoisi);
@@ -962,7 +971,12 @@ buttonsansChangement.addEventListener('click', async function(){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}}
+    		}} else if((condition == 2 || condition == 3) && (session == 1)){
+
+    			let feautresCalculadas = calculadoraVariablesCS();
+
+  				await sendTrainingCase(220, feautresCalculadas.features, waypointChoisi);
+    		}
 
 
 
@@ -1023,7 +1037,12 @@ buttonParDessus.addEventListener('click', async function(){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}}
+    		}}else if((condition == 2 || condition == 3) && (session == 1)){
+
+    			let feautresCalculadas = calculadoraVariablesCS();
+
+  				await sendTrainingCase(220, feautresCalculadas.features, waypointChoisi);
+    		}
 
 
 
