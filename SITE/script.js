@@ -192,6 +192,7 @@ function hideButtonsContrefacutel(){
 
 
 let waypointChoisi = -1;
+let waypointAlternatif;
 if (waypointChoisi == -1 || condition != 3){
 	hideButtonsContrefacutel();
 }
@@ -417,47 +418,50 @@ function cambiarCaso() {
   var combDisponible = imagesData[currentImage].consumptionRoute * 1.20;
   cellCombDispo.textContent = combDisponible;
   cellConsomDessus.textContent = imagesData[currentImage].consumptionDessus;
-// cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
-// cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
-cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
-cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
-cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
-cellDirCellule.textContent = imagesData[currentImage].dirCellule;
-cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
+	// cellTempsDessus.textContent = imagesData[currentImage].tempsDessus;
+	// cellAltZoneVerte.textContent = imagesData[currentImage].altZoneVerte;
+	cellAltZoneJaune.textContent = imagesData[currentImage].altZoneJaune;
+	cellAltZoneRouge.textContent = imagesData[currentImage].altZoneRouge;
+	cellAltParDessus.textContent = imagesData[currentImage].altParDessus;
+	cellDirCellule.textContent = imagesData[currentImage].dirCellule;
+	cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 
 
 
-var Xwaypt1 = imagesData[currentImage].waypt1X;
-var Ywaypt1 = imagesData[currentImage].waypt1Y;
-var Xwaypt2 = imagesData[currentImage].waypt2X;
-var Ywaypt2 = imagesData[currentImage].waypt2Y;
-var Xjaune = imagesData[currentImage].XcenterYellow;
-var Yjaune = imagesData[currentImage].YcenterYellow;
-var Xrouge = imagesData[currentImage].XcenterRed;
-var Yrouge = imagesData[currentImage].YcenterRed;
-var radiusRouge = imagesData[currentImage].radiusYellow;
-var radiusJaune = imagesData[currentImage].radiusRed;
+	var Xwaypt1 = imagesData[currentImage].waypt1X;
+	var Ywaypt1 = imagesData[currentImage].waypt1Y;
+	var Xwaypt2 = imagesData[currentImage].waypt2X;
+	var Ywaypt2 = imagesData[currentImage].waypt2Y;
+	var Xjaune = imagesData[currentImage].XcenterYellow;
+	var Yjaune = imagesData[currentImage].YcenterYellow;
+	var Xrouge = imagesData[currentImage].XcenterRed;
+	var Yrouge = imagesData[currentImage].YcenterRed;
+	var radiusRouge = imagesData[currentImage].radiusYellow;
+	var radiusJaune = imagesData[currentImage].radiusRed;
 
-var XposWapt1 = Xwaypt1 * NDcontainerWidth;
-var YposWapt1 = Ywaypt1 * NDcontainerHeight;
+	var XposWapt1 = Xwaypt1 * NDcontainerWidth;
+	var YposWapt1 = (1-Ywaypt1) * NDcontainerHeight;
 
-canvasWaypt1.style.top = YposWapt1 + 'px';
-canvasWaypt1.style.left = XposWapt1 + 'px';
+	console.log('Xpos1',Xwaypt1);
+	console.log('Ypos1',Ywaypt1)
 
-var XposWapt2 = Xwaypt2 * NDcontainerWidth;
-var YposWapt2 = Ywaypt2 * NDcontainerHeight;
+	canvasWaypt1.style.top = YposWapt1 + 'px';
+	canvasWaypt1.style.left = XposWapt1 + 'px';
 
-canvasWaypt2.style.top = YposWapt2 + 'px';
-canvasWaypt2.style.left = XposWapt2 + 'px';
+	var XposWapt2 = Xwaypt2 * NDcontainerWidth;
+	var YposWapt2 = (1-Ywaypt2) * NDcontainerHeight;
 
-canvasWaypt1PositionTop = canvasWaypt1.style.top;
-canvasWaypt1PositionLeft = canvasWaypt1.style.left
-canvasWaypt2PositionTop = canvasWaypt2.style.top;
-canvasWaypt2PositionLeft = canvasWaypt2.style.left
+	canvasWaypt2.style.top = YposWapt2 + 'px';
+	canvasWaypt2.style.left = XposWapt2 + 'px';
 
-drawWaypoints('red','red');
+	canvasWaypt1PositionTop = canvasWaypt1.style.top;
+	canvasWaypt1PositionLeft = canvasWaypt1.style.left
+	canvasWaypt2PositionTop = canvasWaypt2.style.top;
+	canvasWaypt2PositionLeft = canvasWaypt2.style.left
 
-resetCase2();
+	drawWaypoints('red','red');
+
+	resetCase2();
 
 
 
@@ -575,14 +579,47 @@ function selectionDeuxiemeOption(waypointChoisi){
 
 	// Detectar click en botones
 	opcionA.addEventListener('click', () => {
-  		manejarSeleccion('A',waypointChoisi); 
+  		manejarSeleccion('A',waypointChoisi);
+  		if (waypointChoisi == 1){
+  			waypointAlternatif = 2;
+  		} else if (waypointChoisi == 2) {
+  			waypointAlternatif = 1;
+  		} else if (waypointChoisi == 0) {
+  			waypointAlternatif =1;
+  		} else if (waypointChoisi ==3) {
+  			waypointAlternatif = 1;
+  		}
+
 	});
 
 	opcionB.addEventListener('click', () => {
   		manejarSeleccion('B',waypointChoisi);
+
+  		if (waypointChoisi == 1){
+  			waypointAlternatif = 0;
+  		} else if (waypointChoisi == 2) {
+  			waypointAlternatif = 0;
+  		} else if (waypointChoisi == 0) {
+  			waypointAlternatif = 2;
+  		} else if (waypointChoisi ==3) {
+  			waypointAlternatif = 2;
+  		}
+
 	});
 	opcionC.addEventListener('click', () => {
 		manejarSeleccion('C',waypointChoisi);
+
+		if (waypointChoisi == 1){
+  			waypointAlternatif = 3;
+  		} else if (waypointChoisi == 2) {
+  			waypointAlternatif = 3;
+  		} else if (waypointChoisi == 0) {
+  			waypointAlternatif = 3;
+  		} else if (waypointChoisi ==3) {
+  			waypointAlternatif = 0;
+  		}
+
+
 	});
 	bouttonMontrerSituation.addEventListener('click',()=>{
 		popup.style.display = 'none';
@@ -1212,6 +1249,7 @@ document.addEventListener('mousemove', function (event) {
     // Actualizar la posición del canvas en el DOM
     canvasWaypt1.style.transform = `translate(${canvasWaypt1X}px, ${canvasWaypt1Y}px)`;
 
+
     startX = event.clientX;
     // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
     startY = event.clientY;
@@ -1509,7 +1547,11 @@ if (seleccion == 'A'){
   
 }
 
-buttonsoumettreContrefactuel.addEventListener('click', function(){
+buttonsoumettreContrefactuel.addEventListener('click', async function(){
+
+	let feautresCalculadas = calculadoraVariablesCS();
+
+  	await sendTrainingCase(220, feautresCalculadas.features, wayptAlternatif);
 
 	var celdas = document.querySelectorAll('.celda');
 	celdas.forEach(function(tabla) {
@@ -1517,6 +1559,10 @@ buttonsoumettreContrefactuel.addEventListener('click', function(){
     console.log('Color cambiado');
   	});
 	waypointChoisi = -1;
+	if (typeof newCanvasX !== 'undefined'){
+		delete newCanvasX;
+		delete newCanvasY;
+	}
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
