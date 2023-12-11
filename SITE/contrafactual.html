@@ -45,6 +45,29 @@
  	</div>
 
 	</div>
+
+	<div id="QUASA" class="popup">
+
+  	<h2 id="QUASAstatementPlaceholder"> QUASA statement goes here </h2>
+
+  	<div>
+  		<p>  		</p>
+  	<button id="Vrai" style="margin-right: 10px; font-size: 16px;">Vrai</button>
+ 	<button id="Faux" style="margin-right: 10px;font-size: 16px;">Fraux</button>
+
+ 	</div>
+
+ 	<div id="contenedorNivelConfianza">
+    <label for="nivelConfiance">Confiance:</label>
+    <input type="range" id="nivConfiance" name="nivelConfiance" min="1" max="5" step="1" value="3">
+    
+    <output for="nivelConfianza" id="valorNivelConfiance">Neutral</output>
+    <p> </p>
+ 	</div>
+
+ 	<button id="acceptQUASA" style="margin-top: 25px; font-size: 16px;">Accepter</button>
+
+	</div>
 	
 	<div class="dropdown">
   <button id="toggleButton">
@@ -98,6 +121,17 @@
         <button id="annuler">Annuler</button>
     </div>
 	</div>
+
+
+	<div id="matrizCorrelacion" class="popup">
+		
+		<iframe src="tablaCorrelacion.html" width="2000" height="850"></iframe>
+
+
+	
+	</div>
+
+
 
 	<script src="user.js"></script>
 	<script src="images.js"></script>

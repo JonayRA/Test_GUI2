@@ -30,7 +30,7 @@ const altIndicatorTenthsFont = '50px "Andale Mono", monospace';
 const VSIfont = '72px "Andale Mono", monospace';
 const ASIfont = '90px "Andale Mono", monospace';
 const ASIfontWeight = 200;
-const wayptFont = '80px "Andale Mono", monospace';;
+const wayptFont = '80px "Andale Mono", monospace';
 
 
 
@@ -46,6 +46,22 @@ const t5 = 'AH';
 //const t6 = 'ALT';
 
 var a = -1;
+
+const QUASApopup = document.getElementById('QUASA');
+var QUASAstatementPlaceholder = document.getElementById('QUASAstatementPlaceholder');
+
+  var etiquetasNiveles = ["Très faible", "Faible", "Neutral", "Élevé", "Très élevé"];
+
+  // Event listener para el cambio en el slider
+  document.getElementById('nivConfiance').addEventListener('input', function() {
+    var valorNivelConfianza = document.getElementById('nivConfiance').value;
+    var etiquetaNivelConfianza = etiquetasNiveles[valorNivelConfianza - 1];
+    document.getElementById('valorNivelConfiance').textContent = etiquetaNivelConfianza;
+  });
+
+function changeQUASAstatement(frase) {
+    QUASAstatementPlaceholder.textContent = frase;
+}
 
 
 
@@ -570,3 +586,38 @@ function drawWaypoints(colorWp1,colorWp2){
 
 
 
+/*function editCellMatrizCorrelacion(e){//, waypointChoisi, condition, variableChanged){
+
+
+	const cell = e.target;
+	const input = document.createElement("input");
+	
+	input.value = cell.textContent;
+	var a = cell.textContent;
+
+	cell.textContent = '';
+	cell.appendChild(input);
+
+	input.focus();
+
+	input.addEventListener("blur", () => {
+		cell.textContent = input.value;
+		return true;
+	});
+
+	input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") {
+      cell.textContent = input.value; 
+      input.blur();
+
+
+      return true;
+      
+    } else if (e.key === "Escape") {
+    	input.blur();
+    	cell.textContent = a;
+    	return false;
+    }
+
+  });
+}*/

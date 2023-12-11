@@ -308,6 +308,10 @@ canvas {
   color: white;
 }
 
+#matrizCorrelacion {
+    display: flex;
+    justify-content: center;
+}
 
 #tableVariables{
 	border-collapse: collapse;
@@ -334,6 +338,10 @@ canvas {
 	border: 2px solid black;
 	width: 600px;
 }
+
+
+
+
 
 
 td {
@@ -418,6 +426,58 @@ tr#filaCombDispo {
 	left: -200px;
 	font-size: 16px;
 }
+
+#QUASA{
+	display: flex;
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    align-items: center; 
+}
+
+#Vrai {
+	position: relative;
+	/*top: 50px;
+	left: -350px;*/
+	font-size: 16px;
+}
+#Faux {
+	position: relative;
+	/*top: 50px;
+	left: -300px;*/
+	font-size: 16px;
+}
+
+label[for="nivelConfiance"] {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#nivelConfiance {
+	font-size: 16px;
+	font-weight: 700;
+	margin-top: 50px;
+}
+
+#nivConfiance {
+	margin-top: 50px;
+	font-size: 16px;
+}
+ #contenedorNivelConfianza {
+    width: 400px; /* Puedes ajustar este valor según tus necesidades */
+    margin-left: 120px;
+  }
+
+/*#valorNivelConfianza {
+	position: relative;
+	top: 80px;
+	left: -300px;
+	font-size: 16px;
+}*/
+
+.seleccionado {
+    background-color: #333; /* Cambiar a gris oscuro o el color deseado */
+	color: white;
+}
+
 
 .modal {
     display: none;

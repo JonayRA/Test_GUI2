@@ -6,6 +6,9 @@ const condition = urlParams.get("condition");
 const session = urlParams.get("session");
 console.log(numParticipant,condition);
 
+const QUASApositions = [1, 2, 8, 9];
+
+
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
 let FMA1 = document.getElementById('FMA1');
@@ -51,6 +54,9 @@ let botonOpcion1 = document.getElementById("opcion1");
 let botonOpcion2 = document.getElementById("opcion2");
 let botonOpcion3 = document.getElementById("opcion3");
 let botonAnnuler = document.getElementById("annuler");
+var botonVrai = document.getElementById('Vrai');
+var botonFaux = document.getElementById('Faux');
+var botonAcceptQUASA = document.getElementById('acceptQUASA');
 menuOpcionesMovCel.style.display = 'none';
 const dataToSave = [];
 var dataToSaveJSON = [];
@@ -144,8 +150,13 @@ const opcionB = document.getElementById('opcionB');
 const opcionC = document.getElementById('opcionC');
 const bouttonMontrerSituation = document.getElementById("montrerSituation");
 const bouttonRetournerDeuxiemeOption = document.getElementById("retourDeuxiemeOption");
+const popupMatrizCorrelacion = document.getElementById('matrizCorrelacion');
+/*const tablaMatrizCorrelacion = document.getElementById('tablaMatrizCorrelacion');
+const botonAcceptMatrizCorrelacion = document.getElementById('acceptMatrizCorrelacion');*/
 var wayptAlternatif = -1;
 popup.style.display = 'none';
+QUASA.style.display = 'none';
+popupMatrizCorrelacion.style.display = 'none';
 
 dbRequest.onupgradeneeded = event => {
 
@@ -405,6 +416,45 @@ function cambiarImagen() {
 }
 
 function cambiarCaso() {
+
+	if(QUASApositions.includes(currentImage)){
+
+		var indiceAleatorio = Math.floor(Math.random() * QUASAstatements.length);
+
+		changeQUASAstatement(QUASAstatements[indiceAleatorio].statement);
+
+
+  		QUASA.style.display = '';
+  		botonVrai.addEventListener('click', function() {
+	    botonVrai.classList.add('seleccionado');
+   		botonFaux.classList.remove('seleccionado');
+  		});
+
+  		botonFaux.addEventListener('click', function() {
+	    botonFaux.classList.add('seleccionado');
+    	botonVrai.classList.remove('seleccionado');
+  		});
+
+  		botonAcceptQUASA.addEventListener('click', function() {
+  			var a = botonVrai.classList.contains('seleccionado');
+  			var b = botonFaux.classList.contains('seleccionado');
+  			console.log('Valores lógicos',a,b);
+  		if ( a || b){
+  			QUASA.style.display = 'none';
+  			console.log('Valores lógicos if',a,b);
+  			return;
+
+  		} else {
+  			alert('Svp veuillez indiquer si l\'affirmation est vraie ou fausse.');
+  		}
+  		
+  		});
+  		botonFaux.classList.remove('seleccionado');
+  		botonVrai.classList.remove('seleccionado');
+
+
+	}
+
   currentImage = (currentImage + 1) % imagesData.length;
 
   // imgND.src = imagenes[currentImage];
@@ -1408,7 +1458,28 @@ function saveData2(){
 	a.remove();
 }
 
-buttonFinirExperience.addEventListener('click',saveData2);
+buttonFinirExperience.addEventListener('click', function(){
+
+	popupMatrizCorrelacion.style.display = '';
+});
+
+
+/*tablaMatrizCorrelacion.querySelectorAll("td").forEach(cell => {
+	cell.addEventListener("click",editCellMatrizCorrelacion);
+});*/
+
+// botonAcceptMatrizCorrelacion.addEventListener('click', saveData2)
+
+
+
+
+
+
+
+
+
+
+
 function manejarSeleccion(seleccion,waypointChoisi) {
 
 if (seleccion == 'A'){
@@ -1544,6 +1615,7 @@ if (seleccion == 'A'){
 	// saveData2();
   
   popup.style.display = 'none'; // Ocultar
+
   
 }
 
