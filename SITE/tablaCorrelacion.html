@@ -336,6 +336,10 @@ td:hover::after,
     tablaMatrizCorrelacion.querySelectorAll("td").forEach(cell => {
     cell.addEventListener("click",editCellMatrizCorrelacion);
     });
+
+    document.getElementById('acceptMatrizCorrelacion').addEventListener('click', function() {
+            parent.postMessage('AcceptedMatrix', '*');
+    });
 </script>
 
 

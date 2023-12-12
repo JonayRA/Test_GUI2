@@ -151,12 +151,18 @@ const opcionC = document.getElementById('opcionC');
 const bouttonMontrerSituation = document.getElementById("montrerSituation");
 const bouttonRetournerDeuxiemeOption = document.getElementById("retourDeuxiemeOption");
 const popupMatrizCorrelacion = document.getElementById('matrizCorrelacion');
+const popupNASATLX = document.getElementById('NASATLX');
+const popupTrustInAuto1 = document.getElementById('trustInAuto1');
+const popupTrustInAuto2 = document.getElementById('trustInAuto2');
 /*const tablaMatrizCorrelacion = document.getElementById('tablaMatrizCorrelacion');
 const botonAcceptMatrizCorrelacion = document.getElementById('acceptMatrizCorrelacion');*/
 var wayptAlternatif = -1;
 popup.style.display = 'none';
 QUASA.style.display = 'none';
-popupMatrizCorrelacion.style.display = 'none';
+popupMatrizCorrelacion.style.display = '';
+popupNASATLX.style.display = 'none';
+popupTrustInAuto1.style.display = 'none';
+popupTrustInAuto2.style.display = 'none';
 
 dbRequest.onupgradeneeded = event => {
 
@@ -1678,6 +1684,44 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 		manejarSeleccion('C');
 	});	*/
 })
+
+window.addEventListener('message', function(event) {
+            // Verificar la fuente del mensaje para mayor seguridad
+            if (event.source === document.getElementById('iframeCorrelacion').contentWindow) {
+                // Verificar el contenido del mensaje
+                if (event.data === 'AcceptedMatrix') {
+                    // Realizar la acción en la página principal
+                    popupMatrizCorrelacion.style.display = 'none';
+                    popupNASATLX.style.display = '';
+                } 
+               }
+
+    		if (event.source === document.getElementById('iframeNASATLX').contentWindow) {
+                // Verificar el contenido del mensaje
+                if (event.data === 'Accepted NASA-TLX') {
+                	popupNASATLX.style.display = 'none';
+                	popupTrustInAuto1.style.display = '';
+                }
+                
+            }
+
+            if (event.source === document.getElementById('iframeTrustInAuto1').contentWindow) {
+                // Verificar el contenido del mensaje
+                if (event.data === 'Accepted TrustInAuto1') {
+                	popupTrustInAuto1.style.display = 'none';
+                	popupTrustInAuto2.style.display = '';
+                }
+                
+            }
+            if (event.source === document.getElementById('iframeTrustInAuto2').contentWindow) {
+                // Verificar el contenido del mensaje
+                if (event.data === 'Accepted TrustInAuto2') {
+                	popupTrustInAuto2.style.display = 'none';
+                }
+                
+            }
+            
+});
 
 /*function pushDataToSave(){
 	let timestamp = Date.now();

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de 18x7</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 75%;
+        }
+
+        th,td{
+            padding: 8px;
+            text-align: center;
+            height: 20px;
+        }
+
+        td.seleccionable {
+            border: 1px solid black;
+            border-top: 0px;
+            padding: 8px;
+            text-align: center;
+            height: 20px;
+        }
+
+        td.sin-bordes {
+            height: 40px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .seleccionable {
+            
+            cursor: pointer; /* Agrega un cursor de puntero al pasar el ratón */
+        }
+
+        
+
+    </style>
+</head>
+<body id = "cuerpo">
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="7">Note pour les 5 prochaines questions : 1 = totalement en désaccord (confiance maximale) et 7 = totalement en accord (confiance minimale)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Fila 1 -->
+            <tr>
+            <td colspan = '7'>
+                Le système d’aide à la décision est trompeur
+            </td>
+            </tr>
+            <tr>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+            </tr>
+
+            <!-- Fila 3 -->
+            <tr>
+                <td class="sin-bordes">1</td>
+                <td class="sin-bordes">2</td>
+                <td class="sin-bordes">3</td>
+                <td class="sin-bordes">4</td>
+                <td class="sin-bordes">5</td>
+                <td class="sin-bordes">6</td>
+                <td class="sin-bordes">7</td>
+            </tr>
+            <tr>
+            <td colspan = '7'>
+                Le système d’aide à la décision se comporte de manière sournoise
+            </td>
+            </tr>
+            <tr>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+            </tr>
+
+            <!-- Fila 3 -->
+            <tr>
+                <td class="sin-bordes">1</td>
+                <td class="sin-bordes">2</td>
+                <td class="sin-bordes">3</td>
+                <td class="sin-bordes">4</td>
+                <td class="sin-bordes">5</td>
+                <td class="sin-bordes">6</td>
+                <td class="sin-bordes">7</td>
+            </tr>
+            <tr>
+            <td colspan = '7'>
+                Je me méfie de l’intention, des actions et des résultats du système d’aide à la décision
+            </td>
+            </tr>
+            <tr>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+            </tr>
+
+            <!-- Fila 3 -->
+            <tr>
+                <td class="sin-bordes">1</td>
+                <td class="sin-bordes">2</td>
+                <td class="sin-bordes">3</td>
+                <td class="sin-bordes">4</td>
+                <td class="sin-bordes">5</td>
+                <td class="sin-bordes">6</td>
+                <td class="sin-bordes">7</td>
+            </tr>
+            <tr>
+            <td colspan = '7'>
+                Je reste prudent(e) vis-à-vis le système d’aide à la décision
+            </td>
+            </tr>
+            <tr>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+            </tr>
+
+            <!-- Fila 3 -->
+            <tr>
+                <td class="sin-bordes">1</td>
+                <td class="sin-bordes">2</td>
+                <td class="sin-bordes">3</td>
+                <td class="sin-bordes">4</td>
+                <td class="sin-bordes">5</td>
+                <td class="sin-bordes">6</td>
+                <td class="sin-bordes">7</td>
+            </tr>
+            <tr>
+            <td colspan = '7'>
+                Les actions du système d’aide à la décision auront un résultat nuisible ou dommageable
+            </td>
+            </tr>
+            <tr>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+                <td class="seleccionable"></td>
+            </tr>
+
+            <!-- Fila 3 -->
+            <tr>
+                <td class="sin-bordes">1</td>
+                <td class="sin-bordes">2</td>
+                <td class="sin-bordes">3</td>
+                <td class="sin-bordes">4</td>
+                <td class="sin-bordes">5</td>
+                <td class="sin-bordes">6</td>
+                <td class="sin-bordes">7</td>
+            </tr>
+            
+            <!-- Repite el patrón para las filas restantes -->
+        </tbody>
+    </table>
+
+    <button id="acceptTrustInAuto2" style="margin-bottom: 25px; font-size: 16px;">Accepter</button>
+
+    <script>
+                const celdasSeleccionables = document.querySelectorAll('.seleccionable');
+
+        celdasSeleccionables.forEach(celda => {
+            celda.addEventListener('click', () => {
+                celda.classList.toggle('seleccionada'); // Añade o quita la clase 'seleccionada'
+                celda.innerHTML = celda.classList.contains('seleccionada') ? 'X' : ''; // Coloca 'X' si está seleccionada, de lo contrario, vacía
+            });
+        });
+
+        botonAcceptTrustInAuto1 = document.getElementById('acceptTrustInAuto2').addEventListener('click', function() {
+            parent.postMessage('Accepted TrustInAuto2', '*');
+        });
+    </script>
+
+</body>
+</html>
