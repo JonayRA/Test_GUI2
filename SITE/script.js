@@ -6,7 +6,7 @@ const condition = urlParams.get("condition");
 const session = urlParams.get("session");
 console.log(numParticipant,condition);
 
-const QUASApositions = [1, 2, 8, 9];
+const QUASApositions = [4, 5, 8, 9];
 
 
 let PFD = document.getElementById('PFD');
@@ -818,7 +818,7 @@ drawWaypoints('red','red');
 
 waypt1.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
-		const message = 'Voulez-vous choisir le waypoint 1?';
+		const message = 'Voulez-vous choisir l\'option 1?';
 		const result = confirm(message);
 
 		if (result) {
@@ -890,7 +890,7 @@ waypt1.addEventListener('click', async function () {
 
 waypt2.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
-	const message = 'Voulez-vous choisir le waypoint 2?';
+	const message = 'Voulez-vous choisir l\'option 2?';
 	const result = confirm(message);
 
 	if (result) {
