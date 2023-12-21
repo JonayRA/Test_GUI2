@@ -28,7 +28,7 @@
   cursor: pointer
 }
 
-.selected {
+.seleccionada {
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   font-weight: bold
@@ -132,7 +132,7 @@
 <button id="down" class="boton" onclick="upNdown('down');">&ShortDownArrow;</button>
 <br>
 <br>
-<button id="acceptMatrizCorrelacion" style="margin-left: 715px; font-size: 16px;">Accepter</button>
+<button id="acceptTableOrdres" style="margin-left: 715px; font-size: 16px;">Accepter</button>
 
 
     </main>
@@ -141,18 +141,25 @@
       "use strict";
 const tbody = document.querySelector("#table tbody");
 let selected = null;
+let seleccionada = null;
 tbody.addEventListener("click", function(e){
   let row = e.target.closest("tr");
+  let celda = e.target.closest("td");
   if( row === selected) {
     row.classList.toggle("selected")
     selected = null;
+    celda.classList.toggle("seleccionada");
+    seleccionada = null;
   }
   else {
     if(selected) {
       selected.classList.toggle("selected");
+      celda.classList.toggle("seleccionada");
     }
     selected = row;
     row.classList.toggle("selected");
+    seleccionada = celda;
+    celda.classList.toggle("seleccionada");
   }
 });
 
@@ -169,6 +176,9 @@ function upNdown( direction) {
     }
   }
 }
+document.getElementById('acceptTableOrdres').addEventListener('click', function() {
+            parent.postMessage('AcceptedMatrix', '*');
+    });
     </script>
   </body>
 
