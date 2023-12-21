@@ -186,13 +186,31 @@
 
         celdasSeleccionables.forEach(celda => {
             celda.addEventListener('click', () => {
+
+                const fila = celda.parentElement;
+                const celdasEnFila = fila.querySelectorAll('.seleccionable');
+
+                celdasEnFila.forEach(otraCelda => {
+                if (otraCelda !== celda) {
+                    otraCelda.classList.remove('seleccionada');
+                    otraCelda.innerHTML = ''; // Vacía el contenido de las otras celdas
+                }
+                });
+
+
                 celda.classList.toggle('seleccionada'); // Añade o quita la clase 'seleccionada'
                 celda.innerHTML = celda.classList.contains('seleccionada') ? 'X' : ''; // Coloca 'X' si está seleccionada, de lo contrario, vacía
             });
         });
 
         botonAcceptTrustInAuto1 = document.getElementById('acceptTrustInAuto2').addEventListener('click', function() {
+            var celsSeleccionadas = document.querySelectorAll('.seleccionada');
+
+        if (celsSeleccionadas.length == 5) {
             parent.postMessage('Accepted TrustInAuto2', '*');
+        } else {
+            alert('Svp, veuillez choisir une valeur pour chaque question.');
+        }
         });
     </script>
 

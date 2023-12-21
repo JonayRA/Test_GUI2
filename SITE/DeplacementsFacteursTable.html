@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="30" http-equiv="refresh">
+
+    <title> {{.Title}} </title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      tr {
+  cursor: pointer
+}
+
+.selected {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: bold
+}
+#table{
+    border-collapse: collapse;
+    position: absolute;
+    left: 620px;
+    top: 175px;
+    border: 2px solid black;
+    width: 300px;
+    height: 400px;
+    table-layout: fixed;
+    text-align: center;
+}
+#up{
+    margin-top: 575px;
+    margin-left: 730px;
+}
+
+    </style>
+
+
+  </head>
+
+  <body>
+
+    <header>
+
+    </header>
+
+
+
+    <main>
+
+
+      <table id="table" border="1">
+  <thead>
+    <tr>
+      <th style="width: 50px;">Ordre</th>
+      <th>Facteur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Altitude zone jaune</td>
+    </tr>
+  
+    <tr>
+      <td>2</td>
+      <td>Altitude zone rouge</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Altitude par dessus</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Direction du mouvement</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Vitesse du mouvement</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Consomation ne pas se devier</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Consomation option 1</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Consomation option 2</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Consomation par dessus</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Combustible disponible</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Altitude</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Distance à la zone jaune</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Distance à la zone rouge</td>
+    </tr>
+   </tbody>
+</table>
+<button id="up" class="boton" onclick="upNdown('up');">&ShortUpArrow;</button>
+<button id="down" class="boton" onclick="upNdown('down');">&ShortDownArrow;</button>
+<br>
+<br>
+<button id="acceptMatrizCorrelacion" style="margin-left: 715px; font-size: 16px;">Accepter</button>
+
+
+    </main>
+    <!-- Bootstrap core JavaScript -->
+    <script>
+      "use strict";
+const tbody = document.querySelector("#table tbody");
+let selected = null;
+tbody.addEventListener("click", function(e){
+  let row = e.target.closest("tr");
+  if( row === selected) {
+    row.classList.toggle("selected")
+    selected = null;
+  }
+  else {
+    if(selected) {
+      selected.classList.toggle("selected");
+    }
+    selected = row;
+    row.classList.toggle("selected");
+  }
+});
+
+function upNdown( direction) {
+  let up, down;
+  if( selected) {
+    up  =  direction == "up" ? selected : selected.nextElementSibling;
+    down = direction == "up" ? selected.previousElementSibling : selected;
+    if( up && down) {
+      tbody.insertBefore(up, down); // put up before down
+      var temp = up.firstElementChild.textContent; // swap first cells' text content
+      up.firstElementChild.textContent = down.firstElementChild.textContent;
+      down.firstElementChild.textContent = temp;
+    }
+  }
+}
+    </script>
+  </body>
+
+</html>

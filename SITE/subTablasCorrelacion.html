@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<body id=matrizCorrelacion>
+<table id="tablaMatrizCorrelacion" class="table">
+  <tr>
+    <th></th>
+    <th id="col1" class="col"> </th>
+    <th id="col2" class="col"> </th>
+    <th id="col3" class="col"> </th>
+  </tr>
+  <tr>
+    <th id="ran1" class="ran"> </th>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th id="ran2" class="ran"> </th>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <th id="ran3" class="ran"> </th>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<button id="acceptMatrizCorrelacion" style="margin-bottom: 25px; font-size: 16px;">Accepter</button>
+
+
+<style>
+
+#matrizCorrelacion {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+#tablaMatrizCorrelacion{
+    border-collapse: collapse;
+    position: absolute;
+    /*right: 900px;*/
+    top: 250px;
+    border: 2px solid black;
+    width: 500px;
+    height: 300px;
+    table-layout: fixed;
+}
+
+#acceptMatrizCorrelacion{
+    margin-top: 800px;
+}
+td, th {
+    border: 1px solid black; /* Pinta todos los bordes de las celdas */
+    padding: 8px; /* Añade un espacio alrededor del contenido de las celdas */
+}
+
+
+
+td, th, .row, .col {
+   cursor: pointer;
+   padding: 8px;
+   position: relative;
+}
+
+td:hover::before,
+.row:hover::before { 
+   background-color: rgba(0, 0, 0, 0.1);
+   content: '\00a0';  
+   height: 100%;
+   left: -5000px;
+   position: absolute;  
+   top: 0;
+   width: 10000px;   
+   z-index: -1;        
+}
+
+td:hover::after,
+.col:hover::after { 
+   background-color: rgba(0, 0, 0, 0.1);
+   content: '\00a0';  
+   height: 10000px;    
+   left: 0;
+   position: absolute;  
+   top: -5000px;
+   width: 100%;
+   z-index: -1;        
+}
+
+
+
+</style>
+
+<script>
+
+    const nombresCeldas = [
+    'Altitude zone jaune',
+    'Altitude zone rouge',
+    'Altitude par dessus',
+    'Direction du mouvement',
+    'Vitesse du mouvement',
+    'Consomation ne pas se devier',
+    'Consomation option 1',
+    'Consomation option 2',
+    'Consomation par dessus',
+    'Combustible disponible',
+    'Altitude',
+    'Distance à la zone jaune',
+    'Distance à la zone rouge'
+    ];
+
+    function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    const indicesAleatorios = [];
+    while (indicesAleatorios.length < 3) {
+        const indiceAleatorio = getRandomInt(0, nombresCeldas.length);
+    if (!indicesAleatorios.includes(indiceAleatorio)) {
+        indicesAleatorios.push(indiceAleatorio);
+    }
+    }
+
+    const nombresAleatorios = indicesAleatorios.map(indice => nombresCeldas[indice]);
+
+    var cols = document.getElementsByClassName("col");
+    var rans = document.getElementsByClassName("ran");
+
+    for (var i = 0; i < cols.length; i++) {
+        cols[i].textContent = nombresAleatorios[i];
+        rans[i].textContent = nombresAleatorios[i];
+    }
+
+    /*document.getElementById("col1").textContent = nombresAleatorios[0];
+    document.getElementById("ran1").textContent = nombresAleatorios[0];
+    document.getElementById("col2").textContent = nombresAleatorios[1];
+    document.getElementById("ran2").textContent = nombresAleatorios[1];
+    document.getElementById("col3").textContent = nombresAleatorios[2];
+    document.getElementById("ran3").textContent = nombresAleatorios[2];*/
+
+    const tablaMatrizCorrelacion = document.getElementById('tablaMatrizCorrelacion');
+    const botonAcceptMatrizCorrelacion = document.getElementById('acceptMatrizCorrelacion');
+
+
+
+    function editCellMatrizCorrelacion(e){//, waypointChoisi, condition, variableChanged){
+
+
+    const cell = e.target;
+    const input = document.createElement("input");
+    
+    input.value = cell.textContent;
+    var a = cell.textContent;
+
+    cell.textContent = '';
+    cell.appendChild(input);
+
+    input.focus();
+
+    input.addEventListener("blur", () => {
+        cell.textContent = input.value;
+        return true;
+    });
+
+    input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") {
+      cell.textContent = input.value; 
+      input.blur();
+
+
+      return true;
+      
+    } else if (e.key === "Escape") {
+        input.blur();
+        cell.textContent = a;
+        return false;
+    }
+
+  });
+}
+
+
+    tablaMatrizCorrelacion.querySelectorAll("td").forEach(cell => {
+    cell.addEventListener("click",editCellMatrizCorrelacion);
+    });
+
+    document.getElementById('acceptMatrizCorrelacion').addEventListener('click', function() {
+            parent.postMessage('AcceptedMatrix', '*');
+    });
+</script>
+
+
+
+  </body>
+</html>
