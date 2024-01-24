@@ -104,13 +104,13 @@
 
 	<!--<table id="tableVariables"> <tr> <th> </th> <th>Ne pas se dévier</th> <th>Option 1</th> <th>Option 2</th> <th>Par dessus</th> </tr> <tr> <td>Consommation</td> <td id="consomRoute">1000</td> <td id="consomWaypt1">2000</td> <td id="consomWaypt2">3000</td> <td id="consomDessus">1000</td> </tr> <tr> <td>Temps</td> <td id="tempsRoute">8</td> <td id="tempsWaypt1">8.5</td> <td id="tempsWaypt2">7.8</td> <td id="tempsDessus">9</td> </tr> <tr id="filaCombDispo"> <td colspan="1"> Combustible disponible </td> <td colspan="4" id="combDispo">25</td> </tr> </table>-->
 
-	<table id="tableVariables" class = "table"> <tr> <th> </th> <th>Ne pas se dévier</th> <th>Option 1</th> <th>Option 2</th> <th>Par dessus</th> </tr> <tr> <td>Consommation</td> <td id="consomRoute" class = "celda">1000</td> <td id="consomWaypt1" class = "celda">2000</td> <td id="consomWaypt2" class = "celda">3000</td> <td id="consomDessus" class = "celda">1000</td> </tr> <tr id="filaCombDispo"> <td colspan="1" class = "celda"> Combustible disponible </td> <td colspan="4" id="combDispo" class = "celda">25</td> </tr> </table>
+	<table id="tableVariables" class = "table"> <tr> <th> </th> <th>Ne pas se dévier</th> <th>Option 1</th> <th>Option 2</th> <th>Par dessus</th> </tr> <tr> <td class = 'NotValue'>Consommation</td> <td id="consomRoute" class = "celda">1000</td> <td id="consomWaypt1" class = "celda">2000</td> <td id="consomWaypt2" class = "celda">3000</td> <td id="consomDessus" class = "celda">1000</td> </tr> <tr id="filaCombDispo"> <td colspan="1" class = "celda NotValue"> Combustible disponible </td> <td colspan="4" id="combDispo" class = "celda">25</td> </tr> </table>
 
 	<!--<table id="tableALTCellule"> <tr> <th> </th> <th>Zone verte</th> <th>Zone jaune</th> <th>Zone rouge</th> <th>Par dessus</th> </tr> <tr> <td>Altitude</td> <td id="altZoneVerte">1000</td> <td id="altZoneJaune">2000</td> <td id="altZoneRouge">3000</td> <td id="altParDessus">1000</td> </tr> </table>-->
 
-	<table id="tableALTCellule" class = "table"> <tr> <th> </th> <th>Zone jaune</th> <th>Zone rouge</th> <th>Par dessus</th> </tr> <tr> <td>Altitude</td> <td id="altZoneJaune" class = "celda">2000</td> <td id="altZoneRouge" class = "celda">3000</td> <td id="altParDessus" class = "celda">1000</td> </tr> </table>
+	<table id="tableALTCellule" class = "table"> <tr> <th> </th> <th>Zone jaune</th> <th>Zone rouge</th> <th>Par dessus</th> </tr> <tr> <td class = 'NotValue'>Altitude</td> <td id="altZoneJaune" class = "celda">2000</td> <td id="altZoneRouge" class = "celda">3000</td> <td id="altParDessus" class = "celda">1000</td> </tr> </table>
 
-	<table id="tableMouvementCellule" class = "table"> <tr> <th colspan="2"> </th> <th>Direction</th> <th>Vitesse</th> </tr> <tr> <td colspan="2">Mouvement de la cellule</td> <td id="dirCellule" class = "celda">Droite</td> <td id="vitesseCellule" class = "celda">2000</td></tr> </table>
+	<table id="tableMouvementCellule" class = "table"> <tr> <th colspan="2"> </th> <th>Direction</th> <th>Vitesse</th> </tr> <tr> <td colspan="2" class = 'NotValue'>Mouvement de la cellule</td> <td id="dirCellule" class = "celda">Droite</td> <td id="vitesseCellule" class = "celda">2000</td></tr> </table>
 
 	<div id="botonesTablaMovCel" class="modal">
     <div class="modal-content">
@@ -125,7 +125,7 @@
 
 	<div id="matrizCorrelacion" class="popup">
 		
-		<iframe src="DeplacementsFacteursTable.html" width="2000" height="850" id='iframeCorrelacion'></iframe>
+		<iframe src="subTablasCorrelacion.html" width="2000" height="850" id='iframeCorrelacion'></iframe>
 	</div>
 
 	<div id="NASATLX" class="popup">

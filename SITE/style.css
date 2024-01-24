@@ -339,6 +339,13 @@ canvas {
 	width: 600px;
 }
 
+.invisible-text {
+      color: transparent;
+}
+
+.visible-text {
+      color: black; /* Puedes ajustar el color original según tus necesidades */
+    }
 
 
 

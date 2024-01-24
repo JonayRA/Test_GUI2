@@ -164,6 +164,8 @@ popupNASATLX.style.display = 'none';
 popupTrustInAuto1.style.display = 'none';
 popupTrustInAuto2.style.display = 'none';
 
+const processTracing = 0;
+
 dbRequest.onupgradeneeded = event => {
 
   db = event.target.result;
@@ -269,12 +271,44 @@ var Xrouge = imagesData[currentImage].XcenterRed;
 var Yrouge = imagesData[currentImage].YcenterRed;
 var radiusRouge = imagesData[currentImage].radiusYellow;
 var radiusJaune = imagesData[currentImage].radiusRed;
+if (processTracing == 1){
+		activateProcessTracing();
+	}
 
 
 
 /*tableConsomTemps.querySelectorAll("td").forEach(cell => {
 	cell.addEventListener("click",editCell(cell,waypointChoisi,condition,variableChanged));
 });*/
+
+
+function revertirColorTexto(event) {
+    var celda = event.target;
+    celda.classList.remove('invisible-text');
+    celda.classList.add('visible-text');
+}
+
+function activateProcessTracing(){
+
+	var celdas = document.querySelectorAll('td');
+	for (var i = 0; i < celdas.length; i++) {
+		if (!celdas[i].classList.contains('NotValue')){
+	  celdas[i].classList.remove('visible-text');	
+      celdas[i].classList.add('invisible-text');
+      celdas[i].addEventListener('click', revertirColorTexto);
+
+    }
+    altitudeTextGenerator(altitude, 'black')
+    console.log('PT');
+    altIndicator.addEventListener('click', function(){
+
+    	altitudeTextGenerator(altitude, 'lime');
+
+})
+
+}}
+
+
 
 function editCell(e){//, waypointChoisi, condition, variableChanged){
 
@@ -515,6 +549,7 @@ function cambiarCaso() {
 	canvasWaypt2PositionTop = canvasWaypt2.style.top;
 	canvasWaypt2PositionLeft = canvasWaypt2.style.left
 
+	
 	drawWaypoints('red','red');
 
 	resetCase2();
@@ -524,7 +559,14 @@ function cambiarCaso() {
 //resetCase();
 
 var altitude = imagesData[currentImage].altVol;
-altitudeTextGenerator(altitude, 'lime')
+
+
+if (processTracing == 1){
+		activateProcessTracing();
+		altitudeTextGenerator(altitude, 'black')
+}else{
+	altitudeTextGenerator(altitude, 'lime')
+}
 
    // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
@@ -805,7 +847,11 @@ pressureTextGenerator();
 NAVPFDtextGenerator();
 drawVSI();
 drawAltIndicatorBox();
-altitudeTextGenerator(35510, 'lime');
+if (processTracing == 1){
+altitudeTextGenerator(altitude, 'black');
+}else{
+altitudeTextGenerator(altitude, 'lime');
+}
 drawVSIindicatorBox(000);
 divisionGenerator(ALT,ctxALT,11);
 divisionGenerator(ASI,ctxASI,8);
@@ -1684,6 +1730,8 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 		manejarSeleccion('C');
 	});	*/
 })
+
+
 
 window.addEventListener('message', function(event) {
             // Verificar la fuente del mensaje para mayor seguridad

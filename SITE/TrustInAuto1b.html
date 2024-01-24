@@ -54,7 +54,7 @@
                 Le système d’aide à la décision assure une sécurité
             </td>
             </tr>
-            <tr>
+            <tr id = '1'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -79,7 +79,7 @@
                 Le système d’aide à la décision est intègre
             </td>
             </tr>
-            <tr>
+            <tr id = '2'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -104,7 +104,7 @@
                 Je peux compter sur le système d’aide à la décision
             </td>
             </tr>
-            <tr>
+            <tr id = '3'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -129,7 +129,7 @@
                 Le système d’aide à la décision est fiable
             </td>
             </tr>
-            <tr>
+            <tr id = '4'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -154,7 +154,7 @@
                 Je peux faire confiance au système d’aide à la décision
             </td>
             </tr>
-            <tr>
+            <tr id = '5'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -179,7 +179,7 @@
                 Le système d’aide à la décision m’est familier
             </td>
             </tr>
-            <tr>
+            <tr id = '6'>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
                 <td class="seleccionable"></td>
@@ -208,6 +208,7 @@
 
     <script>
         const celdasSeleccionables = document.querySelectorAll('.seleccionable');
+        // let trust1Responses = new Array(7);
 
         celdasSeleccionables.forEach(celda => {
             celda.addEventListener('click', () => {
