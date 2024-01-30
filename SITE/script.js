@@ -468,7 +468,15 @@ function cambiarImagen() {
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;*/
 }
-
+function ajouterDonneesEnregistrer(){
+	if(session != 1 || condition != 3){
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+	feautresGuardar = calculadoraVariablesCS();
+	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
+	arrayJSONSGuardar.push(globalGuardar);
+	console.log('Así es la variable',globalGuardar);
+	}
+	}
 async function cambiarCaso() {
 
 	// var datosCSV = "Esto es sólo una prueba";
@@ -480,13 +488,6 @@ async function cambiarCaso() {
 	console.log(accuraciesCS);
 	}*/
 
-	if(session != 1 || condition != 3){
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
-	feautresGuardar = calculadoraVariablesCS();
-	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
-	arrayJSONSGuardar.push(globalGuardar);
-	console.log('Así es la variable',globalGuardar);
-	}
 
 	if (currentImage < imagesData.length -1){
 	if(QUASApositions.includes(currentImage)){
@@ -983,6 +984,7 @@ waypt1.addEventListener('click', async function () {
   			if (condition == 3 && session == 1){
   				selectionDeuxiemeOption(waypointChoisi);
   			} else if (condition != 3 || (condition == 3 && session != 1)){
+  				ajouterDonneesEnregistrer();
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1054,6 +1056,7 @@ waypt2.addEventListener('click', async function () {
   			if (condition == 3 && session == 1){
   				selectionDeuxiemeOption(waypointChoisi);
   			} else if (condition != 3 || (condition == 3 && session != 1)){
+  				ajouterDonneesEnregistrer();
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1198,6 +1201,7 @@ buttonsansChangement.addEventListener('click', async function(){
 			if (condition == 3 && session == 1){
 				selectionDeuxiemeOption(waypointChoisi);
 	}else if (condition != 3 || (condition == 3 && session != 1)){
+  				ajouterDonneesEnregistrer();
   				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1275,6 +1279,7 @@ buttonParDessus.addEventListener('click', async function(){
 			if (condition == 3 && session ==1){
 			selectionDeuxiemeOption(waypointChoisi);
 		}else if (condition != 3 || (condition == 3 && session != 1)){
+				ajouterDonneesEnregistrer();
 				waypointChoisi = -1;
 				cambiarCaso();
 				hideButtonsContrefacutel();
@@ -1817,6 +1822,7 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
     tabla.style.backgroundColor = 'hsl(0, 0%, 90%)';
     console.log('Color cambiado');
   	});
+  	ajouterDonneesEnregistrer();
 	waypointChoisi = -1;
 	if (typeof newCanvasX !== 'undefined'){
 		delete newCanvasX;

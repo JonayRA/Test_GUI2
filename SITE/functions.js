@@ -353,7 +353,7 @@ function altitudeTextGenerator(altitude,color){
 
 function processAltValue(value) {
   console.log('Valor introducido:', value);
-  altitudeTextGenerator(value);
+  altitudeTextGenerator(value,'lime');
 };
 
 
