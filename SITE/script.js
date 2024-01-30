@@ -9,7 +9,8 @@ console.log(numParticipant,condition);
 var title = document.getElementById("Titulo");
 title.textContent = "Part" + numParticipant + "Cond" + condition + "Session" + session;
 const participantCS = 220;
-const QUASApositions = [1, 5, 8, 9];
+//const QUASApositions = [1, 5, 8, 9];
+const QUASApositions = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90];
 
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
