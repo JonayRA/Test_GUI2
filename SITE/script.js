@@ -178,7 +178,7 @@ popupTrustInAuto2.style.display = 'none';
 popupFinal.style.display = 'none';
 
 const processTracing = 0;
-
+let waypointChoisiInitialement;
 
 dbRequest.onupgradeneeded = event => {
 
@@ -481,7 +481,7 @@ async function cambiarCaso() {
 	}*/
 
 	if(session != 1 || condition != 3){
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi};
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);
@@ -702,7 +702,7 @@ function calculadoraVariablesCS(){
 function selectionDeuxiemeOption(waypointChoisi){
 
 	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi};
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);
@@ -933,7 +933,8 @@ waypt1.addEventListener('click', async function () {
 
   			console.log('Feautres', feautresCalculadas.features);
 
-  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+  			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
   			//console.log(promesaCS);
@@ -960,7 +961,7 @@ waypt1.addEventListener('click', async function () {
 
 
     		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
-    		
+    		waypointChoisiInitialement = waypointChoisi;
     		if (aceptarSuggestion){
     			
     			waypointChoisi = recomendacionCS;
@@ -972,8 +973,8 @@ waypt1.addEventListener('click', async function () {
     			let feautresCalculadas = calculadoraVariablesCS();
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS();
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi};
+  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);
@@ -1007,7 +1008,8 @@ waypt2.addEventListener('click', async function () {
 
   			let feautresCalculadas = calculadoraVariablesCS();
 
-  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+  			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
   			//console.log(promesaCS);
@@ -1018,7 +1020,7 @@ waypt2.addEventListener('click', async function () {
        			// console.log('data', data, data.predictions, typeof data.predictions)
     		})*/
 			
-		
+			if(recomendacionCS !=waypointChoisi){
 			if (recomendacionCS == 1){
     			recommendation = 'l\'option 1';
     		/*} else if (recomendacionCS == 2){
@@ -1035,13 +1037,13 @@ waypt2.addEventListener('click', async function () {
     			console.log('Aqui', waypointChoisi)
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}} else if((condition == 2 || condition == 3) && (session == 1)){
+    		}}} else if((condition == 2 || condition == 3) && (session == 1)){
 
     			let feautresCalculadas = calculadoraVariablesCS();
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS();
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi};
+  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);
@@ -1147,7 +1149,8 @@ buttonsansChangement.addEventListener('click', async function(){
 
 			let feautresCalculadas = calculadoraVariablesCS();
 
-  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+  			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
   			//console.log(promesaCS);
@@ -1159,7 +1162,7 @@ buttonsansChangement.addEventListener('click', async function(){
     		})*/
 			
 			console.log(recomendacionCS, typeof recomendacionCS)
-		
+			if(recomendacionCS !=waypointChoisi){
 			if (recomendacionCS == 1){
     			recommendation = 'l\'option 1';
     		} else if (recomendacionCS == 2){
@@ -1176,13 +1179,13 @@ buttonsansChangement.addEventListener('click', async function(){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}} else if((condition == 2 || condition == 3) && (session == 1)){
+    		}}} else if((condition == 2 || condition == 3) && (session == 1)){
 
     			let feautresCalculadas = calculadoraVariablesCS();
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS();
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi};
+  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);
@@ -1218,7 +1221,8 @@ buttonParDessus.addEventListener('click', async function(){
 			if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
 
 			let feautresCalculadas = calculadoraVariablesCS();
-  			recomendacionCS = await getRecommendationCS(feautresCalculadas.features);
+  			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+  			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
   			//console.log(promesaCS);
@@ -1230,7 +1234,7 @@ buttonParDessus.addEventListener('click', async function(){
     		})*/
 			
 			console.log(recomendacionCS, typeof recomendacionCS)
-		
+			if(recomendacionCS !=waypointChoisi){
 			if (recomendacionCS == 1){
     			recommendation = 'l\'option 1';
     		} else if (recomendacionCS == 2){
@@ -1247,13 +1251,13 @@ buttonParDessus.addEventListener('click', async function(){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
-    		}}else if((condition == 2 || condition == 3) && (session == 1)){
+    		}}}else if((condition == 2 || condition == 3) && (session == 1)){
 
     			let feautresCalculadas = calculadoraVariablesCS();
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS();
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi};
+  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);
@@ -1654,6 +1658,7 @@ buttonFinirExperience.addEventListener('click', function(){
 
 function manejarSeleccion(seleccion,waypointChoisi) {
 
+
 if (seleccion == 'A'){
 	if (waypointChoisi == 0){
 		wayptAlternatif = 1;
@@ -1801,7 +1806,7 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 	arrayJSONSContrafactual.push(globalGuardar);
 
   	await sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
-  	accuraciesCS = await getAccuraciesCS();
+  	accuraciesCS = await getAccuraciesCS(participantCS);
   	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Alternatif": waypointAlternatif};
 	feautresGuardar = feautresCalculadas.features;
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
