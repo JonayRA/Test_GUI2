@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body id=matrizCorrelacion>
+<table id="tablaMatrizCorrelacion" class="table">
+  <!--<tr>
+    <th>Facteur</th>
+    <th>Ordre</th>
+    <th>Importance</th>
+  </tr>-->
+  <tr>
+    <td>Altitude zone jaune</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Altitude zone rouge</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Altitude par dessus</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Direction du mouvement</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Vitesse du mouvement</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Consomation ne pas se devier</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Consomation option 1</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Consomation option 2</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Consomation par dessus</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Combustible disponible</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Altitude</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Distance à la zone jaune</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Distance à la zone rouge</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<button id="acceptMatrizCorrelacion" style="margin-bottom: 25px; font-size: 16px;">Accepter</button>
+
+
+<style>
+
+#matrizCorrelacion {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+#tablaMatrizCorrelacion{
+    border-collapse: collapse;
+    position: absolute;
+    /*right: 900px;
+    top: 80px;*/
+    border: 2px solid black;
+    width: 1500px;
+    height: 700px;
+    table-layout: fixed;
+}
+
+#acceptMatrizCorrelacion{
+    margin-top: 800px;
+}
+td, th {
+    border: 1px solid black; /* Pinta todos los bordes de las celdas */
+    padding: 8px; /* Añade un espacio alrededor del contenido de las celdas */
+    font-size: 1.125rem;
+    position: relative;
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Texto centrado */
+    height: 42px;
+}
+
+
+
+td, th, .row, .col {
+   cursor: pointer;
+   padding: 8px;
+   position: relative;
+   height: 42px;
+}
+
+/*td:hover::before,
+.row:hover::before { 
+   background-color: rgba(0, 0, 0, 0.1);
+   content: '\00a0';  
+   height: 100%;
+   left: -5000px;
+   position: absolute;  
+   top: 0;
+   width: 10000px;   
+   z-index: -1;        
+}*/
+.seleccionada {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: bold
+}
+/*td:hover::after,
+.col:hover::after { 
+   background-color: rgba(0, 0, 0, 0.1);
+   content: '\00a0';  
+   height: 10000px;    
+   left: 0;
+   position: absolute;  
+   top: -5000px;
+   width: 100%;
+   z-index: -1;        
+}*/
+
+
+
+</style>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cells = document.querySelectorAll('#tablaMatrizCorrelacion td');
+            let selectedCell = null;
+
+            function selectCell(cell) {
+                if (selectedCell) {
+                    selectedCell.classList.remove('seleccionada');
+                }
+                selectedCell = cell;
+                selectedCell.classList.add('seleccionada');
+            }
+
+            function deselectCell() {
+                if (selectedCell) {
+                    selectedCell.classList.remove('seleccionada');
+                    selectedCell = null;
+                }
+            }
+
+            function isEmptyCell(cell) {
+                return cell && cell.innerHTML.trim() === '';
+            }
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', function () {
+                    if (this) { // Verificar si la celda actual no es nula
+                        if (selectedCell === this) {
+                            deselectCell();
+                        } else if (!isEmptyCell(this)) {
+                            if (isEmptyCell(selectedCell)) {
+                                selectedCell.innerHTML = this.innerHTML;
+                                this.innerHTML = '';
+                                deselectCell();
+                            } else {
+                                deselectCell();
+                                selectCell(this);
+                            }
+                        } else if (!isEmptyCell(selectedCell)) {
+                            this.innerHTML = selectedCell.innerHTML;
+                            selectedCell.innerHTML = '';
+                            deselectCell();
+                        }
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    deselectCell();
+                }
+            });
+        });
+    </script>
+
+
+
+  </body>
+</html>

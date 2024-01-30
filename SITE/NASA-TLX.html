@@ -136,23 +136,6 @@ function onLoad()
 }
 
 // Users want to proceed after doing the scales
-function buttonPart1()
-{
-    // Check to be sure they click on every scale
-    for (var i = 0; i < NUM_SCALES; i++)
-    {
-        if (!results_rating[i])
-        {
-            alert('Svp, veuillez choisir une valeur pour chaque question.');
-            return false;
-        }
-    }
-
-    // Bye bye part 1, hello part 2
-    parent.postMessage('Accepted NASA-TLX', '*');  
-
-    return true;
-}
 
 
 
@@ -166,6 +149,7 @@ function calcResults()
         results_weight[i] = results_tally[i] / 15.0;
         results_overall += results_weight[i] * results_rating[i];
     }
+    
 }
 
 // Output the table of results
@@ -204,6 +188,32 @@ function getResultsHTML()
     result += "<br/>";
 
     return result;
+}
+
+function buttonPart1()
+{
+    // Check to be sure they click on every scale
+    for (var i = 0; i < NUM_SCALES; i++)
+    {
+        if (!results_rating[i])
+        {
+            alert('Svp, veuillez choisir une valeur pour chaque question.');
+            return false;
+        }
+    }
+
+    for (let clave in results_rating) {
+    if (typeof results_rating[clave] === 'number') {
+        results_rating[clave] /= 5; // Dividir el valor numérico por 5
+    }
+    }
+    console.log(results_rating);
+    let mensaje = 'Accepted NASA-TLX';
+    
+    parent.postMessage({ message: mensaje, data: results_rating }, '*');  
+
+
+    return true;
 }
 
 // Move to the next pair

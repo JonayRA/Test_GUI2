@@ -55,13 +55,13 @@
             </td>
             </tr>
             <tr>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
+                <td class="seleccionable" id = "1.1"></td>
+                <td class="seleccionable" id = "1.2"></td>
+                <td class="seleccionable" id = "1.3"></td>
+                <td class="seleccionable" id = "1.4"></td>
+                <td class="seleccionable" id = "1.5"></td>
+                <td class="seleccionable" id = "1.6"></td>
+                <td class="seleccionable" id = "1.7"></td>
             </tr>
 
             <!-- Fila 3 -->
@@ -80,13 +80,13 @@
             </td>
             </tr>
             <tr>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
+                <td class="seleccionable" id = "2.1"></td>
+                <td class="seleccionable" id = "2.2"></td>
+                <td class="seleccionable" id = "2.3"></td>
+                <td class="seleccionable" id = "2.4"></td>
+                <td class="seleccionable" id = "2.5"></td>
+                <td class="seleccionable" id = "2.6"></td>
+                <td class="seleccionable" id = "2.7"></td>
             </tr>
 
             <!-- Fila 3 -->
@@ -105,13 +105,13 @@
             </td>
             </tr>
             <tr>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
+                <td class="seleccionable" id = "3.1"></td>
+                <td class="seleccionable" id = "3.2"></td>
+                <td class="seleccionable" id = "3.3"></td>
+                <td class="seleccionable" id = "3.4"></td>
+                <td class="seleccionable" id = "3.5"></td>
+                <td class="seleccionable" id = "3.6"></td>
+                <td class="seleccionable" id = "3.7"></td>
             </tr>
 
             <!-- Fila 3 -->
@@ -130,13 +130,13 @@
             </td>
             </tr>
             <tr>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
+                <td class="seleccionable" id = "4.1"></td>
+                <td class="seleccionable" id = "4.2"></td>
+                <td class="seleccionable" id = "4.3"></td>
+                <td class="seleccionable" id = "4.4"></td>
+                <td class="seleccionable" id = "4.5"></td>
+                <td class="seleccionable" id = "4.6"></td>
+                <td class="seleccionable" id = "4.7"></td>
             </tr>
 
             <!-- Fila 3 -->
@@ -155,13 +155,13 @@
             </td>
             </tr>
             <tr>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
-                <td class="seleccionable"></td>
+                <td class="seleccionable" id = "5.1"></td>
+                <td class="seleccionable" id = "5.2"></td>
+                <td class="seleccionable" id = "5.3"></td>
+                <td class="seleccionable" id = "5.4"></td>
+                <td class="seleccionable" id = "5.5"></td>
+                <td class="seleccionable" id = "5.6"></td>
+                <td class="seleccionable" id = "5.7"></td>
             </tr>
 
             <!-- Fila 3 -->
@@ -207,7 +207,13 @@
             var celsSeleccionadas = document.querySelectorAll('.seleccionada');
 
         if (celsSeleccionadas.length == 5) {
-            parent.postMessage('Accepted TrustInAuto2', '*');
+            const listaIDs = [];
+            celsSeleccionadas.forEach(function(celda) {
+                listaIDs.push(celda.id);
+            });
+            console.log(listaIDs);
+            mensaje = 'Accepted TrustInAuto2';
+            parent.postMessage({ message: mensaje, data: listaIDs }, '*');
         } else {
             alert('Svp, veuillez choisir une valeur pour chaque question.');
         }
