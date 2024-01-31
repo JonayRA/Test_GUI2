@@ -470,7 +470,7 @@ function cambiarImagen() {
 }
 function ajouterDonneesEnregistrer(){
 	if(session != 1 || condition != 3){
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentation cas": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);
@@ -703,7 +703,7 @@ function calculadoraVariablesCS(){
 function selectionDeuxiemeOption(waypointChoisi){
 
 	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentacion caso": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentation cas": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);
