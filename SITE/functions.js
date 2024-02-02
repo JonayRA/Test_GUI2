@@ -49,15 +49,44 @@ var a = -1;
 
 const QUASApopup = document.getElementById('QUASA');
 var QUASAstatementPlaceholder = document.getElementById('QUASAstatementPlaceholder');
-
-  var etiquetasNiveles = ["Très faible", "Faible", "Neutral", "Élevé", "Très élevé"];
+const valoresBotones = ["Très faible", "Faible", "Neutral", "Élevé", "Très élevé"];
+const contenedorBotones = document.getElementById("contenedorNivelConfianza");
+let QUASAconfidence = null;
+let botones=[];
+let timeNiveauConfianceQUASA = null; timePremiereSelectionNiveauConfianceQUASA = null;
+  /*var etiquetasNiveles = ["Très faible", "Faible", "Neutral", "Élevé", "Très élevé"];
 
   // Event listener para el cambio en el slider
   document.getElementById('nivConfiance').addEventListener('input', function() {
     var valorNivelConfianza = document.getElementById('nivConfiance').value;
     var etiquetaNivelConfianza = etiquetasNiveles[valorNivelConfianza - 1];
     document.getElementById('valorNivelConfiance').textContent = etiquetaNivelConfianza;
-  });
+  });*/
+
+    function asignarNivelConfianza(nivel,boton1) {
+        QUASAconfidence = nivel;
+        console.log("Nivel de confianza seleccionado:", QUASAconfidence);
+
+        botones.forEach(boton => {
+        	boton.classList.remove("seleccionado");
+    	});
+    		// Marcar el botón seleccionado
+    	boton1.classList.add("seleccionado");
+    }
+
+    valoresBotones.forEach(valor => {
+        const boton = document.createElement("button");
+        boton.textContent = valor;
+        boton.addEventListener("click", function() {
+            asignarNivelConfianza(valor,boton);
+            timeNiveauConfianceQUASA = Date.now();
+            if (timePremiereSelectionNiveauConfianceQUASA === null){
+            	timePremiereSelectionNiveauConfianceQUASA = timeNiveauConfianceQUASA;
+            }
+        });
+        contenedorBotones.appendChild(boton);
+        botones.push(boton);
+    });
 
 function changeQUASAstatement(frase) {
     QUASAstatementPlaceholder.textContent = frase;

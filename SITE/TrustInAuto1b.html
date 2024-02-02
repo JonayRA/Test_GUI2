@@ -3,51 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de 18x7</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 75%;
-        }
+    </head>
 
-        th,td{
-            padding: 8px;
-            text-align: center;
-            height: 20px;
-        }
-
-        td.seleccionable {
-            border: 1px solid black;
-            border-top: 0px;
-            padding: 8px;
-            text-align: center;
-            height: 20px;
-        }
-
-        td.sin-bordes {
-            height: 40px;
-            text-align: center;
-            vertical-align: top;
-        }
-
-        .seleccionable {
-            
-            cursor: pointer; /* Agrega un cursor de puntero al pasar el ratón */
-        }
-
-        
-
-    </style>
-</head>
 <body id = "cuerpo">
 
-    <table>
+    <table id="tabla">
         <thead>
             <tr>
                 <th colspan="7">Note pour les 6 prochaines questions : 1 = totalement en désaccord (confiance minimale) et 7 = totalement en accord (confiance maximale)</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody>     
             <!-- Fila 1 -->
             <tr>
             <td colspan = '7'>
@@ -205,7 +171,50 @@
     </table>
 
     <button id="acceptTrustInAuto1" style="margin-bottom: 25px; font-size: 16px;">Accepter</button>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 75%;
+        }
 
+        th,td{
+            padding: 8px;
+            text-align: center;
+            height: 20px;
+        }
+
+        td.seleccionable {
+            border: 1px solid black;
+            border-top: 0px;
+            padding: 8px;
+            text-align: center;
+            height: 20px;
+        }
+
+        td.sin-bordes {
+            height: 40px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .seleccionable {
+            
+            cursor: pointer; /* Agrega un cursor de puntero al pasar el ratón */
+        }
+        #cuerpo{
+            height: 100%;
+            text-align: center;
+        }
+        #acceptTrustInAuto1{
+            font-size: 18px;
+        }
+        #tabla{
+            margin-left: 200px;
+        }
+
+
+
+    </style>
     <script>
         const celdasSeleccionables = document.querySelectorAll('.seleccionable');
         // let trust1Responses = new Array(7);

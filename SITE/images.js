@@ -108,26 +108,32 @@ var imagesData = [
 
 var QUASAstatements = [
   {
-    statement: "L'option 1 est plus proche de la cellule que l'option 2",
-    identifier: "1plusProche2"
+    "statement": "L'option 1 est plus proche de la cellule que l'option 2",
+    "identifier": "1plusProche2",
+    "variableQUASA": "distance"
   },
   {
-    statement: "L'altitude de vol était supérieure à 30000",
-    identifier: "altSup30k"
+    "statement": "L'altitude de vol était supérieure à 30000",
+    "identifier": "altSup30k",
+    "variableQUASA": "altitude"
   },
   {
-    statement: "Le mouvement de la cellule était vers la droite",
-    identifier: "dirMovCelDroite"
+    "statement": "Le mouvement de la cellule était vers la droite",
+    "identifier": "dirMovCelDroite",
+    "variableQUASA": "dirMov"
   },
   {
-    statement: "Le mouvement de la cellule était vers la gauche",
-    identifier: "dirMovCelGauche"
+    "statement": "Le mouvement de la cellule était vers la gauche",
+    "identifier": "dirMovCelGauche",
+    "variableQUASA": "dirMov"
   },
   {
-    statement: "La cellule n'avait pas de mouvement",
-    identifier: "celQuieta"
-  },
+    "statement": "La cellule n'avait pas de mouvement",
+    "identifier": "celQuieta",
+    "variableQUASA": "vitMov"
+  }
 ];
+
 
 
 /*

@@ -147,10 +147,12 @@ let db;
 let arrayJSONSGuardar = [];
 let arrayJSONSContrafactual = [];
 let arrayJSONSAccuracies = [];
+let arrayJSONSQUASA = [];
 let datosGuardar;
 let feautresGuardar;
 let globalGuardar;
 let timeStampPresentacionCaso = Date.now();
+let timePresentacionQUASA = null, timeVraiFauxQUASA = null, timePremiereSelectionVraiFauxQUASA = null, timeAccepterQUASA = null, timeVraiQUASA = null, timeFauxQuasa = null;
 
 const dbRequest = indexedDB.open('dbTestCellule', 1); // Version 1
 
@@ -498,12 +500,23 @@ async function cambiarCaso() {
 
 
   		QUASA.style.display = '';
+  		timePresentacionQUASA = Date.now();
   		botonVrai.addEventListener('click', function() {
+  			timeVraiFauxQUASA = Date.now();
+  			timeVraiQUASA = Date.now();
+  			if (timePremiereSelectionVraiFauxQUASA === null){
+  				timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+  			}
 	    botonVrai.classList.add('seleccionado');
    		botonFaux.classList.remove('seleccionado');
   		});
 
   		botonFaux.addEventListener('click', function() {
+  			timeVraiFauxQUASA = Date.now();
+  			timeFauxQuasa = Date.now();
+  			if (timePremiereSelectionVraiFauxQUASA === null){
+  				timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+  			}
 	    botonFaux.classList.add('seleccionado');
     	botonVrai.classList.remove('seleccionado');
   		});
@@ -511,11 +524,49 @@ async function cambiarCaso() {
   		botonAcceptQUASA.addEventListener('click', function() {
   			var a = botonVrai.classList.contains('seleccionado');
   			var b = botonFaux.classList.contains('seleccionado');
-  			console.log('Valores lógicos',a,b);
+  			let responseQUASA;
+  			if (a){
+  				responseQUASA = 'Vrai';
+  			} else if (b) {
+  				responseQUASA = 'Faux';
+  			}
   		if ( a || b){
   			QUASA.style.display = 'none';
+  			console.log('Ahora se oculta QUASA');
+  			timeAccepterQUASA = Date.now();
+  			JSONQUASA = {"Timestamp presentation QUASA": timePresentacionQUASA, 
+  			"Timestamp premiere selection VraiFaux":timePremiereSelectionVraiFauxQUASA, 
+  			"Timestamp selection VraiFAUX": timeVraiFauxQUASA,
+  			"Timestamp selection Vrai": timeVraiQUASA,
+  			"Timestamp selection Faux": timeFauxQuasa,
+  			"Timestamp premiere selection confiance": timePremiereSelectionNiveauConfianceQUASA,
+  			"Timestamp selection confiance": timeNiveauConfianceQUASA,
+  			"Time pour premiere selection VraiFaux": timePremiereSelectionVraiFauxQUASA-timePresentacionQUASA,
+  			"Time pour selectionner VraiFAUX": timeVraiFauxQUASA-timePresentacionQUASA,
+  			"Time pour premiere selection confiance depuis debut": timePremiereSelectionNiveauConfianceQUASA-timePresentacionQUASA,
+  			"Time pour premiere selection confiance depuis VraiFAUX": timePremiereSelectionNiveauConfianceQUASA-timeVraiFauxQUASA,
+  			"Time pour selectionner confiance depuis debut": timeNiveauConfianceQUASA-timePresentacionQUASA,
+  			"Time pour selectionner confiance depuis VraiFAUX": timeNiveauConfianceQUASA-timeVraiFauxQUASA,
+  			"num scenario": currentImage,
+  			"cas": imagesData[currentImage].src.split('/').pop(),
+  			"Phrase": QUASAstatements[indiceAleatorio].statement,
+  			"Variable": null ,
+  			"Reponse participant": responseQUASA,
+  			"Niveau confiance": QUASAconfidence,
+  			"Reponse correcte": null,
+  			"Resultat QUASA": null
+  			}
+  			arrayJSONSQUASA.push(JSONQUASA);
+  			JSONQUASA = null;
   			timeStampPresentacionCaso = Date.now();
   			console.log('Valores lógicos if',a,b);
+  			timePresentacionQUASA = null;
+  			timePremiereSelectionVraiFauxQUASA = null; 
+  			timeVraiFauxQUASA = null;
+  			timeVraiQUASA = null;
+  			timeFauxQuasa = null;
+  			timePremiereSelectionNiveauConfianceQUASA = null;
+  			timeNiveauConfianceQUASA = null;
   			return;
 
   		} else {
@@ -597,6 +648,7 @@ async function cambiarCaso() {
 
 var altitude = imagesData[currentImage].altVol;
 
+console.log('Caso cambiado');
 
 if (processTracing == 1){
 		activateProcessTracing();
