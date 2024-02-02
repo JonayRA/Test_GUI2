@@ -4,11 +4,11 @@ var urlParams = new URLSearchParams(window.location.search);
 const numParticipant = urlParams.get("numParticipant");
 const condition = urlParams.get("condition");
 const session = urlParams.get("session");
-console.log(numParticipant,condition);
+const participantCS = urlParams.get("numParticipantCS");
 
 var title = document.getElementById("Titulo");
-title.textContent = "Part" + numParticipant + "Cond" + condition + "Session" + session;
-const participantCS = 220;
+title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
+
 //const QUASApositions = [1, 5, 8, 9];
 const QUASApositions = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90];
 
@@ -315,7 +315,7 @@ function activateProcessTracing(){
 
     }
     altitudeTextGenerator(altitude, 'black')
-    console.log('PT');
+    //console.log('PT');
     altIndicator.addEventListener('click', function(){
 
     	altitudeTextGenerator(altitude, 'lime');
@@ -328,11 +328,11 @@ function activateProcessTracing(){
 
 function editCell(e){//, waypointChoisi, condition, variableChanged){
 
-	console.log('Aqui tabla');
+	//console.log('Aqui tabla');
 
 
 	const cell = e.target;
-	console.log('La celda es', cell);
+	//console.log('La celda es', cell);
 
 	const input = document.createElement("input");
 
@@ -395,7 +395,7 @@ function editCellMouvement(e) {
     const cell = e.target;
 
     const select = document.createElement("select");
-    console.log(typeof cell.id);
+    //console.log(typeof cell.id);
     if (waypointChoisi !== -1 && condition == 3 && (variableChanged == '' || (variableChanged == 'table' && cell.id == celdaEditada))) {
         // Agrega opciones al elemento select
         if (cell.id == 'dirCellule'){
@@ -454,7 +454,7 @@ function cambiarImagen() {
   currentImage = (currentImage + 1) % imagesData.length;
   // imgND.src = imagenes[currentImage];
   imgND.src = imagesData[currentImage].src;
-  console.log('Aqui',currentImage, 'Length', imagesData.length)
+  //console.log('Aqui',currentImage, 'Length', imagesData.length)
   /*cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
   cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
   cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
@@ -542,7 +542,7 @@ async function cambiarCaso() {
   			}
   		if ( a || b){
   			QUASA.style.display = 'none';
-  			console.log('Ahora se oculta QUASA');
+  			//console.log('Ahora se oculta QUASA');
   			timeAccepterQUASA = Date.now();
   			JSONQUASA = {"Timestamp presentation QUASA": timePresentacionQUASA, 
   			"Timestamp premiere selection VraiFaux":timePremiereSelectionVraiFauxQUASA, 
@@ -569,7 +569,7 @@ async function cambiarCaso() {
   			arrayJSONSQUASA.push(JSONQUASA);
   			JSONQUASA = null;
   			timeStampPresentacionCaso = Date.now();
-  			console.log('Valores lógicos if',a,b);
+  			//console.log('Valores lógicos if',a,b);
   			timePresentacionQUASA = null;
   			timePremiereSelectionVraiFauxQUASA = null; 
   			timeVraiFauxQUASA = null;
@@ -630,8 +630,8 @@ async function cambiarCaso() {
 	var XposWapt1 = Xwaypt1 * NDcontainerWidth;
 	var YposWapt1 = (1-Ywaypt1) * NDcontainerHeight;
 
-	console.log('Xpos1',Xwaypt1);
-	console.log('Ypos1',Ywaypt1)
+	//console.log('Xpos1',Xwaypt1);
+	//console.log('Ypos1',Ywaypt1)
 
 	canvasWaypt1.style.top = YposWapt1 + 'px';
 	canvasWaypt1.style.left = XposWapt1 + 'px';
@@ -658,7 +658,7 @@ async function cambiarCaso() {
 
 var altitude = imagesData[currentImage].altVol;
 
-console.log('Caso cambiado');
+//console.log('Caso cambiado');
 
 if (processTracing == 1){
 		activateProcessTracing();
@@ -695,8 +695,8 @@ function calculadoraVariablesCS(){
 	var distRougeRoute = Math.abs(Xrouge - 0.5 - radiusRouge);
 	var distJauneRoute = Math.abs(Xjaune - 0.5 - radiusJaune);
 
-	console.log('Celdas calculadora future',cellDirCellule.textContent);
-	console.log(cellVitesseCellule.textContent);
+	//console.log('Celdas calculadora future',cellDirCellule.textContent);
+	//console.log(cellVitesseCellule.textContent);
 	
 	let vitesse = 0;
 	if(cellVitesseCellule.textContent == 'Rapide'){
@@ -994,12 +994,12 @@ waypt1.addEventListener('click', async function () {
 
   			let feautresCalculadas = calculadoraVariablesCS();
 
-  			console.log('features Request', feautresCalculadas);
+  			//console.log('features Request', feautresCalculadas);
 
-  			console.log('Feautres', feautresCalculadas.features);
+  			//console.log('Feautres', feautresCalculadas.features);
 
   			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
-  			console.log("recomendacionCS",recomendacionCS);
+  			//console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
   			//console.log(promesaCS);
@@ -1010,7 +1010,7 @@ waypt1.addEventListener('click', async function () {
        			// console.log('data', data, data.predictions, typeof data.predictions)
     		})*/
 			
-			console.log(recomendacionCS, typeof recomendacionCS)
+			//console.log(recomendacionCS, typeof recomendacionCS)
 		
 			/*if (recomendacionCS == 1){
     			recommendation = 'l\'option 1';
