@@ -613,6 +613,20 @@ function drawWaypoints(colorWp1,colorWp2){
 	ctxWaypt2.fillText(waypt2Tag,x1/2-20,y1*3/4 - 35);
 }
 
+function compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS){
+	let datosGuardar = {"Timestamp": Date.now(), 
+	"Participant": numParticipant, 
+	"Participant CS": participantCS, 
+	"Session": session, 
+	"Condition": condition, 
+	"Presentation cas": timeStampPresentacionCaso, 
+	"Waypoint Choisi": waypointChoisi, 
+	"Waypoint Initial": waypointChoisiInitialement, 
+	"Recommendation CS": recomendacionCS};
+	feautresGuardar = calculadoraVariablesCS();
+	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
+	return globalGuardar;
+}
 
 
 /*function editCellMatrizCorrelacion(e){//, waypointChoisi, condition, variableChanged){

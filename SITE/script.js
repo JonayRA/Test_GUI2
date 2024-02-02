@@ -63,7 +63,7 @@ var botonAcceptQUASA = document.getElementById('acceptQUASA');
 menuOpcionesMovCel.style.display = 'none';
 const dataToSave = [];
 var dataToSaveJSON = [];
-let recomendacionCS;
+let recomendacionCS = null;
 let currentImage = 0;
 const imagenes = [
 "IMAGENES/ND_radar.png",
@@ -180,7 +180,7 @@ popupTrustInAuto2.style.display = 'none';
 popupFinal.style.display = 'none';
 
 const processTracing = 0;
-let waypointChoisiInitialement;
+let waypointChoisiInitialement = null;
 
 dbRequest.onupgradeneeded = event => {
 
@@ -472,11 +472,21 @@ function cambiarImagen() {
 }
 function ajouterDonneesEnregistrer(){
 	if(session != 1 || condition != 3){
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentation cas": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+		globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    	arrayJSONSGuardar.push(globalGuardar);
+	/*datosGuardar = {"Timestamp": Date.now(), 
+	"Participant": numParticipant, 
+	"Participant CS": participantCS, 
+	"Session": session, 
+	"Condition": condition, 
+	"Presentation cas": timeStampPresentacionCaso, 
+	"Waypoint Choisi": waypointChoisi, 
+	"Waypoint Initial": waypointChoisiInitialement, 
+	"Recommendation CS": recomendacionCS};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);
-	console.log('Así es la variable',globalGuardar);
+	console.log('Así es la variable',globalGuardar);*/
 	}
 	}
 async function cambiarCaso() {
@@ -493,7 +503,7 @@ async function cambiarCaso() {
 
 	if (currentImage < imagesData.length -1){
 	if(QUASApositions.includes(currentImage)){
-
+		let imageQUASA = currentImage;
 		var indiceAleatorio = Math.floor(Math.random() * QUASAstatements.length);
 
 		changeQUASAstatement(QUASAstatements[indiceAleatorio].statement);
@@ -547,10 +557,10 @@ async function cambiarCaso() {
   			"Time pour premiere selection confiance depuis VraiFAUX": timePremiereSelectionNiveauConfianceQUASA-timeVraiFauxQUASA,
   			"Time pour selectionner confiance depuis debut": timeNiveauConfianceQUASA-timePresentacionQUASA,
   			"Time pour selectionner confiance depuis VraiFAUX": timeNiveauConfianceQUASA-timeVraiFauxQUASA,
-  			"num scenario": currentImage,
-  			"cas": imagesData[currentImage].src.split('/').pop(),
+  			"num scenario": imageQUASA,
+  			"cas": imagesData[imageQUASA].src.split('/').pop(),
   			"Phrase": QUASAstatements[indiceAleatorio].statement,
-  			"Variable": null ,
+  			"Variable": QUASAstatements[indiceAleatorio].variableQUASA ,
   			"Reponse participant": responseQUASA,
   			"Niveau confiance": QUASAconfidence,
   			"Reponse correcte": null,
@@ -755,10 +765,12 @@ function calculadoraVariablesCS(){
 function selectionDeuxiemeOption(waypointChoisi){
 
 	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentation cas": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+	/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Presentation cas": timeStampPresentacionCaso, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
-	arrayJSONSGuardar.push(globalGuardar);
+	arrayJSONSGuardar.push(globalGuardar);*/
+	globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    arrayJSONSGuardar.push(globalGuardar);
 
 	popup.style.display = '';
 	if (waypointChoisi == 1) {
@@ -1027,10 +1039,13 @@ waypt1.addEventListener('click', async function () {
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);
+				arrayJSONSAccuracies.push(globalGuardar);*/
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    			arrayJSONSGuardar.push(globalGuardar);
+    			arrayJSONSAccuracies.push(accuraciesCS);
     		}
 
   			if (condition == 3 && session == 1){
@@ -1087,6 +1102,7 @@ waypt2.addEventListener('click', async function () {
 
 
     		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+    		waypointChoisiInitialement = waypointChoisi;
     		if (aceptarSuggestion){
     			console.log('Aqui', waypointChoisi)
     			waypointChoisi = recomendacionCS;
@@ -1097,10 +1113,13 @@ waypt2.addEventListener('click', async function () {
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+  				arrayJSONSAccuracies.push(accuraciesCS);
+  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);
+				arrayJSONSAccuracies.push(globalGuardar);*/
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    			arrayJSONSGuardar.push(globalGuardar);
     		}
     		
 
@@ -1230,6 +1249,7 @@ buttonsansChangement.addEventListener('click', async function(){
 
 
     		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+    		waypointChoisiInitialement = waypointChoisi;
     		if (aceptarSuggestion){
     			
     			waypointChoisi = recomendacionCS;
@@ -1240,10 +1260,13 @@ buttonsansChangement.addEventListener('click', async function(){
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+  				arrayJSONSAccuracies.push(accuraciesCS);
+  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);
+				arrayJSONSAccuracies.push(globalGuardar);*/
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    			arrayJSONSGuardar.push(globalGuardar);
     		}
 
 
@@ -1303,6 +1326,7 @@ buttonParDessus.addEventListener('click', async function(){
 
 
     		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+    		waypointChoisiInitialement = waypointChoisi;
     		if (aceptarSuggestion){
     			
     			waypointChoisi = recomendacionCS;
@@ -1313,10 +1337,13 @@ buttonParDessus.addEventListener('click', async function(){
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
-  				datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+  				arrayJSONSAccuracies.push(accuraciesCS);
+  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);
+				arrayJSONSAccuracies.push(globalGuardar);*/
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    			arrayJSONSGuardar.push(globalGuardar);
     		}
 
 
@@ -1647,8 +1674,8 @@ async function saveData2(ArrayJSONS,arrayJSONSContrafactual){
 
 	
 
-	localStorage.setItem("datosInteraccion", JSON.stringify(ArrayJSONS));
-
+	localStorage.setItem('participant'+numParticipant+'_session'+session+'condition'+condition, JSON.stringify(ArrayJSONS));
+	localStorage.setItem('participant'+numParticipant+'_session'+session+'condition'+condition+'QUASA', JSON.stringify(arrayJSONSQUASA))
 
 	const fileContent = JSON.stringify(ArrayJSONS, null, 2);
     const bb = new Blob([fileContent], {
@@ -1660,8 +1687,20 @@ async function saveData2(ArrayJSONS,arrayJSONSContrafactual){
 	a.click();
 	a.remove();
 
+	const fileContent1 = JSON.stringify(arrayJSONSQUASA, null, 2);
+    const bb1 = new Blob([fileContent1], {
+        type: "application/json",
+    });
+	var a1 = document.createElement('a');
+	a1.download = 'QUASA participant'+numParticipant+'_session'+session+'condition'+condition+'.json';
+	a1.href = window.URL.createObjectURL(bb1);
+	a1.click();
+	a1.remove();
+
+
+
 	if(condition == 3 && session == 1){
-		localStorage.setItem("Counterfactuals", JSON.stringify(arrayJSONSContrafactual));
+	localStorage.setItem("Counterfactuals", JSON.stringify(arrayJSONSContrafactual));
 
 
 	const fileContent = JSON.stringify(arrayJSONSContrafactual, null, 2);
@@ -1675,7 +1714,7 @@ async function saveData2(ArrayJSONS,arrayJSONSContrafactual){
 	a.remove();
 	}
 	if((condition == 2 || condition == 3) && session == 1){
-		localStorage.setItem("Accuracies", JSON.stringify(arrayJSONSAccuracies));
+	localStorage.setItem("Accuracies", JSON.stringify(arrayJSONSAccuracies));
 
 
 	const fileContent = JSON.stringify(arrayJSONSAccuracies, null, 2);
@@ -1860,6 +1899,7 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Alternatif": waypointAlternatif};
 	feautresGuardar = feautresCalculadas;
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
+	//globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
 	arrayJSONSContrafactual.push(globalGuardar);
 
   	await sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
