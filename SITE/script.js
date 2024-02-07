@@ -173,7 +173,11 @@ const botonAcceptMatrizCorrelacion = document.getElementById('acceptMatrizCorrel
 var wayptAlternatif = -1;
 popup.style.display = 'none';
 QUASA.style.display = 'none';
+if(session != 3){
 popupMatrizCorrelacion.style.display = 'none';
+} else if (session == 3){
+	popupMatrizCorrelacion.style.display = '';
+}
 popupNASATLX.style.display = 'none';
 popupTrustInAuto1.style.display = 'none';
 popupTrustInAuto2.style.display = 'none';
@@ -675,8 +679,10 @@ if (processTracing == 1){
   startY = 0;
   canvasAvionNDX = 0;
   canvasAvionNDY = 0;*/
-}else if (currentImage == imagesData.length){
+}else if (currentImage == imagesData.length && session == 1){
 	popupMatrizCorrelacion.style.display = '';
+}else if (currentImage == imagesData.length && session != 1){
+	popupNASATLX.style.display='';
 }
 }
 
@@ -1993,7 +1999,11 @@ window.addEventListener('message', function(event) {
                 if (event.data.message === 'Accepted NASA-TLX') {
                 	arrayJSONSGuardar.push({"NSATLX":event.data.data});
                 	popupNASATLX.style.display = 'none';
+                	if(condition != 1){
                 	popupTrustInAuto1.style.display = '';
+                	} else if (condition ==1){
+                		saveData2(arrayJSONSGuardar);
+                	}
                 }
                 
             }

@@ -2,7 +2,9 @@
 <html lang="fr">
 <head><meta charset="UTF-8"></head>
 <body id=matrizCorrelacion>
+  
 <table id="tablaMatrizCorrelacion" class="table">
+  <caption style="font-weight: bold;">Veuillez indiquer pour chaque facteur l'influence que sa valeur a pour que vous choisissez une option. <br><br>Entre -3 (plus le facteur est élevé, moins je choisis l'option influencée) et 3 (plus le facteur est élevé, plus je choisis l'option influencée), étant 0 (le facteur n'a aucune influence). <br><br><br></caption>
   <tr>
     <th>Facteur</th>
     <th>Importance</th>
@@ -146,14 +148,39 @@ td:hover::before,
     input.focus();
 
     input.addEventListener("blur", () => {
+      let numberValue = parseFloat(input.value);
+      if (input.value<-3 || input.value>3){
+        alert("Veuillez choisir une valeur entre -3 et 3");
+        cell.textContent = a;
+      }else if ((numberValue % 1) != 0){
+        console.log('Esta', numberValue, numberValue%1);
+        alert("Veuillez introduire un nombre entier (sans décimale)");
+        cell.textContent = a;
+      }else if(isNaN(numberValue)) {
+        console.log("Veuillez introduire une valeur numérique.");
+  }else{
         cell.textContent = input.value;
         return true;
+      }
     });
 
     input.addEventListener("keydown", (e) => {
     if(e.key === "Enter") {
-      cell.textContent = input.value; 
-      input.blur();
+      let numberValue = parseFloat(input.value);
+      if (input.value<-3 || input.value>3){
+        input.blur();
+        cell.textContent = a;
+      }else if ((numberValue % 1) != 0){
+        input.blur();
+        cell.textContent = a;
+      }else if(isNaN(numberValue)) {
+        input.blur();
+        cell.textContent = a;
+      } else{
+        cell.textContent = input.value;
+        input.blur();
+      }
+      
 
 
       return true;
