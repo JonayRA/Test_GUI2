@@ -1140,6 +1140,16 @@ waypt2.addEventListener('click', async function () {
 });
 
 
+function traitementQUASA(QUASAstatement){
+	var statement = QUASAstatement.statement;
+	var variable = QUASAstatement.variableQUASA;
+	if (!variable.includes('Mov')){
+		var numero = stringCompleto.match(/\d+/g).map(Number).filter(numero => numero > 10)[0];
+	}
+}
+
+
+
 // cellGenerator('data.json');
 
 /*
@@ -1970,8 +1980,9 @@ window.addEventListener('message', function(event) {
             // Verificar la fuente del mensaje para mayor seguridad
             if (event.source === document.getElementById('iframeCorrelacion').contentWindow) {
                 // Verificar el contenido del mensaje
-                if (event.data === 'AcceptedMatrix') {
+                if (event.data.message === 'AcceptedMatrix') {
                     // Realizar la acción en la página principal
+                    arrayJSONSGuardar.push({"Matrice correlation":event.data.data});
                     popupMatrizCorrelacion.style.display = 'none';
                     popupNASATLX.style.display = '';
                 } 
