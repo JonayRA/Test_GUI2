@@ -10,7 +10,7 @@ var title = document.getElementById("Titulo");
 title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
 
 //const QUASApositions = [1, 5, 8, 9];
-const QUASApositions = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+const QUASApositions = [9, 10, 20, 30, 40, 50, 60, 70, 80, 90];
 
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
@@ -540,13 +540,15 @@ async function cambiarCaso() {
   			var b = botonFaux.classList.contains('seleccionado');
   			let responseQUASA;
   			if (a){
-  				responseQUASA = 'Vrai';
+  				responseQUASA = true;
   			} else if (b) {
-  				responseQUASA = 'Faux';
+  				responseQUASA = false;
   			}
   		if ( a || b){
   			QUASA.style.display = 'none';
   			//console.log('Ahora se oculta QUASA');
+  			var responseCorrecteQUASA = traitementQUASA(QUASAstatements[indiceAleatorio]);
+  			console.log("Resultado QUASA", responseCorrecteQUASA);
   			timeAccepterQUASA = Date.now();
   			JSONQUASA = {"Timestamp presentation QUASA": timePresentacionQUASA, 
   			"Timestamp premiere selection VraiFaux":timePremiereSelectionVraiFauxQUASA, 
@@ -567,8 +569,8 @@ async function cambiarCaso() {
   			"Variable": QUASAstatements[indiceAleatorio].variableQUASA ,
   			"Reponse participant": responseQUASA,
   			"Niveau confiance": QUASAconfidence,
-  			"Reponse correcte": null,
-  			"Resultat QUASA": null
+  			"Reponse correcte": responseCorrecteQUASA,
+  			"Resultat QUASA": responseQUASA == responseCorrecteQUASA
   			}
   			arrayJSONSQUASA.push(JSONQUASA);
   			JSONQUASA = null;
@@ -590,6 +592,9 @@ async function cambiarCaso() {
   		});
   		botonFaux.classList.remove('seleccionado');
   		botonVrai.classList.remove('seleccionado');
+      botones.forEach(boton => {
+          boton.classList.remove("seleccionado");
+      });
 
 
 	}else{
@@ -1149,9 +1154,103 @@ waypt2.addEventListener('click', async function () {
 function traitementQUASA(QUASAstatement){
 	var statement = QUASAstatement.statement;
 	var variable = QUASAstatement.variableQUASA;
-	if (!variable.includes('Mov')){
+  var celluleAff = QUASAstatement.celluleAffectee;
+  if (!celluleAff.includes("waypoint")){
+  var celda = window[celluleAff];
+  var valorComparacion = celda.textContent;
+  }
+	var valeurLim = QUASAstatement.valeurLimite;
+	var oper = QUASAstatement.operateur;
+	var ident = QUASAstatement.identifier;
+	var resultado = null;
+	/*console.log("Comprobacion QUASA", valeurLim, oper, valorComparacion, QUASAstatement);*/
+    if (celluleAff.includes("cell")){
+    	if (!celluleAff.includes("Cellule")){
+    		valorComparacion = parseInt(valorComparacion);
+    	switch (oper){
+    		case "sup":
+    			if (valorComparacion > valeurLim){
+    				resultado = true;
+    				break;
+    			} else if (valorComparacion <= valeurLim){
+    				resultado = false;
+    				break;
+    			}
+    		case "inf":
+    		if (valorComparacion < valeurLim){
+    				resultado = true;
+    				break;
+    			} else if (valorComparacion >= valeurLim){
+    				resultado = false;
+    				break;
+    			}
+    	}
+    }else if(celluleAff.includes("Cellule")){
+    	if (valeurLim == valorComparacion){
+    		resultado = true;
+    	} else {
+    		resultado = false;
+    	}
+
+    }
+
+    }else {
+    	if (ident == "1plusProche2Rouge"){
+    		if(distRougeGauche>=distRougeDroit){
+    			resultado = true;
+    		} else {
+    			resultado = false;
+    		}
+    	} else if (ident == "1plusProche2Jaune"){
+    		if(distJauneGauche>=distJauneDroit){
+    			resultado = true;
+    		} else {
+    			resultado = false;
+    		}
+    	} else if (ident == "2plusProche1Rouge"){
+    		if(distRougeGauche<=distRougeDroit){
+    			resultado = true;
+    		} else {
+    			resultado = false;
+    		}
+    	} else if (ident == "2plusProche1Jaune"){
+    		if(distJauneGauche<=distJauneDroit){
+    			resultado = true;
+    		} else {
+    			resultado = false;
+    		}
+    	} else if (ident == "2plusProcheRouteRouge"){
+        if(distRougeGauche<=distRougeRoute){
+          resultado = true;
+        } else {
+          resultado = false;
+        }
+      } else if (ident == "2plusProcheRouteJaune"){
+        if(distJauneGauche<=distJauneRoute){
+          resultado = true;
+        } else {
+          resultado = false;
+        }
+      } else if (ident == "1plusProcheRouteRouge"){
+        if(distRougeDroit<=distRougeRoute){
+          resultado = true;
+        } else {
+          resultado = false;
+        }
+      } else if (ident == "2plusProcheRouteJaune"){
+        if(distRougeDroit<=distJauneRoute){
+          resultado = true;
+        } else {
+          resultado = false;
+        }
+      }
+
+    }
+
+	/*if (!variable.includes('Mov')){
 		var numero = stringCompleto.match(/\d+/g).map(Number).filter(numero => numero > 10)[0];
-	}
+	}*/
+	return resultado;
 }
 
 
@@ -1990,7 +2089,9 @@ window.addEventListener('message', function(event) {
                     // Realizar la acción en la página principal
                     arrayJSONSGuardar.push({"Matrice correlation":event.data.data});
                     popupMatrizCorrelacion.style.display = 'none';
+                    if (session == 1){
                     popupNASATLX.style.display = '';
+                  }
                 } 
                }
 

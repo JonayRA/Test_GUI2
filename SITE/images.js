@@ -8,14 +8,14 @@
   //{ src: 'IMAGENES/4.png', waypt2X: 0.25, waypt2Y: 0.7, waypt1X: 0.75, waypt1Y: 0.5, consumptionRoute: 800, consumptionWaypt1: 1000, consumptionWaypt2: 900, consumptionDessus:850, tempsroute: 7, tempsWaypt1: 8, tempsWaypt2: 7.5, tempsDessus: 7.25, altZoneVerte: 33000, altZoneJaune: 33000, altZoneRouge: 33000, altParDessus: 36000, dirCellule:"Droite", vitesseCellule: 'Lente', altVol: 35510, 'XcenterYellow': 0.3, 'YcenterYellow':0.5, 'XcenterRed': 0.3, 'YcenterRed':0.5, 'radiusRed': 0.02, 'radiusYellow':0.1},
   //{ src: 'IMAGENES/Case17.png', waypt2X: 0.25, waypt2Y: 0.7, waypt1X: 0.75, waypt1Y: 0.5, consumptionRoute: 700, consumptionWaypt1: 950, consumptionWaypt2: 800, consumptionDessus:950, tempsroute: 7, tempsWaypt1: 8, tempsWaypt2: 7.5, tempsDessus: 7.25, altZoneVerte: 35500, altZoneJaune: 35500, altZoneRouge: 33500, altParDessus: 37500, dirCellule:"Droite", vitesseCellule: 'Rapide', altVol: 35510, 'XcenterYellow': 0.3, 'YcenterYellow':0.5, 'XcenterRed': 0.3, 'YcenterRed':0.5, 'radiusRed': 0.02, 'radiusYellow':0.1},
   ];*/
-var imagesData = [
+/*var imagesData = [
   { src: 'IMAGENES/6.png', waypt2X: 0.25, waypt2Y: 0.7, waypt1X: 0.75, waypt1Y: 0.5, consumptionRoute: 800, consumptionWaypt1: 1000, consumptionWaypt2: 900, consumptionDessus:850, tempsroute: 7, tempsWaypt1: 8, tempsWaypt2: 7.5, tempsDessus: 7.25, altZoneVerte: 35000, altZoneJaune: 34000, altZoneRouge: 32000, altParDessus: 36000, dirCellule:"Droite", vitesseCellule: 'Rapide', altVol: 35510, 'XcenterYellow': 0.3, 'YcenterYellow':0.5, 'XcenterRed': 0.3, 'YcenterRed':0.5, 'radiusRed': 0.02, 'radiusYellow':0.1},
   { src: 'IMAGENES/Case27.png', waypt2X: 0.35, waypt2Y: 0.5, waypt1X: 0.65, waypt1Y: 0.7, consumptionRoute: 650, consumptionWaypt1: 700, consumptionWaypt2: 800, consumptionDessus:850, tempsroute: 6.5, tempsWaypt1: 5, tempsWaypt2: 4, tempsDessus: 5.25,altZoneVerte: 35000, altZoneJaune: 34000, altZoneRouge: 32000, altParDessus: 36000, dirCellule:"Droite", vitesseCellule: 'Lente', altVol: 35510, 'XcenterYellow': 0.7, 'YcenterYellow':0.55, 'XcenterRed': 0.8, 'YcenterRed':0.6, 'radiusRed': 0.02, 'radiusYellow':0.1},
   { src: 'IMAGENES/Case32.png', waypt2X: 0.35, waypt2Y: 0.5, waypt1X: 0.65, waypt1Y: 0.7, consumptionRoute: 650, consumptionWaypt1: 700, consumptionWaypt2: 800, consumptionDessus:850, tempsroute: 6.5, tempsWaypt1: 5, tempsWaypt2: 4, tempsDessus: 5.25,altZoneVerte: 35000, altZoneJaune: 34500, altZoneRouge: 32000, altParDessus: 36000, dirCellule:"Droite", vitesseCellule: 'Rapide', altVol: 35530, 'XcenterYellow': 0.83, 'YcenterYellow':0.65, 'XcenterRed': 0.85, 'YcenterRed':0.65, 'radiusRed': 0.02, 'radiusYellow':0.1},
   //{ src: 'IMAGENES/4.png', waypt2X: 0.25, waypt2Y: 0.7, waypt1X: 0.75, waypt1Y: 0.5, consumptionRoute: 800, consumptionWaypt1: 1000, consumptionWaypt2: 900, consumptionDessus:850, tempsroute: 7, tempsWaypt1: 8, tempsWaypt2: 7.5, tempsDessus: 7.25, altZoneVerte: 33000, altZoneJaune: 33000, altZoneRouge: 33000, altParDessus: 36000, dirCellule:"Droite", vitesseCellule: 'Lente', altVol: 35510, 'XcenterYellow': 0.3, 'YcenterYellow':0.5, 'XcenterRed': 0.3, 'YcenterRed':0.5, 'radiusRed': 0.02, 'radiusYellow':0.1},
   //{ src: 'IMAGENES/Case17.png', waypt2X: 0.25, waypt2Y: 0.7, waypt1X: 0.75, waypt1Y: 0.5, consumptionRoute: 700, consumptionWaypt1: 950, consumptionWaypt2: 800, consumptionDessus:950, tempsroute: 7, tempsWaypt1: 8, tempsWaypt2: 7.5, tempsDessus: 7.25, altZoneVerte: 35500, altZoneJaune: 35500, altZoneRouge: 33500, altParDessus: 37500, dirCellule:"Droite", vitesseCellule: 'Rapide', altVol: 35510, 'XcenterYellow': 0.3, 'YcenterYellow':0.5, 'XcenterRed': 0.3, 'YcenterRed':0.5, 'radiusRed': 0.02, 'radiusYellow':0.1},
-  ];
-/*var imagesData = [
+  ];*/
+var imagesData = [
 {src: "IMAGENES/Case68.png", YcenterRed: 0.497379, YcenterYellow: 0.458514, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Droite", distRouteRed: 0.500000, XcenterYellow: 0.248142, XcenterRed: 0.317248, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804},
 {src: "IMAGENES/Case163.png", YcenterRed: 0.500000, YcenterYellow: 0.500000, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.500000, XcenterRed: 0.480000, waypt2X: 0.800000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804},
 {src: "IMAGENES/Case117.png", YcenterRed: 0.489030, YcenterYellow: 0.479715, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Droite", distRouteRed: 0.500000, XcenterYellow: 0.635499, XcenterRed: 0.663585, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804},
@@ -111,76 +111,134 @@ var imagesData = [
 {src: "IMAGENES/Case83.png", YcenterRed: 0.495002, YcenterYellow: 0.460259, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.390065, XcenterRed: 0.398751, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804},
 {src: "IMAGENES/Case103.png", YcenterRed: 0.500000, YcenterYellow: 0.500000, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Droite", distRouteRed: 0.500000, XcenterYellow: 0.500000, XcenterRed: 0.560000, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804},
 {src: "IMAGENES/Case5.png", YcenterRed: 0.482839, YcenterYellow: 0.498565, radiusYellow: 0.100000, radiusRed: 0.050000, vitesseCellule: "Lente", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.299283, XcenterRed: 0.314852, waypt2X: 0.500000, waypt1X: 0.200000, waypt1Y: 0.500000, waypt2Y: 0.700000, altZoneRouge: 34000.000000, altZoneJaune: 35000.000000, altVol: 35555.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 801, consumptionWaypt2: 802, consumptionDessus: 803, combustDispo: 804}
-];*/
+];
 
-
+/*
+  cellConsomRoute
+  cellConsomWaypt1
+  cellConsomWaypt2
+  cellCombDispo
+  cellConsomDessus
+  cellAltZoneJaune
+  cellAltZoneRouge
+  cellAltParDessus
+  cellDirCellule
+  cellVitesseCellule
+  */
 
 
 var QUASAstatements = [
   {
-    "statement": "L'option 1 est plus proche de la cellule que l'option 2",
-    "identifier": "1plusProche2",
-    "variableQUASA": "distance"
+    "statement": "L'option 1 est plus proche de la zone rouge que l'option 2",
+    "identifier": "1plusProche2Rouge",
+    "variableQUASA": "distance",
+    "celluleAffectee": "waypoint",
+    "valeurLimite":    "",
+    "operateur": ""
   },
   {
     "statement": "L'altitude de vol était supérieure à 30000",
     "identifier": "altVolSup30k",
-    "variableQUASA": "altitude"
+    "variableQUASA": "altitude",
+    "celluleAffectee": "altitude",
+    "valeurLimite": 30000,
+    "operateur": "sup"
+  },
+  {
+    "statement": "L'altitude de vol était inférieure à 35000",
+    "identifier": "altVolInf35k",
+    "variableQUASA": "altitude",
+    "celluleAffectee": "altitude",
+    "valeurLimite": 35000,
+    "operateur": "inf"
   },
   {
     "statement": "Le mouvement de la cellule était vers la droite",
     "identifier": "dirMovCelDroite",
-    "variableQUASA": "dirMov"
+    "variableQUASA": "dirMov",
+    "celluleAffectee": "cellDirCellule",
+    "valeurLimite": "Droite",
+    "operateur": ""
   },
   {
     "statement": "Le mouvement de la cellule était vers la gauche",
     "identifier": "dirMovCelGauche",
-    "variableQUASA": "dirMov"
+    "variableQUASA": "dirMov",
+    "celluleAffectee": "cellDirCellule",
+    "valeurLimite": "Gauche",
+    "operateur": ""
   },
   {
     "statement": "La cellule n'avait pas de mouvement",
     "identifier": "celQuieta",
-    "variableQUASA": "vitMov"
+    "variableQUASA": "vitMov",
+    "celluleAffectee": "cellVitesseCellule",
+    "valeurLimite": "Sans mouvement",
+    "operateur": ""
   },
     {
     "statement": "L'altitude de la zone rouge était supérieure à 40000",
     "identifier": "altRougeSup40k",
-    "variableQUASA": "altitude"
+    "variableQUASA": "altitude",
+    "celluleAffectee": "cellAltZoneRouge",
+    "valeurLimite": 40000,
+    "operateur": "sup"
   },
   {
     "statement": "L'altitude de la zone jaune était supérieure à 30000",
     "identifier": "altJauneSup30k",
-    "variableQUASA": "altitude"
+    "variableQUASA": "altitude",
+    "celluleAffectee": "cellAltZoneJaune",
+    "valeurLimite": 30000,
+    "operateur": "sup"
   },
   {
     "statement": "L'altitude de la zone rouge était inferieure à 20000",
     "identifier": "altRougeInf20k",
-    "variableQUASA": "altitude"
+    "variableQUASA": "altitude",
+    "celluleAffectee": "cellAltZoneRouge",
+    "valeurLimite": 20000,
+    "operateur": "inf"
   },
   {
     "statement": "L'altitude de la zone jaune était inferieure à 30000",
     "identifier": "altJauneInf30k",
-    "variableQUASA": "altitude"
+    "variableQUASA": "altitude",
+    "celluleAffectee": "cellAltZoneJaune",
+    "valeurLimite": 30000,
+    "operateur": "inf"
   },
   {
     "statement": "Le mouvement de la cellule était rapide",
     "identifier": "celRapide",
-    "variableQUASA": "vitMov"
+    "variableQUASA": "vitMov",
+    "celluleAffectee": "cellVitesseCellule",
+    "valeurLimite": "Rapide",
+    "operateur": ""
   },
   {
     "statement": "Le mouvement de la cellule était lent",
     "identifier": "celLent",
-    "variableQUASA": "vitMov"
+    "variableQUASA": "vitMov",
+    "celluleAffectee": "cellVitesseCellule",
+    "valeurLimite": "Lente",
+    "operateur": ""
   },
   {
     "statement": "La consommation de l'option \'ne pas se dévier\' était supérieure à 700",
     "identifier": "consomRouteSup700",
-    "variableQUASA": "consommation"
+    "variableQUASA": "consommation",
+    "celluleAffectee": "cellConsomRoute",
+    "valeurLimite": 700,
+    "operateur": "sup"
   },
   {
     "statement": "La consommation de l'option 1 était inferieure à 850",
     "identifier": "consom1Inf850",
-    "variableQUASA": "consommation"
+    "variableQUASA": "consommation",
+    "celluleAffectee": "cellConsomWaypt1",
+    "valeurLimite": 850,
+    "operateur": "inf"
   }
   // Consommation
 ];
@@ -212,7 +270,7 @@ var QUASAstatements = [
 ];*/
 
 
-
+var condiciones = [3, 3, 2, 2, 2, 3, 2, 2, 3, 1, 3, 3, 3, 3, 2, 1, 2, 1, 1, 1, 2, 3, 3, 3, 1, 3, 2, 1, 2, 2, 1, 2, 3, 1, 1, 1, 1, 3, 2, 2, 3, 1, 3, 3, 2, 2, 2, 2, 2, 3, 3, 1, 3, 3, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 3, 1, 3, 2, 1, 1, 1, 3, 3, 3, 2, 2, 1, 2, 3, 1, 3, 1, 2, 2, 1, 2, 3, 1, 1, 3];
 
 
  
