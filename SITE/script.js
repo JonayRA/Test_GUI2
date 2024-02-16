@@ -10,7 +10,9 @@ var title = document.getElementById("Titulo");
 title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
 
 //const QUASApositions = [1, 5, 8, 9];
-const QUASApositions = [9, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+//const QUASApositions = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
+// Randomized:
+const QUASApositions = [7,  12,  19,  26,  31,  37,  42, 49,  56,  62,  69,  76,  81,  86,  91, 97, 104, 111, 118, 125, 130, 135, 141, 148, 154, 161, 166, 173, 180];
 
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
@@ -476,7 +478,8 @@ function cambiarImagen() {
 }
 function ajouterDonneesEnregistrer(){
 	if(session != 1 || condition != 3){
-		globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+    let nomCas = imagesData[currentImage].src.split('/').pop();
+		globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     	arrayJSONSGuardar.push(globalGuardar);
 	/*datosGuardar = {"Timestamp": Date.now(), 
 	"Participant": numParticipant, 
@@ -697,14 +700,38 @@ function calculadoraVariablesCS(){
 	
 	// Distancias presentes
 
-	var distJauneDessus = Math.abs(parseFloat(cellAltZoneJaune.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
-	var distRougeDessus = Math.abs(parseFloat(cellAltZoneRouge.textContent) - parseFloat(cellAltParDessus.textContent))/7000;
-	var distRougeDroit = Math.abs(Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
-	var distRougeGauche = Math.abs(Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
-	var distJauneDroit = Math.abs(Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
-	var distJauneGauche = Math.abs(Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
-	var distRougeRoute = Math.abs(Xrouge - 0.5 - radiusRouge);
-	var distJauneRoute = Math.abs(Xjaune - 0.5 - radiusJaune);
+	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/7000;
+  if (distJauneDessus < 0){
+    distJauneDessus = 0;
+  }
+  var distRougeDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneRouge.textContent))/7000;
+  if (distRougeDessus < 0){
+    distRougeDessus = 0;
+  }
+	var distRougeDroit = Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+  if (distRougeDroit < 0){
+    distRougeDroit = 0;
+  }
+	var distRougeGauche = Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+  if (distRougeGauche < 0){
+    distRougeGauche = 0;
+  }
+	var distJauneDroit = Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+  if (distJauneDroit < 0){
+    distJauneDroit = 0;
+  }
+	var distJauneGauche = Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+  if (distJauneGauche < 0){
+    distJauneGauche = 0;
+  }
+	var distRougeRoute = Math.abs(Xrouge - 0.5) - radiusRouge;
+  if (distRougeRoute < 0){
+    distRougeRoute = 0;
+  }
+	var distJauneRoute = Math.abs(Xjaune - 0.5) - radiusJaune;
+  if (distJauneRoute < 0){
+    distJauneRoute = 0;
+  }
 
 	//console.log('Celdas calculadora future',cellDirCellule.textContent);
 	//console.log(cellVitesseCellule.textContent);
@@ -724,20 +751,38 @@ function calculadoraVariablesCS(){
 	var futureXcenterYellow = Xjaune + vitesse;
 
 	// Distancias futuras
-	var futureDistRougeDroit = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge);
-	var futureDistRougeGauche = Math.abs(Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge);
-	var futureDistJauneDroit = Math.abs(Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune);
-	var futureDistJauneGauche = Math.abs(Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune);
-	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5 - radiusRouge);
-	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5 - radiusJaune);
+	var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+  if (futureDistRougeDroit < 0){
+    futureDistRougeDroit = 0;
+  }
+	var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+  if (futureDistRougeGauche < 0){
+    futureDistRougeGauche = 0;
+  }
+	var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+  if (futureDistJauneDroit < 0){
+    futureDistJauneDroit = 0;
+  }
+	var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+  if (futureDistJauneGauche < 0){
+    futureDistJauneGauche = 0;
+  }
+	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRouge;
+  if (futureDistRougeRoute < 0){
+    futureDistRougeRoute = 0;
+  }
+	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJaune;
+  if (futureDistJauneRoute < 0){
+    futureDistJauneRoute = 0;
+  }
 
 
 	// Combustible
 	var combDisponibleCS = parseFloat(cellCombDispo.textContent);
-	var consomRouteCS = Math.abs((combDisponibleCS - parseFloat(cellConsomRoute.textContent)))/combDisponibleCS;
-	var consumptionWaypt1CS = Math.abs((combDisponibleCS - parseFloat(cellConsomWaypt1.textContent)))/combDisponibleCS;
-	var consumptionWaypt2CS = Math.abs((combDisponibleCS - parseFloat(cellConsomWaypt2.textContent)))/combDisponibleCS;
-	var consumptionDessusCS = Math.abs((combDisponibleCS - parseFloat(cellConsomDessus.textContent)))/combDisponibleCS;
+	var consomRouteCS = ((combDisponibleCS - parseFloat(cellConsomRoute.textContent)))/combDisponibleCS;
+	var consumptionWaypt1CS = ((combDisponibleCS - parseFloat(cellConsomWaypt1.textContent)))/combDisponibleCS;
+	var consumptionWaypt2CS = ((combDisponibleCS - parseFloat(cellConsomWaypt2.textContent)))/combDisponibleCS;
+	var consumptionDessusCS = ((combDisponibleCS - parseFloat(cellConsomDessus.textContent)))/combDisponibleCS;
 
 	
 
@@ -780,7 +825,8 @@ function selectionDeuxiemeOption(waypointChoisi){
 	feautresGuardar = calculadoraVariablesCS();
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	arrayJSONSGuardar.push(globalGuardar);*/
-	globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+  let nomCas = imagesData[currentImage].src.split('/').pop();
+	globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     arrayJSONSGuardar.push(globalGuardar);
 
 	popup.style.display = '';
@@ -1054,7 +1100,8 @@ waypt1.addEventListener('click', async function () {
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);*/
-				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
     			arrayJSONSAccuracies.push(accuraciesCS);
     		}
@@ -1129,7 +1176,8 @@ waypt2.addEventListener('click', async function () {
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);*/
-				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
     		}
     		
@@ -1380,7 +1428,8 @@ buttonsansChangement.addEventListener('click', async function(){
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);*/
-				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
     		}
 
@@ -1457,7 +1506,8 @@ buttonParDessus.addEventListener('click', async function(){
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 				arrayJSONSAccuracies.push(globalGuardar);*/
-				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
     		}
 

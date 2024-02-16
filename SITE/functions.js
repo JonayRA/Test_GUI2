@@ -30,7 +30,7 @@ const altIndicatorTenthsFont = '50px "Andale Mono", monospace';
 const VSIfont = '72px "Andale Mono", monospace';
 const ASIfont = '90px "Andale Mono", monospace';
 const ASIfontWeight = 200;
-const wayptFont = '80px "Andale Mono", monospace';
+const wayptFont = '90px "Andale Mono", monospace';
 
 
 
@@ -578,11 +578,13 @@ function drawWaypoints(colorWp1,colorWp2){
 	x2 = waypt2.width;
 	y2 = waypt2.height;
 	ctxWaypt1.beginPath();
-    ctxWaypt1.moveTo(x1/4-10,y1/2); 
-    ctxWaypt1.lineTo(x1/2,y1/4-20);
-    ctxWaypt1.lineTo(x1*3/4+10,y1/2);
-    ctxWaypt1.lineTo(x1/2,y1*3/4+20);
+    ctxWaypt1.moveTo(x1/4-20,y1/2); 
+    ctxWaypt1.lineTo(x1/2,y1/4-30);
+    ctxWaypt1.lineTo(x1*3/4+20,y1/2);
+    ctxWaypt1.lineTo(x1/2,y1*3/4+30);
 	ctxWaypt1.closePath();
+	ctxWaypt1.fillStyle = "black"; // Color negro para el relleno
+    ctxWaypt1.fill(); // Llenar el interior del rombo con color negro
 	ctxWaypt1.strokeStyle = colorWp1;
 	ctxWaypt1.lineWidth = 10;
 	ctxWaypt1.stroke();
@@ -592,15 +594,17 @@ function drawWaypoints(colorWp1,colorWp2){
 	ctxWaypt1.fontWeight = ASIfontWeight;
 	var waypt1Tag = '1';
 	ctxWaypt1.fillStyle = colorWp1;
-	ctxWaypt1.fillText(waypt1Tag,x1/2-20,y1*3/4 - 35);
+	ctxWaypt1.fillText(waypt1Tag,x1/2-25,y1*3/4 - 35);
 
 
 	ctxWaypt2.beginPath();
-    ctxWaypt2.moveTo(x2/4-10,y2/2); 
-    ctxWaypt2.lineTo(x2/2,y2/4-20);
-    ctxWaypt2.lineTo(x2*3/4+10,y2/2);
-    ctxWaypt2.lineTo(x2/2,y2*3/4+20);
+    ctxWaypt2.moveTo(x2/4-20,y2/2); 
+    ctxWaypt2.lineTo(x2/2,y2/4-30);
+    ctxWaypt2.lineTo(x2*3/4+20,y2/2);
+    ctxWaypt2.lineTo(x2/2,y2*3/4+30);
 	ctxWaypt2.closePath();
+	ctxWaypt2.fillStyle = "black"; // Color negro para el relleno
+    ctxWaypt2.fill(); // Llenar el interior del rombo con color negro
 	ctxWaypt2.strokeStyle = colorWp2;
 	ctxWaypt2.lineWidth = 10;
 	ctxWaypt2.stroke();
@@ -610,15 +614,17 @@ function drawWaypoints(colorWp1,colorWp2){
 	ctxWaypt2.fontWeight = ASIfontWeight;
 	var waypt2Tag = '2';
 	ctxWaypt2.fillStyle = colorWp2;
-	ctxWaypt2.fillText(waypt2Tag,x1/2-20,y1*3/4 - 35);
+	ctxWaypt2.fillText(waypt2Tag,x1/2-25,y1*3/4 - 35);
 }
 
-function compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS){
+function compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,caso){
 	let datosGuardar = {"Timestamp": Date.now(), 
 	"Participant": numParticipant, 
 	"Participant CS": participantCS, 
 	"Session": session, 
-	"Condition": condition, 
+	"Condition": condition,
+	"Cas": caso,
+	"Numero de cas": currentImage,
 	"Presentation cas": timeStampPresentacionCaso, 
 	"Waypoint Choisi": waypointChoisi, 
 	"Waypoint Initial": waypointChoisiInitialement, 
