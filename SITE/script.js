@@ -50,6 +50,8 @@ const buttonsoumettreContrefactuel = document.getElementById('soumettreContrefac
 const buttonmenu = document.getElementById('menu');
 const buttontoggleButton = document.getElementById('toggleButton');
 const buttonsansChangement = document.getElementById('sansChangement');
+const buttonOption1 = document.getElementById('option1');
+const buttonOption2 = document.getElementById('option2');
 const buttonFinirExperience = document.getElementById('finirExperience');
 const inputVariableChoisie = document.getElementById("inputVariableChoisie");
 const textInputVar = document.getElementById("input-text");
@@ -157,7 +159,7 @@ let timeStampPresentacionCaso = Date.now();
 let timePresentacionQUASA = null, timeVraiFauxQUASA = null, timePremiereSelectionVraiFauxQUASA = null, timeAccepterQUASA = null, timeVraiQUASA = null, timeFauxQuasa = null;
 
 const dbRequest = indexedDB.open('dbTestCellule', 1); // Version 1
-
+let colorAltitude = 'lime';
 const popup = document.getElementById('popup');
 const popupFinal = document.getElementById('popupFinal');
 const opcionA = document.getElementById('opcionA');
@@ -224,6 +226,8 @@ function hideButtonsContrefacutel(){
 	buttontoggleButton.style.display = 'none';
 	inputVariableChoisie.style.display = 'none';
 	buttonsansChangement.style.display = '';
+  buttonOption1.style.display = '';
+  buttonOption2.style.display = '';
 	textInputVar.value = null;
 	buttonFinirExperience.style.display = 'none';
 	buttonParDessus.style.display = '';
@@ -245,6 +249,8 @@ function showButtonsContrefacutel(){
 	buttonmenu.style.display = 'none';
 	buttontoggleButton.style.display = 'none';
 	buttonsansChangement.style.display = 'none';
+  buttonOption1.style.display = 'none';
+  buttonOption2.style.display = 'none';
 	buttonParDessus.style.display = 'none';
 	bouttonRetournerDeuxiemeOption.style.display = 'none';
 	var celdas = document.querySelectorAll('#tableMouvementCellule' + ' .celda');
@@ -283,6 +289,7 @@ cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 var altitude = imagesData[currentImage].altVol;
 altitudeTextGenerator(altitude, 'lime')
+colorAltitude = 'lime';
 var Xwaypt1 = imagesData[currentImage].waypt1X;
 var Ywaypt1 = imagesData[currentImage].waypt1Y;
 var Xwaypt2 = imagesData[currentImage].waypt2X;
@@ -901,6 +908,8 @@ function selectionDeuxiemeOption(waypointChoisi){
 		bouttonRetournerDeuxiemeOption.style.display = 'block';
 		buttonParDessus.style.display = 'none';
 		buttonsansChangement.style.display = 'none';
+    buttonOption1.style.display = 'none';
+    buttonOption2.style.display = 'none';
 	});
 }
 
@@ -909,6 +918,8 @@ bouttonRetournerDeuxiemeOption.addEventListener('click', ()=>{
 	popup.style.display = '';
 	buttonParDessus.style.display = 'block';
 	buttonsansChangement.style.display = 'block';
+  buttonOption1.style.display = 'block';
+  buttonOption2.style.display = 'block';
 
 });
 
@@ -1039,7 +1050,7 @@ drawWaypoints('red','red');
 
 
 
-waypt1.addEventListener('click', async function () {
+/*waypt1.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
 		const message = 'Voulez-vous choisir l\'option 1?';
 		const result = confirm(message);
@@ -1051,27 +1062,12 @@ waypt1.addEventListener('click', async function () {
 
   			let feautresCalculadas = calculadoraVariablesCS();
 
-  			//console.log('features Request', feautresCalculadas);
-
-  			//console.log('Feautres', feautresCalculadas.features);
+  		
 
   			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
-  			//console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
-  			//console.log(promesaCS);
-
-  			/*promesaCS.then((data) => {
-  				console.log(data);
-       			recomendacionCS = data;
-       			// console.log('data', data, data.predictions, typeof data.predictions)
-    		})*/
-			
-			//console.log(recomendacionCS, typeof recomendacionCS)
-		
-			/*if (recomendacionCS == 1){
-    			recommendation = 'l\'option 1';
-    		} else*/
+  			
     		if (recomendacionCS != waypointChoisi){
     		if (recomendacionCS == 2){
     			recommendation = 'l\'option 2';
@@ -1096,10 +1092,7 @@ waypt1.addEventListener('click', async function () {
 
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
-  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
-				feautresGuardar = feautresCalculadas.features;
-				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);*/
+  				
         let nomCas = imagesData[currentImage].src.split('/').pop();
 				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
@@ -1120,9 +1113,92 @@ waypt1.addEventListener('click', async function () {
 	}} else if (wasDragged == true) {
 		wasDragged = false;
 	}
+});*/
+
+buttonOption1.addEventListener('click', async function () {
+  if(waypointChoisi == -1) {
+    const message = 'Voulez-vous choisir l\'option 1?';
+    const result = confirm(message);
+
+    if (result) {
+        waypointChoisi = 1;
+
+        if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+        let feautresCalculadas = calculadoraVariablesCS();
+
+        //console.log('features Request', feautresCalculadas);
+
+        //console.log('Feautres', feautresCalculadas.features);
+
+        recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+        //console.log("recomendacionCS",recomendacionCS);
+        let recommendation;
+
+        //console.log(promesaCS);
+
+        /*promesaCS.then((data) => {
+          console.log(data);
+            recomendacionCS = data;
+            // console.log('data', data, data.predictions, typeof data.predictions)
+        })*/
+      
+      //console.log(recomendacionCS, typeof recomendacionCS)
+    
+      /*if (recomendacionCS == 1){
+          recommendation = 'l\'option 1';
+        } else*/
+        if (recomendacionCS != waypointChoisi){
+        if (recomendacionCS == 2){
+          recommendation = 'l\'option 2';
+        } else if (recomendacionCS == 3) {
+          recommendation = 'par dessus'
+        } else if (recomendacionCS == 0) {
+          recommendation = 'ne pas se dévier'
+        }
+
+
+        var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+        waypointChoisiInitialement = waypointChoisi;
+        if (aceptarSuggestion){
+          
+          waypointChoisi = recomendacionCS;
+        } else {
+        }}
+        //showButtonsContrefacutel();
+        }else if((condition == 2 || condition == 3) && (session == 1)){
+
+          let feautresCalculadas = calculadoraVariablesCS();
+
+          await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = await getAccuraciesCS(participantCS);
+          /*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+        feautresGuardar = feautresCalculadas.features;
+        globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
+        arrayJSONSAccuracies.push(globalGuardar);*/
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+        globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
+          arrayJSONSGuardar.push(globalGuardar);
+          arrayJSONSAccuracies.push(accuraciesCS);
+        }
+
+        if (condition == 3 && session == 1){
+          selectionDeuxiemeOption(waypointChoisi);
+        } else if (condition != 3 || (condition == 3 && session != 1)){
+          ajouterDonneesEnregistrer();
+          waypointChoisi = -1;
+        cambiarCaso();
+        hideButtonsContrefacutel();
+        resetDropdown();
+        }
+        
+    } else {
+  }} else if (wasDragged == true) {
+    wasDragged = false;
+  }
 });
 
-waypt2.addEventListener('click', async function () {
+/*waypt2.addEventListener('click', async function () {
 	if(waypointChoisi == -1) {
 	const message = 'Voulez-vous choisir l\'option 2?';
 	const result = confirm(message);
@@ -1139,19 +1215,12 @@ waypt2.addEventListener('click', async function () {
   			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
 
-  			//console.log(promesaCS);
 
-  			/*promesaCS.then((data) => {
-  				console.log(data);
-       			recomendacionCS = data;
-       			// console.log('data', data, data.predictions, typeof data.predictions)
-    		})*/
 			
 			if(recomendacionCS !=waypointChoisi){
 			if (recomendacionCS == 1){
     			recommendation = 'l\'option 1';
-    		/*} else if (recomendacionCS == 2){
-    			recommendation = 'l\'option 2';*/
+
     		} else if (recomendacionCS == 3) {
     			recommendation = 'par dessus'
     		} else if (recomendacionCS == 0) {
@@ -1172,10 +1241,7 @@ waypt2.addEventListener('click', async function () {
   				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);
   				arrayJSONSAccuracies.push(accuraciesCS);
-  				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
-				feautresGuardar = feautresCalculadas.features;
-				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
-				arrayJSONSAccuracies.push(globalGuardar);*/
+
         let nomCas = imagesData[currentImage].src.split('/').pop();
 				globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
     			arrayJSONSGuardar.push(globalGuardar);
@@ -1195,6 +1261,82 @@ waypt2.addEventListener('click', async function () {
 	} else {
   		
 	}
+}
+});*/
+
+buttonOption2.addEventListener('click', async function () {
+  if(waypointChoisi == -1) {
+  const message = 'Voulez-vous choisir l\'option 2?';
+  const result = confirm(message);
+
+  if (result) {
+        waypointChoisi = 2;
+        //showButtonsContrefacutel();
+        
+        if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
+
+        let feautresCalculadas = calculadoraVariablesCS();
+
+        recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
+        console.log("recomendacionCS",recomendacionCS);
+        let recommendation;
+
+        //console.log(promesaCS);
+
+        /*promesaCS.then((data) => {
+          console.log(data);
+            recomendacionCS = data;
+            // console.log('data', data, data.predictions, typeof data.predictions)
+        })*/
+      
+      if(recomendacionCS !=waypointChoisi){
+      if (recomendacionCS == 1){
+          recommendation = 'l\'option 1';
+        /*} else if (recomendacionCS == 2){
+          recommendation = 'l\'option 2';*/
+        } else if (recomendacionCS == 3) {
+          recommendation = 'par dessus'
+        } else if (recomendacionCS == 0) {
+          recommendation = 'ne pas se dévier'
+        }
+
+
+        var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+        waypointChoisiInitialement = waypointChoisi;
+        if (aceptarSuggestion){
+          console.log('Aqui', waypointChoisi)
+          waypointChoisi = recomendacionCS;
+        } else {
+        }}} else if((condition == 2 || condition == 3) && (session == 1)){
+
+          let feautresCalculadas = calculadoraVariablesCS();
+
+          await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = await getAccuraciesCS(participantCS);
+          arrayJSONSAccuracies.push(accuraciesCS);
+          /*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
+        feautresGuardar = feautresCalculadas.features;
+        globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
+        arrayJSONSAccuracies.push(globalGuardar);*/
+        let nomCas = imagesData[currentImage].src.split('/').pop();
+        globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS,currentImage,nomCas);
+          arrayJSONSGuardar.push(globalGuardar);
+        }
+        
+
+
+        if (condition == 3 && session == 1){
+          selectionDeuxiemeOption(waypointChoisi);
+        } else if (condition != 3 || (condition == 3 && session != 1)){
+          ajouterDonneesEnregistrer();
+          waypointChoisi = -1;
+        cambiarCaso();
+        hideButtonsContrefacutel();
+        resetDropdown();
+        }
+  } else {
+      
+  }
 }
 });
 
@@ -1360,7 +1502,7 @@ var radiusRouge = imagesData[currentImage].radiusYellow;
 var radiusJaune = imagesData[currentImage].radiusRed;
 
 var altitude = imagesData[currentImage].altVol;
-altitudeTextGenerator(altitude, 'lime')
+altitudeTextGenerator(altitude, colorAltitude);
 } );
 
 
@@ -2044,6 +2186,7 @@ if (seleccion == 'A'){
 	hideButtonsContrefacutel();
 	resetDropdown();*/
 	altitudeTextGenerator(altitude,'green');
+  colorAltitude = 'green';
 	cellCombDispo.style.backgroundColor = 'green';
 	cellAltZoneJaune.style.backgroundColor = 'green';
 	cellAltZoneRouge.style.backgroundColor = 'green';
