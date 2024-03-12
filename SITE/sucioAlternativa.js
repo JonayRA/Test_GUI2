@@ -124,11 +124,15 @@ function calculadoraVariablesCSordrePreference(){
   var excessWaypt1 = ((combDisponibleCS - parseFloat(cellConsomWaypt1.textContent)));
   var excessWaypt2 = ((combDisponibleCS - parseFloat(cellConsomWaypt2.textContent)));
   var excessDessus = ((combDisponibleCS - parseFloat(cellConsomDessus.textContent)));
-  var combRef = Math.min(excessRoute,excessWaypt1,excessWaypt2,excessDessus);
-  var consomRouteCS = ((excessRoute - combRef))/combDisponibleCS;
+  var combRef = Math.max(excessRoute,excessWaypt1,excessWaypt2,excessDessus);
+  var consomRouteCS = ((excessRoute))/combRef;
+  var consumptionWaypt1CS = ((excessWaypt1))/combRef;
+  var consumptionWaypt2CS = ((excessWaypt2))/combRef;
+  var consumptionDessusCS = ((excessDessus))/combRef;
+  /*var consomRouteCS = ((excessRoute - combRef))/combDisponibleCS;
   var consumptionWaypt1CS = ((excessWaypt1 - combRef))/combDisponibleCS;
   var consumptionWaypt2CS = ((excessWaypt2 - combRef))/combDisponibleCS;
-  var consumptionDessusCS = ((excessDessus - combRef))/combDisponibleCS;
+  var consumptionDessusCS = ((excessDessus - combRef))/combDisponibleCS;*/
 
 	
 

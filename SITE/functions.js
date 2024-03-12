@@ -34,6 +34,7 @@ const wayptFont = '90px "Andale Mono", monospace';
 
 
 
+
 const t1 = 'SPEED';
 const t11 = 'SPEED1';
 //const t2 = 'ASI';
@@ -92,7 +93,25 @@ function changeQUASAstatement(frase) {
     QUASAstatementPlaceholder.textContent = frase;
 }
 
+const notificationFont = ' 70px "Andale Mono", monospace';
+const notificationFont2 = 'bold 70px "Andale Mono", monospace';
 
+function CSnotificationBoxTextGenerator(text1, text2){
+	ctxNotificationBoxCS.font = notificationFont;
+	ctxNotificationBoxCS.fontWeight = 100;
+	var textWidth = ctxNotificationBoxCS.measureText(text1).width;
+	var x = notificationBoxCS.width/2 - textWidth/2;
+	var y = 40;
+	ctxNotificationBoxCS.fillStyle = 'black';
+	ctxNotificationBoxCS.fillText(text1,x,100);
+	ctxNotificationBoxCS.font = notificationFont2;
+	var textWidth = ctxNotificationBoxCS.measureText(text2).width;
+	var x = notificationBoxCS.width/2 - textWidth/2;
+	ctxNotificationBoxCS.fillStyle = 'black';
+	ctxNotificationBoxCS.fillText(text2,x,180);
+
+
+}
 
 function FMAtextGenerator(){
 
