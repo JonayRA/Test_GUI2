@@ -157,9 +157,9 @@ canvas {
 
 #notificationBoxCS{
   position: absolute;
-  left: 21.5%;
-  top:2%;
-  width: 57.5%;
+  left: 14.1%;
+  top:0%;
+  width: 71.79%;
   height: 19.55%;
   /*border: orange 5px solid; /*darkslategrey*/
 
@@ -168,23 +168,40 @@ canvas {
 #accepterRecommandationCS{
   position: absolute;
   right: 52.5%;
-  top: 14%;
+  top: 12%;
   width: 15%;
   height: 4.5%;
   font-size: 16px; 
   font-family: Andale Mono, monospace;
-  /*background-color: gold;
-  border: 2px solid gold;*/
+  color: black;
+  background-color: hsl(50, 90%, 47%); /*hsl(40, 80%, 50%); /*gold; /*goldenrod;*/
+  /*border: 2px solid darkorange;*/
+  transition: background-color 0.1s ease;
+  border-radius: 5px;
 }
 #rejeterRecommandationCS{
   position: absolute;
   left:52.5%;
-  top: 14%;
+  top: 12%;
   width: 15%;
   height: 4.5%;
   font-size: 16px; 
   font-family: Andale Mono, monospace;
+  color: black;
+  background-color: hsl(50, 90%, 47%); /*hsl(40, 80%, 50%); /*gold; /*darkorange;*/
+  /*border: 2px solid darkorange;*/
+  transition: background-color 0.1s ease;
+  border-radius: 5px;
 }
+
+#accepterRecommandationCS:hover, #rejeterRecommandationCS:hover {
+    background-color: hsl(45, 90%, 47%); 
+}
+
+#accepterRecommandationCS:active, #rejeterRecommandationCS:active {
+    background-color: hsl(50, 90%, 47%); 
+}
+ 
 
 #avionND {
 	position: absolute;
@@ -619,6 +636,17 @@ label[for="nivelConfiance"] {
     margin-bottom: 5px; /* Espacio entre el texto y los botones */
     margin-top: 15px;
 }
+
+#indicadorNumeroCaso {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    background-color: hsl(0, 0%, 90%); /* Color del fondo */
+    color: hsl(0, 0%, 90%); /* Color del texto (coincide con el fondo) */
+    padding: 5px;
+}
+
+
 /*.botones {
     display: flex;
     flex-wrap: wrap;

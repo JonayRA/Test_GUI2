@@ -5,23 +5,24 @@ const numParticipant = urlParams.get("numParticipant");
 const condition = urlParams.get("condition");
 const session = urlParams.get("session");
 const participantCS = urlParams.get("numParticipantCS");
+const participantCS2 = urlParams.get("numParticipantCS2");
 
 var title = document.getElementById("Titulo");
 title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
-
+// forceTraining();
 //confirm("Le modèle suggère " + 'l\'option 2' + '\nVoulez vous choisir l\'option suggérée?');
 
-let participantCS2;
+/*let participantCS2;
 if (participantCS == "8"){
  participantCS2 = "9";
 } else {
  participantCS2 = "45";
-}
+}*/
 
 //const QUASApositions = [1, 5, 8, 9];
 //const QUASApositions = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 // Randomized:
-const QUASApositions = [7,  12,  19,  26,  31,  37,  42, 49,  56,  62,  69,  76,  81,  86,  91, 97, 104, 111, 118, 125, 130, 135, 141, 148, 154, 161, 166, 173, 180];
+const QUASApositions = [ 7,  12,  19,  26,  31,  37,  42, 49,  56,  62,  69,  76,  81,  86,  91, 97, 104, 111, 118, 125, 130, 135, 141, 148, 154, 161, 166, 173, 180];
 
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
@@ -87,7 +88,6 @@ const imagenes = [
 const NDcontainer = document.getElementById('NDcanvasContainer');
 const NDcontainerWidth = NDcontainer.getBoundingClientRect().width;
 const NDcontainerHeight = NDcontainer.getBoundingClientRect().height;
-
 
 let canvasAvionND = document.getElementById('avionND');
 let ctxAvionND = canvasAvionND.getContext('2d');
@@ -183,6 +183,11 @@ const popupNASATLX = document.getElementById('NASATLX');
 const popupTrustInAuto1 = document.getElementById('trustInAuto1');
 const popupTrustInAuto2 = document.getElementById('trustInAuto2');
 const TituloFin = document.getElementById('TituloFin');
+const accepterRecommandationCS = document.getElementById('accepterRecommandationCS');
+const rejeterRecommandationCS = document.getElementById('rejeterRecommandationCS');
+
+accepterRecommandationCS.style.display = 'none';
+rejeterRecommandationCS.style.display = 'none';
 /*const tablaMatrizCorrelacion = document.getElementById('tablaMatrizCorrelacion');
 const botonAcceptMatrizCorrelacion = document.getElementById('acceptMatrizCorrelacion');*/
 var wayptAlternatif = -1;
@@ -372,6 +377,10 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
 
 	input.addEventListener("blur", () => {
 		cell.textContent = input.value;
+    if (a != cell.textContent){
+    variableChanged = 'table';
+    celdaEditada = cell.id;
+  }
 		return true;
 	});
 
@@ -406,12 +415,44 @@ function editCell(e){//, waypointChoisi, condition, variableChanged){
 function botonClicado(opcion,cell) {
         // Asignar el texto del botón seleccionado a la variable
         cell.textContent = opcion;
+        let hayQueEditarOtra = false;
+        if(opcion === "Sans mouvement"){
+          cellVitesseCellule.textContent = "Sans mouvement";
+          cellDirCellule.textContent = "Sans mouvement";
+          
+        } else if (cellVitesseCellule.textContent != "Sans mouvement" && cellDirCellule.textContent == "Sans mouvement"){
+          /*var celdas = tableMouvementCellule.querySelectorAll("td");
+          let celdaModif;*/
+          var celdaEditar = cellDirCellule;
+          hayQueEditarOtra = true;
+
+        } else if (cellDirCellule.textContent != "Sans mouvement" && cellVitesseCellule.textContent == "Sans mouvement"){
+          var celdaEditar = cellVitesseCellule;
+          hayQueEditarOtra = true;
+        }
         // Puedes hacer más acciones aquí según la opción seleccionada
 
         // Cerrar el modal después de seleccionar una opción
         menuOpcionesMovCel.style.display = 'none';
-        variableChanged = 'table';
-        celdaEditada = cell.id;
+        let parrafo = document.querySelector('#subBotonesTablaMovCel > p');
+        let textoAntiguo = parrafo.textContent;
+        if (hayQueEditarOtra == true){
+          
+          if (celdaEditar.id == 'vitesseCellule'){
+            parrafo.textContent = 'Veuillez choisir une vitesse pour la cellule.'
+          } else if (celdaEditar.id == 'dirCellule'){
+            parrafo.textContent = 'Veuillez choisir une direction pour la cellule.'
+          }
+          document.getElementById('opcion1').style.display='none';
+          document.getElementById('annuler').style.display='none';
+          editCellMouvement({ target: celdaEditar });
+        } else {
+          variableChanged = 'table';
+          celdaEditada = cell.id;
+          parrafo.textContent = 'Choisir une option:';
+          document.getElementById('opcion1').style.display='';
+          document.getElementById('annuler').style.display='';
+        }
 }
 
 
@@ -478,6 +519,7 @@ function cambiarImagen() {
   currentImage = (currentImage + 1) % imagesData.length;
   // imgND.src = imagenes[currentImage];
   imgND.src = imagesData[currentImage].src;
+
   //console.log('Aqui',currentImage, 'Length', imagesData.length)
   /*cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
   cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
@@ -514,6 +556,220 @@ function ajouterDonneesEnregistrer(){
 	console.log('Así es la variable',globalGuardar);*/
 	}
 	}
+
+async function getQUASA(){
+  /*return new Promise((resolve, reject) => {
+
+    let imageQUASA = currentImage;
+    var indiceAleatorio = Math.floor(Math.random() * QUASAstatements.length);
+
+    changeQUASAstatement(QUASAstatements[indiceAleatorio].statement);
+
+
+      QUASA.style.display = '';
+      timePresentacionQUASA = Date.now();
+      botonVrai.addEventListener('click', function() {
+        timeVraiFauxQUASA = Date.now();
+        timeVraiQUASA = Date.now();
+        if (timePremiereSelectionVraiFauxQUASA === null){
+          timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+        }
+      botonVrai.classList.add('seleccionado');
+      botonFaux.classList.remove('seleccionado');
+      });
+
+      botonFaux.addEventListener('click', function() {
+        timeVraiFauxQUASA = Date.now();
+        timeFauxQuasa = Date.now();
+        if (timePremiereSelectionVraiFauxQUASA === null){
+          timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+        }
+      botonFaux.classList.add('seleccionado');
+      botonVrai.classList.remove('seleccionado');
+      });
+
+      botonAcceptQUASA.addEventListener('click', function() {
+        var a = botonVrai.classList.contains('seleccionado');
+        var b = botonFaux.classList.contains('seleccionado');
+        let responseQUASA;
+        if (a){
+          responseQUASA = true;
+        } else if (b) {
+          responseQUASA = false;
+        }
+      if ( a || b){
+        QUASA.style.display = 'none';
+        resolve();
+        //console.log('Ahora se oculta QUASA');
+        var responseCorrecteQUASA = traitementQUASA(QUASAstatements[indiceAleatorio]);
+        console.log("Resultado QUASA", QUASAstatements[indiceAleatorio], responseCorrecteQUASA);
+        timeAccepterQUASA = Date.now();
+        JSONQUASA = {"Timestamp presentation QUASA": timePresentacionQUASA, 
+        "Timestamp premiere selection VraiFaux":timePremiereSelectionVraiFauxQUASA, 
+        "Timestamp selection VraiFAUX": timeVraiFauxQUASA,
+        "Timestamp selection Vrai": timeVraiQUASA,
+        "Timestamp selection Faux": timeFauxQuasa,
+        "Timestamp premiere selection confiance": timePremiereSelectionNiveauConfianceQUASA,
+        "Timestamp selection confiance": timeNiveauConfianceQUASA,
+        "Time pour premiere selection VraiFaux": timePremiereSelectionVraiFauxQUASA-timePresentacionQUASA,
+        "Time pour selectionner VraiFAUX": timeVraiFauxQUASA-timePresentacionQUASA,
+        "Time pour premiere selection confiance depuis debut": timePremiereSelectionNiveauConfianceQUASA-timePresentacionQUASA,
+        "Time pour premiere selection confiance depuis VraiFAUX": timePremiereSelectionNiveauConfianceQUASA-timeVraiFauxQUASA,
+        "Time pour selectionner confiance depuis debut": timeNiveauConfianceQUASA-timePresentacionQUASA,
+        "Time pour selectionner confiance depuis VraiFAUX": timeNiveauConfianceQUASA-timeVraiFauxQUASA,
+        "num scenario": imageQUASA,
+        "cas": imagesData[imageQUASA].src.split('/').pop(),
+        "Phrase": QUASAstatements[indiceAleatorio].statement,
+        "Variable": QUASAstatements[indiceAleatorio].variableQUASA ,
+        "Reponse participant": responseQUASA,
+        "Niveau confiance": QUASAconfidence,
+        "Reponse correcte": responseCorrecteQUASA,
+        "Resultat QUASA": responseQUASA == responseCorrecteQUASA
+        }
+        arrayJSONSQUASA.push(JSONQUASA);
+        JSONQUASA = null;
+        timeStampPresentacionCaso = Date.now();
+        //console.log('Valores lógicos if',a,b);
+        timePresentacionQUASA = null;
+        timePremiereSelectionVraiFauxQUASA = null; 
+        timeVraiFauxQUASA = null;
+        timeVraiQUASA = null;
+        timeFauxQuasa = null;
+        timePremiereSelectionNiveauConfianceQUASA = null;
+        timeNiveauConfianceQUASA = null;
+        return;
+
+      } else {
+        alert('Svp veuillez indiquer si l\'affirmation est vraie ou fausse.');
+      }
+      
+      });
+      botonFaux.classList.remove('seleccionado');
+      botonVrai.classList.remove('seleccionado');
+      botones.forEach(boton => {
+          boton.classList.remove("seleccionado");
+      });
+  
+});*/
+return new Promise((resolve, reject) => {
+    QUASAconfidence = null;
+    timePresentacionQUASA = -1;
+    timePremiereSelectionVraiFauxQUASA = -1;
+    timeVraiFauxQUASA = -1;
+    timeVraiQUASA = -1;
+    timeFauxQuasa = -1;
+    timePremiereSelectionNiveauConfianceQUASA = -1;
+    timeNiveauConfianceQUASA = -1;
+    JSONQUASA = null;
+    let alertado = 0;
+    try {
+        let imageQUASA = currentImage;
+        let indiceAleatorio = Math.floor(Math.random() * QUASAstatements.length);
+
+        changeQUASAstatement(QUASAstatements[indiceAleatorio].statement);
+
+        QUASA.style.display = '';
+        var timePresentacionQUASA = Date.now();
+
+        let handleVraiClick = () => {
+            timeVraiFauxQUASA = Date.now();
+            timeVraiQUASA = Date.now();
+            if (timePremiereSelectionVraiFauxQUASA === -1) {
+                timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+            }
+            botonVrai.classList.add('seleccionado');
+            botonFaux.classList.remove('seleccionado');
+        };
+
+        let handleFauxClick = () => {
+            timeVraiFauxQUASA = Date.now();
+            timeFauxQuasa = Date.now();
+            if (timePremiereSelectionVraiFauxQUASA === -1) {
+                timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
+            }
+            botonFaux.classList.add('seleccionado');
+            botonVrai.classList.remove('seleccionado');
+        };
+
+        botonVrai.addEventListener('click', handleVraiClick);
+        botonFaux.addEventListener('click', handleFauxClick);
+
+
+        function aceptarQUASA() {
+            let a = botonVrai.classList.contains('seleccionado');
+            let b = botonFaux.classList.contains('seleccionado');
+            let responseQUASA;
+            if (a) {
+                responseQUASA = true;
+            } else if (b) {
+                responseQUASA = false;
+            }
+
+            if ((a || b) & QUASAconfidence !== null) {
+                QUASA.style.display = 'none';
+                
+
+                let responseCorrecteQUASA = traitementQUASA(QUASAstatements[indiceAleatorio]);
+                console.log("Resultado QUASA", QUASAstatements[indiceAleatorio], responseCorrecteQUASA);
+                let timeAccepterQUASA = Date.now();
+                let JSONQUASA = {
+                    "Timestamp presentation QUASA": timePresentacionQUASA,
+                    "Timestamp premiere selection VraiFaux": timePremiereSelectionVraiFauxQUASA,
+                    "Timestamp selection VraiFAUX": timeVraiFauxQUASA,
+                    "Timestamp selection Vrai": timeVraiQUASA,
+                    "Timestamp selection Faux": timeFauxQuasa,
+                    "num scenario": imageQUASA,
+                    "cas": imagesData[imageQUASA].src.split('/').pop(),
+                    "Phrase": QUASAstatements[indiceAleatorio].statement,
+                    "Variable": QUASAstatements[indiceAleatorio].variableQUASA,
+                    "Reponse participant": responseQUASA,
+                    "Niveau confiance": QUASAconfidence,
+                    "Reponse correcte": responseCorrecteQUASA,
+                    "Resultat QUASA": responseQUASA == responseCorrecteQUASA
+                };
+                console.log('prepush',JSONQUASA,arrayJSONSQUASA, arrayJSONSQUASA.length);
+                //let lengthArrayJSONSQUASA = arrayJSONSQUASA.length;
+                // let existeEnArray = arrayJSONSQUASA.some(obj => JSON.stringify(obj) === JSON.stringify(JSONQUASA));
+
+                // arrayJSONSQUASA[arrayJSONSQUASA.length] = JSONQUASA;
+                
+                // arrayJSONSQUASA[lengthArrayJSONSQUASA] = JSONQUASA; // JSON.stringify(JSONQUASA);
+                let existeEnArray = arrayJSONSQUASA.some(obj => obj.cas === JSONQUASA.cas);
+
+                  if (!existeEnArray) {
+                     arrayJSONSQUASA.push(JSONQUASA);
+                  }
+                
+                console.log('Comprobacion QUASA', a, b, arrayJSONSQUASA);
+                resolve();
+                let timeStampPresentacionCaso = Date.now();
+
+                
+            } else {
+              if (alertado == 0){
+                alert('Svp veuillez indiquer si l\'affirmation est vraie ou fausse et le niveau de confiance.');
+                alertado = 1;
+              } else if (alertado == 1){
+                alertado = 0;
+              }
+            }
+        }
+
+
+        botonAcceptQUASA.addEventListener('click', aceptarQUASA);
+
+        botonFaux.classList.remove('seleccionado');
+        botonVrai.classList.remove('seleccionado');
+        botones.forEach(boton => {
+            boton.classList.remove("seleccionado");
+        });
+
+    } catch (error) {
+        reject(error);
+    }
+});
+botonAcceptQUASA.removeEventListener('click', aceptarQUASA);
+}
 async function cambiarCaso() {
 
 	// var datosCSV = "Esto es sólo una prueba";
@@ -527,100 +783,8 @@ async function cambiarCaso() {
 
 
 	if (currentImage < imagesData.length -1){
-	if(QUASApositions.includes(currentImage)){
-		let imageQUASA = currentImage;
-		var indiceAleatorio = Math.floor(Math.random() * QUASAstatements.length);
-
-		changeQUASAstatement(QUASAstatements[indiceAleatorio].statement);
-
-
-  		QUASA.style.display = '';
-  		timePresentacionQUASA = Date.now();
-  		botonVrai.addEventListener('click', function() {
-  			timeVraiFauxQUASA = Date.now();
-  			timeVraiQUASA = Date.now();
-  			if (timePremiereSelectionVraiFauxQUASA === null){
-  				timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
-  			}
-	    botonVrai.classList.add('seleccionado');
-   		botonFaux.classList.remove('seleccionado');
-  		});
-
-  		botonFaux.addEventListener('click', function() {
-  			timeVraiFauxQUASA = Date.now();
-  			timeFauxQuasa = Date.now();
-  			if (timePremiereSelectionVraiFauxQUASA === null){
-  				timePremiereSelectionVraiFauxQUASA = timeVraiFauxQUASA;
-  			}
-	    botonFaux.classList.add('seleccionado');
-    	botonVrai.classList.remove('seleccionado');
-  		});
-
-  		botonAcceptQUASA.addEventListener('click', function() {
-  			var a = botonVrai.classList.contains('seleccionado');
-  			var b = botonFaux.classList.contains('seleccionado');
-  			let responseQUASA;
-  			if (a){
-  				responseQUASA = true;
-  			} else if (b) {
-  				responseQUASA = false;
-  			}
-  		if ( a || b){
-  			QUASA.style.display = 'none';
-  			//console.log('Ahora se oculta QUASA');
-  			var responseCorrecteQUASA = traitementQUASA(QUASAstatements[indiceAleatorio]);
-  			console.log("Resultado QUASA", responseCorrecteQUASA);
-  			timeAccepterQUASA = Date.now();
-  			JSONQUASA = {"Timestamp presentation QUASA": timePresentacionQUASA, 
-  			"Timestamp premiere selection VraiFaux":timePremiereSelectionVraiFauxQUASA, 
-  			"Timestamp selection VraiFAUX": timeVraiFauxQUASA,
-  			"Timestamp selection Vrai": timeVraiQUASA,
-  			"Timestamp selection Faux": timeFauxQuasa,
-  			"Timestamp premiere selection confiance": timePremiereSelectionNiveauConfianceQUASA,
-  			"Timestamp selection confiance": timeNiveauConfianceQUASA,
-  			"Time pour premiere selection VraiFaux": timePremiereSelectionVraiFauxQUASA-timePresentacionQUASA,
-  			"Time pour selectionner VraiFAUX": timeVraiFauxQUASA-timePresentacionQUASA,
-  			"Time pour premiere selection confiance depuis debut": timePremiereSelectionNiveauConfianceQUASA-timePresentacionQUASA,
-  			"Time pour premiere selection confiance depuis VraiFAUX": timePremiereSelectionNiveauConfianceQUASA-timeVraiFauxQUASA,
-  			"Time pour selectionner confiance depuis debut": timeNiveauConfianceQUASA-timePresentacionQUASA,
-  			"Time pour selectionner confiance depuis VraiFAUX": timeNiveauConfianceQUASA-timeVraiFauxQUASA,
-  			"num scenario": imageQUASA,
-  			"cas": imagesData[imageQUASA].src.split('/').pop(),
-  			"Phrase": QUASAstatements[indiceAleatorio].statement,
-  			"Variable": QUASAstatements[indiceAleatorio].variableQUASA ,
-  			"Reponse participant": responseQUASA,
-  			"Niveau confiance": QUASAconfidence,
-  			"Reponse correcte": responseCorrecteQUASA,
-  			"Resultat QUASA": responseQUASA == responseCorrecteQUASA
-  			}
-  			arrayJSONSQUASA.push(JSONQUASA);
-  			JSONQUASA = null;
-  			timeStampPresentacionCaso = Date.now();
-  			//console.log('Valores lógicos if',a,b);
-  			timePresentacionQUASA = null;
-  			timePremiereSelectionVraiFauxQUASA = null; 
-  			timeVraiFauxQUASA = null;
-  			timeVraiQUASA = null;
-  			timeFauxQuasa = null;
-  			timePremiereSelectionNiveauConfianceQUASA = null;
-  			timeNiveauConfianceQUASA = null;
-  			return;
-
-  		} else {
-  			alert('Svp veuillez indiquer si l\'affirmation est vraie ou fausse.');
-  		}
-  		
-  		});
-  		botonFaux.classList.remove('seleccionado');
-  		botonVrai.classList.remove('seleccionado');
-      botones.forEach(boton => {
-          boton.classList.remove("seleccionado");
-      });
-
-
-	}else{
 		timeStampPresentacionCaso = Date.now();
-	}
+	
 }
   currentImage = (currentImage + 1) // % imagesData.length;
 
@@ -697,6 +861,10 @@ if (processTracing == 1){
 	altitudeTextGenerator(altitude, 'lime')
 }
 
+var casoNumeroTexto = "Caso: " + imagesData[currentImage].src + "\nNúmero: " + currentImage + "/" + imagesData.length;
+var indicadorNumeroCaso = document.getElementById("indicadorNumeroCaso");
+indicadorNumeroCaso.textContent = casoNumeroTexto;
+
    // Esto habrá que cambiarlo por coger la posición de la info de la imagen
   /*let avionNDdifferenceY = avionNDinitialPositionTop - canvasAvionND.offsetTop;
   let avionNDdifferenceX = avionNDinitialPositionLeft - canvasAvionND.offsetLeft;
@@ -712,17 +880,38 @@ if (processTracing == 1){
 }
 }
 
+document.addEventListener("keydown", function(event) {
+    // Comprobar si la combinación de teclas es Ctrl + Shift + F
+    if (event.ctrlKey && event.shiftKey && event.key === "F") {
+        // Llamar a la función si se presiona la combinación de teclas
+        if (session == 1){
+            popupMatrizCorrelacion.style.display = '';
+        }else if (session != 1){
+            popupNASATLX.style.display='';
+        }
+    }
+});
+
+document.addEventListener("keydown", function(event) {
+    // Comprobar si la combinación de teclas es Ctrl + Shift + F
+    if (event.ctrlKey && event.shiftKey && event.key === "F" && event.altKey) {
+        // Llamar a la función si se presiona la combinación de teclas
+        saveData2(arrayJSONSGuardar);
+    }
+});
+
+
 
 function calculadoraVariablesCS(){
 
 	
 	// Distancias presentes
 
-	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/9000;
+	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
   if (distJauneDessus < 0){
     distJauneDessus = 0;
   }
-  var distRougeDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneRouge.textContent))/9000;
+  var distRougeDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneRouge.textContent))/10000;
   if (distRougeDessus < 0){
     distRougeDessus = 0;
   }
@@ -772,26 +961,38 @@ function calculadoraVariablesCS(){
 	var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
   if (futureDistRougeDroit < 0){
     futureDistRougeDroit = 0;
+  } else if (futureDistRougeDroit > 1){
+    futureDistRougeDroit = 1;
   }
 	var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
   if (futureDistRougeGauche < 0){
     futureDistRougeGauche = 0;
+  } else if (futureDistRougeGauche > 1){
+    futureDistRougeGauche = 1;
   }
 	var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
   if (futureDistJauneDroit < 0){
     futureDistJauneDroit = 0;
+  }else if (futureDistJauneDroit > 1){
+    futureDistJauneDroit = 1;
   }
 	var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
   if (futureDistJauneGauche < 0){
     futureDistJauneGauche = 0;
+  }else if (futureDistJauneGauche > 1){
+    futureDistJauneGauche = 1;
   }
 	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRouge;
   if (futureDistRougeRoute < 0){
     futureDistRougeRoute = 0;
+  }else if (futureDistRougeRoute > 1){
+    futureDistRougeRoute = 1;
   }
 	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJaune;
   if (futureDistJauneRoute < 0){
     futureDistJauneRoute = 0;
+  }else if (futureDistJauneRoute > 1){
+    futureDistJauneRoute = 1;
   }
 
 
@@ -802,6 +1003,19 @@ function calculadoraVariablesCS(){
 	var consumptionWaypt2CS = ((combDisponibleCS - parseFloat(cellConsomWaypt2.textContent)))/combDisponibleCS;
 	var consumptionDessusCS = ((combDisponibleCS - parseFloat(cellConsomDessus.textContent)))/combDisponibleCS;
 
+   
+  var distJauneDroitCS = distJauneDroit/Math.sqrt(2);
+  var distJauneGaucheCS = distJauneGauche/Math.sqrt(2);
+  var distJauneRouteCS = distJauneRoute/Math.sqrt(2);
+  var distRougeDroitCS = distRougeDroit/Math.sqrt(2);
+  var distRougeGaucheCS = distRougeGauche/Math.sqrt(2);
+  var distRougeRouteCS = distRougeRoute/Math.sqrt(2);
+  var futureDistJauneDroitCS = futureDistJauneDroit/Math.sqrt(2);
+  var futureDistJauneGaucheCS = futureDistJauneGauche/Math.sqrt(2);
+  var futureDistRougeRouteCS = futureDistRougeRoute/Math.sqrt(2);
+  var futureDistJauneDroitCS = futureDistJauneDroit/Math.sqrt(2);
+  var futureDistRougeGaucheCS = futureDistRougeGauche/Math.sqrt(2);
+  var futureDistRougeRouteCS = futureDistRougeRoute/Math.sqrt(2);
 	
 
 	let feautresRequest
@@ -824,6 +1038,24 @@ function calculadoraVariablesCS(){
   	"Future dist rouge-droite": futureDistJauneDroit,
   	"Future dist rouge-gauche": futureDistRougeGauche,
   	"Future dist rouge-route": futureDistRougeRoute
+    /*"Consommation dessus": consumptionDessusCS,
+    "Consommation droite": consumptionWaypt2CS,
+    "Consommation gauche": consumptionWaypt1CS,
+    "Consommation route": consomRouteCS,
+    "Dist jaune-dessus": distRougeDessus,
+    "Dist jaune-droite": distJauneDroitCS,
+    "Dist jaune-gauche": distJauneGaucheCS,
+    "Dist jaune-route": distJauneRouteCS,
+    "Dist rouge-dessus": distRougeDessus,
+    "Dist rouge-droite": distRougeDroitCS,
+    "Dist rouge-gauche": distRougeGaucheCS,
+    "Dist rouge-route": distRougeRouteCS,
+    "Future dist jaune-droite": futureDistJauneDroitCS,
+    "Future dist jaune-gauche": futureDistJauneGaucheCS,
+    "Future dist jaune-route": futureDistRougeRouteCS,
+    "Future dist rouge-droite": futureDistJauneDroitCS,
+    "Future dist rouge-gauche": futureDistRougeGaucheCS,
+    "Future dist rouge-route": futureDistRougeRouteCS*/
   }};
 
   
@@ -1216,10 +1448,10 @@ ctxNotificationBoxCS.closePath();
 
 
 // Rellenar el rectángulo redondeado con un color
-ctxNotificationBoxCS.fillStyle = 'hsl(0,0%,90%)'; // Color de relleno
+ctxNotificationBoxCS.fillStyle = 'hsl(0,0%,0%)';//'ivory' //; // Color de relleno
 ctxNotificationBoxCS.fill();
 
-ctxNotificationBoxCS.strokeStyle = 'orange'; // Color del borde
+ctxNotificationBoxCS.strokeStyle = 'black' //'darkorange'; // Color del borde
 ctxNotificationBoxCS.lineWidth = 10;
 ctxNotificationBoxCS.stroke(); // Dibujar el borde
 
@@ -1361,9 +1593,14 @@ buttonOption1.addEventListener('click', async function () {
         }
 
 
-        var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+        // var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
         waypointChoisiInitialement = waypointChoisi;
-        if (aceptarSuggestion){
+        CSnotificationBoxTextGenerator('L’assistant intelligent suggère:', recommendation);
+
+        let respuesta = await esperaBotonesRecomendacionCS();
+        ocultarBoxNotification();
+        //if (aceptarSuggestion)
+        if (respuesta === 'accepted'){
           
           waypointChoisi = recomendacionCS;
         } else {
@@ -1373,12 +1610,16 @@ buttonOption1.addEventListener('click', async function () {
 
           let feautresCalculadas = calculadoraVariablesCS();
 
-          await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-          accuraciesCS = await getAccuraciesCS(participantCS);
+          // await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          // accuraciesCS = await getAccuraciesCS(participantCS);
+          accuraciesCS = getAccuraciesCS(participantCS);
+
 
           let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
 
-          await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           /*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
         feautresGuardar = feautresCalculadas.features;
         globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
@@ -1388,7 +1629,10 @@ buttonOption1.addEventListener('click', async function () {
           arrayJSONSGuardar.push(globalGuardar);
           arrayJSONSAccuracies.push(accuraciesCS);
         }
-
+        if(QUASApositions.includes(currentImage)){
+        getQUASA();
+        
+        }
         if (condition == 3 && session == 1){
           selectionDeuxiemeOption(waypointChoisi);
         } else if (condition != 3 || (condition == 3 && session != 1)){
@@ -1508,9 +1752,14 @@ buttonOption2.addEventListener('click', async function () {
         }
 
 
-        var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+        // var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
         waypointChoisiInitialement = waypointChoisi;
-        if (aceptarSuggestion){
+        CSnotificationBoxTextGenerator('L’assistant intelligent suggère:', recommendation);
+
+        let respuesta = await esperaBotonesRecomendacionCS();
+        ocultarBoxNotification();
+        //if (aceptarSuggestion)
+        if (respuesta === 'accepted'){
           console.log('Aqui', waypointChoisi)
           waypointChoisi = recomendacionCS;
         } else {
@@ -1518,13 +1767,16 @@ buttonOption2.addEventListener('click', async function () {
 
           let feautresCalculadas = calculadoraVariablesCS();
 
-          await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-          accuraciesCS = await getAccuraciesCS(participantCS);
+          /*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = await getAccuraciesCS(participantCS);*/
+          sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = getAccuraciesCS(participantCS);
           arrayJSONSAccuracies.push(accuraciesCS);
 
           let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
 
-          await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           /*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
         feautresGuardar = feautresCalculadas.features;
         globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
@@ -1535,7 +1787,10 @@ buttonOption2.addEventListener('click', async function () {
         }
         
 
+        if(QUASApositions.includes(currentImage)){
+        getQUASA();
 
+        }
         if (condition == 3 && session == 1){
           selectionDeuxiemeOption(waypointChoisi);
         } else if (condition != 3 || (condition == 3 && session != 1)){
@@ -1556,7 +1811,7 @@ function traitementQUASA(QUASAstatement){
 	var statement = QUASAstatement.statement;
 	var variable = QUASAstatement.variableQUASA;
   var celluleAff = QUASAstatement.celluleAffectee;
-  if (!celluleAff.includes("waypoint")){
+  if (!celluleAff.includes("waypoint") && celluleAff != "altitude"){
   var celda = window[celluleAff];
   var valorComparacion = celda.textContent;
   }
@@ -1564,6 +1819,14 @@ function traitementQUASA(QUASAstatement){
 	var oper = QUASAstatement.operateur;
 	var ident = QUASAstatement.identifier;
 	var resultado = null;
+  let feautresCalculadas = calculadoraVariablesCS();
+  let distRougeGauche = feautresCalculadas.features["Dist rouge-gauche"];
+  let distJauneGauche = feautresCalculadas.features["Dist jaune-gauche"];
+  let distRougeDroite = feautresCalculadas.features["Dist rouge-droite"];
+  let distJauneDroite = feautresCalculadas.features["Dist jaune-droite"];
+  let distJauneRoute = feautresCalculadas.features["Dist jaune-route"];
+  let distRougeRoute = feautresCalculadas.features["Dist rouge-route"];
+  //console.log(feautresCalculadas);
 	/*console.log("Comprobacion QUASA", valeurLim, oper, valorComparacion, QUASAstatement);*/
     if (celluleAff.includes("cell")){
     	if (!celluleAff.includes("Cellule")){
@@ -1595,27 +1858,49 @@ function traitementQUASA(QUASAstatement){
 
     }
 
+    }else if(celluleAff === 'altitude') {
+      let valorComparacion = imagesData[currentImage].altVol;
+
+        switch (oper){
+        case "sup":
+          if (valorComparacion > valeurLim){
+            resultado = true;
+            break;
+          } else if (valorComparacion <= valeurLim){
+            resultado = false;
+            break;
+          }
+        case "inf":
+        if (valorComparacion < valeurLim){
+            resultado = true;
+            break;
+          } else if (valorComparacion >= valeurLim){
+            resultado = false;
+            break;
+          }
+      }
+
     }else {
     	if (ident == "1plusProche2Rouge"){
-    		if(distRougeGauche>=distRougeDroit){
+    		if(distRougeGauche>=distRougeDroite){
     			resultado = true;
     		} else {
     			resultado = false;
     		}
     	} else if (ident == "1plusProche2Jaune"){
-    		if(distJauneGauche>=distJauneDroit){
+    		if(distJauneGauche>=distJauneDroite){
     			resultado = true;
     		} else {
     			resultado = false;
     		}
     	} else if (ident == "2plusProche1Rouge"){
-    		if(distRougeGauche<=distRougeDroit){
+    		if(distRougeGauche<=distRougeDroite){
     			resultado = true;
     		} else {
     			resultado = false;
     		}
     	} else if (ident == "2plusProche1Jaune"){
-    		if(distJauneGauche<=distJauneDroit){
+    		if(distJauneGauche<=distJauneDroite){
     			resultado = true;
     		} else {
     			resultado = false;
@@ -1633,13 +1918,13 @@ function traitementQUASA(QUASAstatement){
           resultado = false;
         }
       } else if (ident == "1plusProcheRouteRouge"){
-        if(distRougeDroit<=distRougeRoute){
+        if(distRougeDroite<=distRougeRoute){
           resultado = true;
         } else {
           resultado = false;
         }
       } else if (ident == "2plusProcheRouteJaune"){
-        if(distRougeDroit<=distJauneRoute){
+        if(distRougeDroite<=distJauneRoute){
           resultado = true;
         } else {
           resultado = false;
@@ -1764,9 +2049,14 @@ buttonsansChangement.addEventListener('click', async function(){
     		}*/
 
 
-    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+    		//var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		waypointChoisiInitialement = waypointChoisi;
-    		if (aceptarSuggestion){
+    		CSnotificationBoxTextGenerator('L’assistant intelligent suggère:', recommendation);
+
+        let respuesta = await esperaBotonesRecomendacionCS();
+        ocultarBoxNotification();
+        //if (aceptarSuggestion)
+        if (respuesta === 'accepted'){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
@@ -1774,13 +2064,16 @@ buttonsansChangement.addEventListener('click', async function(){
 
     			let feautresCalculadas = calculadoraVariablesCS();
 
-  				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				/*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+  				accuraciesCS = await getAccuraciesCS(participantCS);*/
+          sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = getAccuraciesCS(participantCS);
   				arrayJSONSAccuracies.push(accuraciesCS);
 
           let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
 
-          await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
   				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
@@ -1793,7 +2086,9 @@ buttonsansChangement.addEventListener('click', async function(){
 
 
 
-
+      if(QUASApositions.includes(currentImage)){
+        getQUASA();
+        }
 			if (condition == 3 && session == 1){
 				selectionDeuxiemeOption(waypointChoisi);
 	}else if (condition != 3 || (condition == 3 && session != 1)){
@@ -1846,9 +2141,14 @@ buttonParDessus.addEventListener('click', async function(){
     		}
 
 
-    		var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
+    		// var aceptarSuggestion = confirm("Le modèle suggère " + recommendation + '\nVoulez vous choisir l\'option suggérée?');
     		waypointChoisiInitialement = waypointChoisi;
-    		if (aceptarSuggestion){
+        CSnotificationBoxTextGenerator('L’assistant intelligent suggère:', recommendation);
+
+        let respuesta = await esperaBotonesRecomendacionCS();
+        ocultarBoxNotification();
+        //if (aceptarSuggestion)
+        if (respuesta === 'accepted'){
     			
     			waypointChoisi = recomendacionCS;
     		} else {
@@ -1856,12 +2156,15 @@ buttonParDessus.addEventListener('click', async function(){
 
     			let feautresCalculadas = calculadoraVariablesCS();
 
-  				await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
-  				accuraciesCS = await getAccuraciesCS(participantCS);
+  				/*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+  				accuraciesCS = await getAccuraciesCS(participantCS);*/
+          sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
+          accuraciesCS = getAccuraciesCS(participantCS);
   				arrayJSONSAccuracies.push(accuraciesCS);
           let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
 
-          await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
+          sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
   				/*datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Choisi": waypointChoisi, "Waypoint Initial": waypointChoisiInitialement};
 				feautresGuardar = feautresCalculadas.features;
 				globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
@@ -1879,7 +2182,9 @@ buttonParDessus.addEventListener('click', async function(){
 
 
 
-
+        if(QUASApositions.includes(currentImage)){
+        getQUASA();
+        }
 			if (condition == 3 && session ==1){
 			selectionDeuxiemeOption(waypointChoisi);
 		}else if (condition != 3 || (condition == 3 && session != 1)){
@@ -2184,7 +2489,12 @@ async function esperarXSegundos(x) {
     });
 }
 
-CSnotificationBoxTextGenerator('Le système suggère:', 'Option 2');
+// CSnotificationBoxTextGenerator('L’assistant intelligent suggère:', 'Option 2');
+
+
+
+
+
 
 async function saveData2(ArrayJSONS,arrayJSONSContrafactual){
 
@@ -2405,8 +2715,8 @@ if (seleccion == 'A'){
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();*/
-	altitudeTextGenerator(altitude,'green');
-  colorAltitude = 'green';
+	// altitudeTextGenerator(altitude,'green');
+  // colorAltitude = 'green';
 	cellCombDispo.style.backgroundColor = 'green';
 	cellAltZoneJaune.style.backgroundColor = 'green';
 	cellAltZoneRouge.style.backgroundColor = 'green';
@@ -2421,7 +2731,10 @@ if (seleccion == 'A'){
 }
 
 buttonsoumettreContrefactuel.addEventListener('click', async function(){
+  console.log(variableChanged);
 
+  if (variableChanged != ''){
+    console.log('Ha entrado');
 	let feautresCalculadas = calculadoraVariablesCS();
 
 	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Alternatif": waypointAlternatif};
@@ -2430,10 +2743,13 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 	//globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
 	arrayJSONSContrafactual.push(globalGuardar);
 
-  	await sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
-  	accuraciesCS = await getAccuraciesCS(participantCS);
+  	/*await sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
+  	accuraciesCS = await getAccuraciesCS(participantCS);*/
+    sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
+    accuraciesCS = getAccuraciesCS(participantCS);
     let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
-    await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointAlternatif);
+    // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointAlternatif);
+    sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointAlternatif);
   	
     datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Alternatif": waypointAlternatif};
 	feautresGuardar = feautresCalculadas.features;
@@ -2454,7 +2770,9 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 	cambiarCaso();
 	hideButtonsContrefacutel();
 	resetDropdown();
-
+} else {
+  alert('Veuillez modifier modifier le facteur qui vous ferait préférer votre deuxième option.');
+}
 	//let decisionContrefact = prompt(`Elige una opción: \n A) Waypoint 1 \n B) Waypoint 2`);
 
 	/*popup.style.display = '';
@@ -2516,9 +2834,9 @@ window.addEventListener('message', function(event) {
                 if (event.data.message === 'Accepted NASA-TLX') {
                 	arrayJSONSGuardar.push({"NSATLX":event.data.data});
                 	popupNASATLX.style.display = 'none';
-                	if(condition != 1){
+                	if(condition != 1 && session != 1){
                 	popupTrustInAuto1.style.display = '';
-                	} else if (condition ==1){
+                	} else if (condition ==1 || session == 1){
                 		saveData2(arrayJSONSGuardar);
                 	}
                 }
@@ -2677,4 +2995,6 @@ ctxPFD.moveTo(0,0);
 ctxPFD.lineTo(PFD.width,PFD.height);
 ctxPFD.strokeStyle = 'white';
 ctxPFD.stroke(); */
+
+
 

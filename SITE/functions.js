@@ -97,20 +97,19 @@ const notificationFont = ' 70px "Andale Mono", monospace';
 const notificationFont2 = 'bold 70px "Andale Mono", monospace';
 
 function CSnotificationBoxTextGenerator(text1, text2){
+	ctxNotificationBoxCS.clearRect(0, 0, notificationBoxCS.width, notificationBoxCS.height);
 	ctxNotificationBoxCS.font = notificationFont;
 	ctxNotificationBoxCS.fontWeight = 100;
 	var textWidth = ctxNotificationBoxCS.measureText(text1).width;
 	var x = notificationBoxCS.width/2 - textWidth/2;
 	var y = 40;
-	ctxNotificationBoxCS.fillStyle = 'black';
+	ctxNotificationBoxCS.fillStyle = 'white';
 	ctxNotificationBoxCS.fillText(text1,x,100);
-	ctxNotificationBoxCS.font = notificationFont2;
+	ctxNotificationBoxCS.font = notificationFont;
 	var textWidth = ctxNotificationBoxCS.measureText(text2).width;
 	var x = notificationBoxCS.width/2 - textWidth/2;
-	ctxNotificationBoxCS.fillStyle = 'black';
+	ctxNotificationBoxCS.fillStyle = 'white';
 	ctxNotificationBoxCS.fillText(text2,x,180);
-
-
 }
 
 function FMAtextGenerator(){
@@ -653,6 +652,44 @@ function compileData2Save(numParticipant, participantCS, session, condition, tim
 	return globalGuardar;
 }
 
+function waitForButtonClick() {
+  return new Promise((resolve, reject) => {
+    // Agregar listeners de eventos a los botones
+    document.getElementById('accepterRecommandationCS').addEventListener('click', () => resolve('accepted'));
+    document.getElementById('rejeterRecommandationCS').addEventListener('click', () => resolve('rejected'));
+  });
+}
+
+function mostrarBoxNotification(){
+notificationBoxCS.style.display = '';
+accepterRecommandationCS.style.display = '';
+rejeterRecommandationCS.style.display = '';
+buttonParDessus.style.display = 'none';
+buttonsansChangement.style.display = 'none';
+buttonOption1.style.display = 'none';
+buttonOption2.style.display = 'none';
+}
+
+async function esperaBotonesRecomendacionCS() {
+  // console.log('Mostrando los botones...');
+  
+  mostrarBoxNotification();
+
+  //console.log('Esperando que el usuario haga clic en uno de los botones...');
+  const botonPresionado = await waitForButtonClick();
+  //console.log(`El usuario ha presionado el botón: ${botonPresionado}`);
+  buttonParDessus.style.display = '';
+  buttonsansChangement.style.display = '';
+  buttonOption1.style.display = '';
+  buttonOption2.style.display = '';
+  return botonPresionado;
+}
+
+function ocultarBoxNotification(){
+notificationBoxCS.style.display = 'none';
+accepterRecommandationCS.style.display = 'none';
+rejeterRecommandationCS.style.display = 'none';
+}
 
 /*function editCellMatrizCorrelacion(e){//, waypointChoisi, condition, variableChanged){
 
