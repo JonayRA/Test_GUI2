@@ -647,7 +647,7 @@ function compileData2Save(numParticipant, participantCS, session, condition, tim
 	"Waypoint Choisi": waypointChoisi, 
 	"Waypoint Initial": waypointChoisiInitialement, 
 	"Recommendation CS": recomendacionCS};
-	feautresGuardar = calculadoraVariablesCS();
+	feautresGuardar = calculadoraVariablesCS(currentImage);
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	return globalGuardar;
 }

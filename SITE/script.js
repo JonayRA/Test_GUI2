@@ -93,6 +93,8 @@ let canvasAvionND = document.getElementById('avionND');
 let ctxAvionND = canvasAvionND.getContext('2d');
 var xAvion = canvasAvionND.width * 0.5;
 var yAvion = canvasAvionND.height * 0.3;
+let cumuloModifsX = 0;
+let cumuloModifsY = 0;
 
 
 let ND = document.getElementById('ND');
@@ -808,7 +810,7 @@ async function cambiarCaso() {
 	cellDirCellule.textContent = imagesData[currentImage].dirCellule;
 	cellVitesseCellule.textContent = imagesData[currentImage].vitesseCellule;
 
-
+  
 
 	var Xwaypt1 = imagesData[currentImage].waypt1X;
 	var Ywaypt1 = imagesData[currentImage].waypt1Y;
@@ -824,8 +826,15 @@ async function cambiarCaso() {
 	var XposWapt1 = Xwaypt1 * NDcontainerWidth;
 	var YposWapt1 = (1-Ywaypt1) * NDcontainerHeight;
 
+  // diffX = 0;
+  // diffY = 0;
+  // startX = Xwaypt1;
+  // startY = Ywaypt1;
+
 	//console.log('Xpos1',Xwaypt1);
 	//console.log('Ypos1',Ywaypt1)
+  // canvasWaypt1.style.transform = `translate(0px, 0px)`;
+  // canvasWaypt2.style.transform = `translate(0px, 0px)`;
 
 	canvasWaypt1.style.top = YposWapt1 + 'px';
 	canvasWaypt1.style.left = XposWapt1 + 'px';
@@ -835,6 +844,8 @@ async function cambiarCaso() {
 
 	canvasWaypt2.style.top = YposWapt2 + 'px';
 	canvasWaypt2.style.left = XposWapt2 + 'px';
+
+  
 
 	canvasWaypt1PositionTop = canvasWaypt1.style.top;
 	canvasWaypt1PositionLeft = canvasWaypt1.style.left
@@ -897,14 +908,61 @@ document.addEventListener("keydown", function(event) {
     if (event.ctrlKey && event.shiftKey && event.key === "F" && event.altKey) {
         // Llamar a la función si se presiona la combinación de teclas
         saveData2(arrayJSONSGuardar);
+        // saveData2(arrayJSONSContrafactual);
     }
 });
 
 
 
-function calculadoraVariablesCS(){
+function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
 
-	
+  /*var XposWapt1 = Xwaypt1 * NDcontainerWidth;
+  var YposWapt1 = (1-Ywaypt1) * NDcontainerHeight;
+
+  //console.log('Xpos1',Xwaypt1);
+  //console.log('Ypos1',Ywaypt1)
+
+  canvasWaypt1.style.top = YposWapt1 + 'px';
+  canvasWaypt1.style.left = XposWapt1 + 'px';*/
+
+  var Xwaypt1CS = canvasWaypt1.offsetLeft/NDcontainerWidth;
+  var Xwaypt2CS = canvasWaypt2.offsetLeft/NDcontainerWidth;
+  var Ywaypt1CS = 1 - canvasWaypt1.offsetTop / NDcontainerHeight;
+  var Ywaypt2CS = 1 - canvasWaypt2.offsetTop / NDcontainerHeight;
+  console.log(Xwaypt1CS,Ywaypt1CS);
+  if(changedWaypt === undefined){
+
+  }else if (changedWaypt == 1){
+    
+    Xwaypt1CS = Xwaypt1CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt1CS = Ywaypt1CS - (cumuloModifsY/NDcontainerHeight);
+  }else if (changedWaypt == 2){
+    Xwaypt2CS = Xwaypt2CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt2CS = Ywaypt2CS - (cumuloModifsY/NDcontainerHeight);
+  }
+
+
+  
+
+  // console.log(currentImage);
+  if (typeof currentImage1 === "undefined") {
+  // console.log("No definida");
+  var XjauneCS = Xjaune;
+  var YjauneCS = Yjaune;
+  var XrougeCS = Xrouge;
+  var YrougeCS = Yrouge;
+  var radiusRougeCS = radiusRouge;
+  var radiusJauneCS = radiusJaune;
+} else {
+  // console.log("Definida");
+  var XjauneCS = imagesData[currentImage].XcenterYellow;
+  var YjauneCS = imagesData[currentImage].YcenterYellow;
+  var XrougeCS = imagesData[currentImage].XcenterRed;
+  var YrougeCS = imagesData[currentImage].YcenterRed;
+  var radiusRougeCS = imagesData[currentImage].radiusYellow;
+  var radiusJauneCS = imagesData[currentImage].radiusRed;
+	}
+
 	// Distancias presentes
 
 	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
@@ -915,27 +973,27 @@ function calculadoraVariablesCS(){
   if (distRougeDessus < 0){
     distRougeDessus = 0;
   }
-	var distRougeDroit = Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+	var distRougeDroit = Math.sqrt((XrougeCS - Xwaypt1CS)**2 + (YrougeCS - Ywaypt1CS)**2)-radiusRougeCS;
   if (distRougeDroit < 0){
     distRougeDroit = 0;
   }
-	var distRougeGauche = Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+	var distRougeGauche = Math.sqrt((XrougeCS - Xwaypt2CS)**2 + (YrougeCS - Ywaypt2CS)**2)-radiusRougeCS;
   if (distRougeGauche < 0){
     distRougeGauche = 0;
   }
-	var distJauneDroit = Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+	var distJauneDroit = Math.sqrt((XjauneCS - Xwaypt1CS)**2 + (YjauneCS - Ywaypt1CS)**2)-radiusJauneCS;
   if (distJauneDroit < 0){
     distJauneDroit = 0;
   }
-	var distJauneGauche = Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+	var distJauneGauche = Math.sqrt((XjauneCS - Xwaypt2CS)**2 + (Yjaune - Ywaypt2CS)**2)-radiusJauneCS;
   if (distJauneGauche < 0){
     distJauneGauche = 0;
   }
-	var distRougeRoute = Math.abs(Xrouge - 0.5) - radiusRouge;
+	var distRougeRoute = Math.abs(XrougeCS - 0.5) - radiusRougeCS;
   if (distRougeRoute < 0){
     distRougeRoute = 0;
   }
-	var distJauneRoute = Math.abs(Xjaune - 0.5) - radiusJaune;
+	var distJauneRoute = Math.abs(XjauneCS - 0.5) - radiusJauneCS;
   if (distJauneRoute < 0){
     distJauneRoute = 0;
   }
@@ -955,40 +1013,40 @@ function calculadoraVariablesCS(){
 	}
 
 	var futureXcenterRed = Xrouge + vitesse;
-	var futureXcenterYellow = Xjaune + vitesse;
+	var futureXcenterYellow = XjauneCS + vitesse;
 
 	// Distancias futuras
-	var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+	var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1CS)**2 + (YrougeCS - Ywaypt1CS)**2)-radiusRougeCS;
   if (futureDistRougeDroit < 0){
     futureDistRougeDroit = 0;
   } else if (futureDistRougeDroit > 1){
     futureDistRougeDroit = 1;
   }
-	var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+	var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2CS)**2 + (YrougeCS - Ywaypt2CS)**2)-radiusRougeCS;
   if (futureDistRougeGauche < 0){
     futureDistRougeGauche = 0;
   } else if (futureDistRougeGauche > 1){
     futureDistRougeGauche = 1;
   }
-	var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+	var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1CS)**2 + (YjauneCS - Ywaypt1CS)**2)-radiusJauneCS;
   if (futureDistJauneDroit < 0){
     futureDistJauneDroit = 0;
   }else if (futureDistJauneDroit > 1){
     futureDistJauneDroit = 1;
   }
-	var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+	var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2CS)**2 + (YjauneCS - Ywaypt2CS)**2)-radiusJauneCS;
   if (futureDistJauneGauche < 0){
     futureDistJauneGauche = 0;
   }else if (futureDistJauneGauche > 1){
     futureDistJauneGauche = 1;
   }
-	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRouge;
+	var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRougeCS;
   if (futureDistRougeRoute < 0){
     futureDistRougeRoute = 0;
   }else if (futureDistRougeRoute > 1){
     futureDistRougeRoute = 1;
   }
-	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJaune;
+	var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJauneCS;
   if (futureDistJauneRoute < 0){
     futureDistJauneRoute = 0;
   }else if (futureDistJauneRoute > 1){
@@ -1063,8 +1121,42 @@ function calculadoraVariablesCS(){
 
 }
 
-function calculadoraVariablesCSordrePreference(){
+function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Ypos){
 
+  var Xwaypt1CS = canvasWaypt1.offsetLeft/NDcontainerWidth;
+  var Xwaypt2CS = canvasWaypt2.offsetLeft/NDcontainerWidth;
+  var Ywaypt1CS = 1 - canvasWaypt1.offsetTop / NDcontainerHeight;
+  var Ywaypt2CS = 1 - canvasWaypt2.offsetTop / NDcontainerHeight;
+  console.log(currentImage);
+
+  if(changedWaypt === undefined){
+
+  }else if (changedWaypt == 1){
+    Xwaypt1CS = Xwaypt1CS + cumuloModifsX;
+    Ywaypt1CS = Ywaypt1CS + cumuloModifsY;
+  }else if (changedWaypt == 2){
+    Xwaypt2CS = Xwaypt2CS + cumuloModifsX;
+    Ywaypt2CS = Ywaypt2CS + cumuloModifsY;
+  }
+
+
+  if (typeof currentImage1 === "undefined") {
+  console.log("No definida");
+  var XjauneCS = Xjaune;
+  var YjauneCS = Yjaune;
+  var XrougeCS = Xrouge;
+  var YrougeCS = Yrouge;
+  var radiusRougeCS = radiusRouge;
+  var radiusJauneCS = radiusJaune;
+} else {
+  console.log("Definida");
+  var XjauneCS = imagesData[currentImage].XcenterYellow;
+  var YjauneCS = imagesData[currentImage].YcenterYellow;
+  var XrougeCS = imagesData[currentImage].XcenterRed;
+  var YrougeCS = imagesData[currentImage].YcenterRed;
+  var radiusRougeCS = imagesData[currentImage].radiusYellow;
+  var radiusJauneCS = imagesData[currentImage].radiusRed;
+  }
   
   // Distancias presentes
 
@@ -1076,27 +1168,27 @@ function calculadoraVariablesCSordrePreference(){
   if (distRougeDessus < 0){
     distRougeDessus = 0;
   }
-  var distRougeDroit = Math.sqrt((Xrouge - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+  var distRougeDroit = Math.sqrt((XrougeCS - Xwaypt1CS)**2 + (YrougeCS - Ywaypt1CS)**2)-radiusRougeCS;
   if (distRougeDroit < 0){
     distRougeDroit = 0;
   }
-  var distRougeGauche = Math.sqrt((Xrouge - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+  var distRougeGauche = Math.sqrt((XrougeCS - Xwaypt2CS)**2 + (YrougeCS - Ywaypt2CS)**2)-radiusRougeCS;
   if (distRougeGauche < 0){
     distRougeGauche = 0;
   }
-  var distJauneDroit = Math.sqrt((Xjaune - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+  var distJauneDroit = Math.sqrt((XjauneCS - Xwaypt1CS)**2 + (YjauneCS - Ywaypt1CS)**2)-radiusJauneCS;
   if (distJauneDroit < 0){
     distJauneDroit = 0;
   }
-  var distJauneGauche = Math.sqrt((Xjaune - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+  var distJauneGauche = Math.sqrt((XjauneCS - Xwaypt2CS)**2 + (YjauneCS - Ywaypt2CS)**2)-radiusJauneCS;
   if (distJauneGauche < 0){
     distJauneGauche = 0;
   }
-  var distRougeRoute = Math.abs(Xrouge - 0.5) - radiusRouge;
+  var distRougeRoute = Math.abs(XrougeCS - 0.5) - radiusRougeCS;
   if (distRougeRoute < 0){
     distRougeRoute = 0;
   }
-  var distJauneRoute = Math.abs(Xjaune - 0.5) - radiusJaune;
+  var distJauneRoute = Math.abs(XjauneCS - 0.5) - radiusJauneCS;
   if (distJauneRoute < 0){
     distJauneRoute = 0;
   }
@@ -1127,31 +1219,31 @@ function calculadoraVariablesCSordrePreference(){
     vitesse = -vitesse
   }
 
-  var futureXcenterRed = Xrouge + vitesse;
-  var futureXcenterYellow = Xjaune + vitesse;
+  var futureXcenterRed = XrougeCS + vitesse;
+  var futureXcenterYellow = XjauneCS + vitesse;
 
   // Distancias futuras
-  var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1)**2 + (Yrouge - Ywaypt1)**2)-radiusRouge;
+  var futureDistRougeDroit = Math.sqrt((futureXcenterRed - Xwaypt1CS)**2 + (YrougeCS - Ywaypt1CS)**2)-radiusRougeCS;
   if (futureDistRougeDroit < 0){
     futureDistRougeDroit = 0;
   }
-  var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2)**2 + (Yrouge - Ywaypt2)**2)-radiusRouge;
+  var futureDistRougeGauche = Math.sqrt((futureXcenterRed - Xwaypt2CS)**2 + (YrougeCS - Ywaypt2CS)**2)-radiusRougeCS;
   if (futureDistRougeGauche < 0){
     futureDistRougeGauche = 0;
   }
-  var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1)**2 + (Yjaune - Ywaypt1)**2)-radiusJaune;
+  var futureDistJauneDroit = Math.sqrt((futureXcenterYellow - Xwaypt1CS)**2 + (YjauneCS - Ywaypt1CS)**2)-radiusJauneCS;
   if (futureDistJauneDroit < 0){
     futureDistJauneDroit = 0;
   }
-  var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2)**2 + (Yjaune - Ywaypt2)**2)-radiusJaune;
+  var futureDistJauneGauche = Math.sqrt((futureXcenterYellow - Xwaypt2CS)**2 + (YjauneCS - Ywaypt2CS)**2)-radiusJauneCS;
   if (futureDistJauneGauche < 0){
     futureDistJauneGauche = 0;
   }
-  var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRouge;
+  var futureDistRougeRoute = Math.abs(futureXcenterRed - 0.5) - radiusRougeCS;
   if (futureDistRougeRoute < 0){
     futureDistRougeRoute = 0;
   }
-  var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJaune;
+  var futureDistJauneRoute = Math.abs(futureXcenterYellow - 0.5) - radiusJauneCS;
   if (futureDistJauneRoute < 0){
     futureDistJauneRoute = 0;
   }
@@ -1560,7 +1652,7 @@ buttonOption1.addEventListener('click', async function () {
 
         if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
 
-        let feautresCalculadas = calculadoraVariablesCS();
+        let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
         //console.log('features Request', feautresCalculadas);
 
@@ -1608,7 +1700,7 @@ buttonOption1.addEventListener('click', async function () {
         //showButtonsContrefacutel();
         }else if((condition == 2 || condition == 3) && (session == 1)){
 
-          let feautresCalculadas = calculadoraVariablesCS();
+          let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
           // await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
           sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
@@ -1616,7 +1708,7 @@ buttonOption1.addEventListener('click', async function () {
           accuraciesCS = getAccuraciesCS(participantCS);
 
 
-          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
+          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference(currentImage);
 
           // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
@@ -1726,7 +1818,7 @@ buttonOption2.addEventListener('click', async function () {
         
         if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
 
-        let feautresCalculadas = calculadoraVariablesCS();
+        let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
         recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
         console.log("recomendacionCS",recomendacionCS);
@@ -1765,7 +1857,7 @@ buttonOption2.addEventListener('click', async function () {
         } else {
         }}} else if((condition == 2 || condition == 3) && (session == 1)){
 
-          let feautresCalculadas = calculadoraVariablesCS();
+          let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
           /*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
           accuraciesCS = await getAccuraciesCS(participantCS);*/
@@ -1773,7 +1865,7 @@ buttonOption2.addEventListener('click', async function () {
           accuraciesCS = getAccuraciesCS(participantCS);
           arrayJSONSAccuracies.push(accuraciesCS);
 
-          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
+          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference(currentImage);
 
           // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
@@ -1819,7 +1911,7 @@ function traitementQUASA(QUASAstatement){
 	var oper = QUASAstatement.operateur;
 	var ident = QUASAstatement.identifier;
 	var resultado = null;
-  let feautresCalculadas = calculadoraVariablesCS();
+  let feautresCalculadas = calculadoraVariablesCS(currentImage);
   let distRougeGauche = feautresCalculadas.features["Dist rouge-gauche"];
   let distJauneGauche = feautresCalculadas.features["Dist jaune-gauche"];
   let distRougeDroite = feautresCalculadas.features["Dist rouge-droite"];
@@ -1965,6 +2057,8 @@ buttonresetCase.addEventListener('click', () => {
 	canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
 	canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
 	resetCase(canvasWaypt1PositionTop,canvasWaypt1PositionLeft,canvasWaypt2PositionTop,canvasWaypt2PositionLeft);
+  cumuloModifsX = 0;
+  cumuloModifsY = 0;
 	cellConsomRoute.textContent = imagesData[currentImage].consumptionRoute;
 	cellConsomWaypt1.textContent = imagesData[currentImage].consumptionWaypt1;
 	cellConsomWaypt2.textContent = imagesData[currentImage].consumptionWaypt2;
@@ -2022,7 +2116,7 @@ buttonsansChangement.addEventListener('click', async function(){
 
 		if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
 
-			let feautresCalculadas = calculadoraVariablesCS();
+			let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
   			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
   			console.log("recomendacionCS",recomendacionCS);
@@ -2062,7 +2156,7 @@ buttonsansChangement.addEventListener('click', async function(){
     		} else {
     		}}} else if((condition == 2 || condition == 3) && (session == 1)){
 
-    			let feautresCalculadas = calculadoraVariablesCS();
+    			let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
   				/*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);*/
@@ -2070,7 +2164,7 @@ buttonsansChangement.addEventListener('click', async function(){
           accuraciesCS = getAccuraciesCS(participantCS);
   				arrayJSONSAccuracies.push(accuraciesCS);
 
-          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
+          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference(currentImage);
 
           // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
@@ -2115,7 +2209,7 @@ buttonParDessus.addEventListener('click', async function(){
 
 			if((condition == 2 || condition == 3) && (session == 2 || session == 3)){
 
-			let feautresCalculadas = calculadoraVariablesCS();
+			let feautresCalculadas = calculadoraVariablesCS(currentImage);
   			recomendacionCS = await getRecommendationCS(participantCS,feautresCalculadas.features);
   			console.log("recomendacionCS",recomendacionCS);
   			let recommendation;
@@ -2154,14 +2248,14 @@ buttonParDessus.addEventListener('click', async function(){
     		} else {
     		}}}else if((condition == 2 || condition == 3) && (session == 1)){
 
-    			let feautresCalculadas = calculadoraVariablesCS();
+    			let feautresCalculadas = calculadoraVariablesCS(currentImage);
 
   				/*await sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
   				accuraciesCS = await getAccuraciesCS(participantCS);*/
           sendTrainingCase(participantCS, feautresCalculadas.features, waypointChoisi);
           accuraciesCS = getAccuraciesCS(participantCS);
   				arrayJSONSAccuracies.push(accuraciesCS);
-          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
+          let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference(currentImage);
 
           // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
           sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointChoisi);
@@ -2320,6 +2414,7 @@ document.addEventListener('mousemove', function (event) {
 
     // Actualizar la posición del canvas en el DOM
     canvasAvionND.style.transform = `translate(${canvasAvionNDX}px, ${canvasAvionNDY}px)`;
+    
 
     startX = event.clientX;
     // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
@@ -2344,6 +2439,10 @@ document.addEventListener('mousemove', function (event) {
 
     // Actualizar la posición del canvas en el DOM
     canvasWaypt1.style.transform = `translate(${canvasWaypt1X}px, ${canvasWaypt1Y}px)`;
+    
+
+
+
 
 
     startX = event.clientX;
@@ -2368,6 +2467,8 @@ document.addEventListener('mousemove', function (event) {
 
     // Actualizar la posición del canvas en el DOM
     canvasWaypt2.style.transform = `translate(${canvasWaypt2X}px, ${canvasWaypt2Y}px)`;
+    /*cumuloModifsX = cumuloModifsX + canvasWaypt2X;
+    cumuloModifsY = cumuloModifsY + canvasWaypt2Y;*/
 
     startX = event.clientX;
     // console.log('StartX',startX, 'posini', avionNDinitialPositionLeft);
@@ -2378,6 +2479,15 @@ document.addEventListener('mousemove', function (event) {
 // Evento mouseup para dejar de arrastrar el canvas
 document.addEventListener('mouseup', function (event) {
   if (event.button === 0) { // Botón izquierdo del ratón
+
+    if (isDraggingWaypt1 == true){
+      cumuloModifsX = cumuloModifsX + canvasWaypt1X;
+      cumuloModifsY = cumuloModifsY + canvasWaypt1Y;
+    } else if (isDraggingWaypt2 == true){
+      cumuloModifsX = cumuloModifsX + canvasWaypt2X;
+      cumuloModifsY = cumuloModifsY + canvasWaypt2Y;
+    }
+
     isDragging = false;
     isDraggingWaypt1 = false;
     isDraggingWaypt2 = false;
@@ -2496,7 +2606,7 @@ async function esperarXSegundos(x) {
 
 
 
-async function saveData2(ArrayJSONS,arrayJSONSContrafactual){
+async function saveData2(ArrayJSONS){
 
 	/*ArrayJSONS.push({
 		time: Date.now(),
@@ -2735,9 +2845,25 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 
   if (variableChanged != ''){
     console.log('Ha entrado');
-	let feautresCalculadas = calculadoraVariablesCS();
-
-	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Session": session, "Condition": condition, "Waypoint Alternatif": waypointAlternatif};
+  let changedWaypt;
+  let Xpos;
+  let Ypos;
+  if (variableChanged == "waypt2"){
+    changedWaypt = 2;
+    Xpos = canvasWaypt2X;
+    Ypos = canvasWaypt2Y;
+  } else if (variableChanged == "waypt1"){
+    changedWaypt = 1;
+    Xpos = canvasWaypt1X;
+    Ypos = canvasWaypt1Y;
+  } else {
+    changedWaypt = undefined;
+    Xpos = undefined;
+    Ypos = undefined;
+  }
+	let feautresCalculadas = calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos);
+  let nomCas = imagesData[currentImage].src.split('/').pop();
+	datosGuardar = {"Timestamp": Date.now(), "Participant": numParticipant, "Participant CS": participantCS, "Cas": nomCas,  "Numero de cas": currentImage, "Session": session, "Condition": condition, "Waypoint initial": waypointChoisi, "Waypoint Alternatif": waypointAlternatif, "Variable change": variableChanged, "Cell": celdaEditada};
 	feautresGuardar = feautresCalculadas;
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar);
 	//globalGuardar = compileData2Save(numParticipant, participantCS, session, condition, timeStampPresentacionCaso, waypointChoisi, waypointChoisiInitialement, recomendacionCS);
@@ -2747,7 +2873,7 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
   	accuraciesCS = await getAccuraciesCS(participantCS);*/
     sendTrainingCase(participantCS, feautresCalculadas.features, wayptAlternatif);
     accuraciesCS = getAccuraciesCS(participantCS);
-    let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference();
+    let feautresCalculadasAlternativas = calculadoraVariablesCSordrePreference(currentImage);
     // await sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointAlternatif);
     sendTrainingCase(participantCS2, feautresCalculadasAlternativas.features, waypointAlternatif);
   	
@@ -2755,6 +2881,15 @@ buttonsoumettreContrefactuel.addEventListener('click', async function(){
 	feautresGuardar = feautresCalculadas.features;
 	globalGuardar = Object.assign({}, datosGuardar, feautresGuardar,accuraciesCS);
 	arrayJSONSAccuracies.push(globalGuardar);
+
+  canvasWaypt1PositionTop = canvasWaypt1.offsetTop;
+  canvasWaypt1PositionLeft = canvasWaypt1.offsetLeft;
+  canvasWaypt2PositionTop = canvasWaypt2.offsetTop;
+  canvasWaypt2PositionLeft = canvasWaypt2.offsetLeft;
+  resetCase(canvasWaypt1PositionTop,canvasWaypt1PositionLeft,canvasWaypt2PositionTop,canvasWaypt2PositionLeft);
+  cumuloModifsX = 0;
+  cumuloModifsY = 0;
+
 
 	var celdas = document.querySelectorAll('.celda');
 	celdas.forEach(function(tabla) {
