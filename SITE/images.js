@@ -239,12 +239,12 @@ var imagesData = [
 {src: "IMAGENES/Case9850.png", YcenterRed: 0.400000, YcenterYellow: 0.400000, radiusYellow: 0.120000, radiusRed: 0.080000, vitesseCellule: "Rapide", dirCellule: "Droite", distRouteRed: 0.500000, XcenterYellow: 0.300000, XcenterRed: 0.320000, waypt2X: 0.800000, waypt1X: 0.200000, waypt1Y: 0.600000, waypt2Y: 0.400000, altZoneRouge: 30000.000000, altZoneJaune: 30000.000000, altVol: 32000.000000, altParDessus: 36000.000000, consumptionRoute: 800, consumptionWaypt1: 900, consumptionWaypt2: 850, consumptionDessus: 900, combustDispo: 870},
 {src: "IMAGENES/Case99.png", YcenterRed: 0.400000, YcenterYellow: 0.400000, radiusYellow: 0.150000, radiusRed: 0.040000, vitesseCellule: "Sans mouvement", dirCellule: "Sans mouvement", distRouteRed: 0.500000, XcenterYellow: 0.300000, XcenterRed: 0.320000, waypt2X: 0.800000, waypt1X: 0.275000, waypt1Y: 0.400000, waypt2Y: 0.400000, altZoneRouge: 28000.000000, altZoneJaune: 28000.000000, altVol: 32000.000000, altParDessus: 35000.000000, consumptionRoute: 750, consumptionWaypt1: 790, consumptionWaypt2: 800, consumptionDessus: 850, combustDispo: 800},
 {src: "IMAGENES/Case992.png", YcenterRed: 0.400000, YcenterYellow: 0.400000, radiusYellow: 0.120000, radiusRed: 0.080000, vitesseCellule: "Rapide", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.300000, XcenterRed: 0.320000, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.400000, waypt2Y: 0.400000, altZoneRouge: 32000.000000, altZoneJaune: 32000.000000, altVol: 32000.000000, altParDessus: 36000.000000, consumptionRoute: 750, consumptionWaypt1: 900, consumptionWaypt2: 850, consumptionDessus: 900, combustDispo: 800}
-];*/
+];
+*/
 
 
-/*
 //Pré-test 4 200 casos hecho con usuarios 108 y 110
-
+/*
 var imagesData = [
 {src: "IMAGENES/Case211241.png", YcenterRed: 0.400000, YcenterYellow: 0.400000, radiusYellow: 0.150000, radiusRed: 0.040000, vitesseCellule: "Lente", dirCellule: "Droite", distRouteRed: 0.500000, XcenterYellow: 0.300000, XcenterRed: 0.320000, waypt2X: 0.650000, waypt1X: 0.200000, waypt1Y: 0.400000, waypt2Y: 0.400000, altZoneRouge: 34000.000000, altZoneJaune: 34000.000000, altVol: 33000.000000, altParDessus: 37000.000000, consumptionRoute: 750, consumptionWaypt1: 790, consumptionWaypt2: 850, consumptionDessus: 900, combustDispo: 800},
 {src: "IMAGENES/Case177741.png", YcenterRed: 0.600000, YcenterYellow: 0.600000, radiusYellow: 0.120000, radiusRed: 0.040000, vitesseCellule: "Rapide", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.700000, XcenterRed: 0.620000, waypt2X: 0.800000, waypt1X: 0.275000, waypt1Y: 0.600000, waypt2Y: 0.400000, altZoneRouge: 30000.000000, altZoneJaune: 30000.000000, altVol: 34000.000000, altParDessus: 38000.000000, consumptionRoute: 750, consumptionWaypt1: 870, consumptionWaypt2: 790, consumptionDessus: 850, combustDispo: 760},
@@ -446,8 +446,8 @@ var imagesData = [
 {src: "IMAGENES/Case104750.png", YcenterRed: 0.600000, YcenterYellow: 0.600000, radiusYellow: 0.180000, radiusRed: 0.080000, vitesseCellule: "Sans mouvement", dirCellule: "Sans mouvement", distRouteRed: 0.500000, XcenterYellow: 0.700000, XcenterRed: 0.620000, waypt2X: 0.725000, waypt1X: 0.350000, waypt1Y: 0.600000, waypt2Y: 0.400000, altZoneRouge: 32000.000000, altZoneJaune: 32000.000000, altVol: 33000.000000, altParDessus: 39000.000000, consumptionRoute: 750, consumptionWaypt1: 900, consumptionWaypt2: 800, consumptionDessus: 850, combustDispo: 870},
 {src: "IMAGENES/Case106267.png", YcenterRed: 0.600000, YcenterYellow: 0.600000, radiusYellow: 0.120000, radiusRed: 0.040000, vitesseCellule: "Sans mouvement", dirCellule: "Sans mouvement", distRouteRed: 0.500000, XcenterYellow: 0.700000, XcenterRed: 0.620000, waypt2X: 0.800000, waypt1X: 0.275000, waypt1Y: 0.600000, waypt2Y: 0.400000, altZoneRouge: 32000.000000, altZoneJaune: 32000.000000, altVol: 35000.000000, altParDessus: 39000.000000, consumptionRoute: 750, consumptionWaypt1: 870, consumptionWaypt2: 850, consumptionDessus: 800, combustDispo: 870},
 {src: "IMAGENES/Case200052.png", YcenterRed: 0.600000, YcenterYellow: 0.600000, radiusYellow: 0.120000, radiusRed: 0.060000, vitesseCellule: "Sans mouvement", dirCellule: "Sans mouvement", distRouteRed: 0.500000, XcenterYellow: 0.300000, XcenterRed: 0.320000, waypt2X: 0.800000, waypt1X: 0.200000, waypt1Y: 0.600000, waypt2Y: 0.400000, altZoneRouge: 34000.000000, altZoneJaune: 34000.000000, altVol: 33000.000000, altParDessus: 36000.000000, consumptionRoute: 750, consumptionWaypt1: 790, consumptionWaypt2: 800, consumptionDessus: 800, combustDispo: 800}
-]
-*/
+]*/
+
 
 var imagesData = [
 {src: "IMAGENES/Case304662.png", YcenterRed: 0.600000, YcenterYellow: 0.600000, radiusYellow: 0.180000, radiusRed: 0.040000, vitesseCellule: "Rapide", dirCellule: "Gauche", distRouteRed: 0.500000, XcenterYellow: 0.700000, XcenterRed: 0.620000, waypt2X: 0.800000, waypt1X: 0.275000, waypt1Y: 0.600000, waypt2Y: 0.600000, altZoneRouge: 32000.000000, altZoneJaune: 32000.000000, altVol: 36000.000000, altParDessus: 39000.000000, consumptionRoute: 750, consumptionWaypt1: 870, consumptionWaypt2: 850, consumptionDessus: 850, combustDispo: 760},
