@@ -929,7 +929,7 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   var Xwaypt2CS = canvasWaypt2.offsetLeft/NDcontainerWidth;
   var Ywaypt1CS = 1 - canvasWaypt1.offsetTop / NDcontainerHeight;
   var Ywaypt2CS = 1 - canvasWaypt2.offsetTop / NDcontainerHeight;
-  console.log(Xwaypt1CS,Ywaypt1CS);
+  // console.log(Xwaypt1CS,Ywaypt1CS);
   if(changedWaypt === undefined){
 
   }else if (changedWaypt == 1){
@@ -945,7 +945,7 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   
 
   // console.log(currentImage);
-  if (typeof currentImage1 === "undefined") {
+  if (typeof currentImage === "undefined") {
   // console.log("No definida");
   var XjauneCS = Xjaune;
   var YjauneCS = Yjaune;
@@ -955,14 +955,14 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   var radiusJauneCS = radiusJaune;
 } else {
   // console.log("Definida");
-  var XjauneCS = imagesData[currentImage].XcenterYellow;
+  var XjauneCS = imagesData[currentImage].XcenterYellow*1.1;
   var YjauneCS = imagesData[currentImage].YcenterYellow;
-  var XrougeCS = imagesData[currentImage].XcenterRed;
+  var XrougeCS = imagesData[currentImage].XcenterRed*1.1;
   var YrougeCS = imagesData[currentImage].YcenterRed;
-  var radiusRougeCS = imagesData[currentImage].radiusYellow;
-  var radiusJauneCS = imagesData[currentImage].radiusRed;
+  var radiusRougeCS = imagesData[currentImage].radiusRed * 1.1;
+  var radiusJauneCS = imagesData[currentImage].radiusYellow * 1.1;
 	}
-
+  console.log("Radios", radiusJauneCS, radiusRougeCS);
 	// Distancias presentes
 
 	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
@@ -998,6 +998,15 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
     distJauneRoute = 0;
   }
 
+  let vars = {distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus};
+
+  // Buscamos la variable con el valor mínimo
+  let var_min = Object.entries(vars).reduce((a, b) => a[1] < b[1] ? a : b)[0];
+
+
+  console.log("Distancia minima",var_min,Math.min(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus));
+  console.log(imagesData[currentImage],XjauneCS,Xwaypt2CS,Yjaune,Ywaypt2CS,radiusJauneCS)
+  console.log(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
 	//console.log('Celdas calculadora future',cellDirCellule.textContent);
 	//console.log(cellVitesseCellule.textContent);
 	
@@ -1150,21 +1159,21 @@ function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Yp
   var radiusJauneCS = radiusJaune;
 } else {
   console.log("Definida");
-  var XjauneCS = imagesData[currentImage].XcenterYellow;
+  var XjauneCS = imagesData[currentImage].XcenterYellow * 1.1;
   var YjauneCS = imagesData[currentImage].YcenterYellow;
-  var XrougeCS = imagesData[currentImage].XcenterRed;
+  var XrougeCS = imagesData[currentImage].XcenterRed * 1.1;
   var YrougeCS = imagesData[currentImage].YcenterRed;
-  var radiusRougeCS = imagesData[currentImage].radiusYellow;
-  var radiusJauneCS = imagesData[currentImage].radiusRed;
+  var radiusRougeCS = imagesData[currentImage].radiusRouge * 1.1;
+  var radiusJauneCS = imagesData[currentImage].radiusJaune * 1.1;
   }
   
   // Distancias presentes
 
-  var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/9000;
+  var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
   if (distJauneDessus < 0){
     distJauneDessus = 0;
   }
-  var distRougeDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneRouge.textContent))/9000;
+  var distRougeDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneRouge.textContent))/10000;
   if (distRougeDessus < 0){
     distRougeDessus = 0;
   }
