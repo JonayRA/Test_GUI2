@@ -6,6 +6,7 @@ const condition = urlParams.get("condition");
 const session = urlParams.get("session");
 const participantCS = urlParams.get("numParticipantCS");
 const participantCS2 = urlParams.get("numParticipantCS2");
+const nombreDeCasContrefactuels = 3000;
 
 var title = document.getElementById("Titulo");
 title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
@@ -925,10 +926,16 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   canvasWaypt1.style.top = YposWapt1 + 'px';
   canvasWaypt1.style.left = XposWapt1 + 'px';*/
 
-  var Xwaypt1CS = canvasWaypt1.offsetLeft/NDcontainerWidth;
-  var Xwaypt2CS = canvasWaypt2.offsetLeft/NDcontainerWidth;
-  var Ywaypt1CS = 1 - canvasWaypt1.offsetTop / NDcontainerHeight;
-  var Ywaypt2CS = 1 - canvasWaypt2.offsetTop / NDcontainerHeight;
+  var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth;// - 0.033; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
+  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth; // - 0.033;
+  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight - 0.066;
+  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight - 0.066;
+
+  var Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
+  var Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  var Ywaypt1CS = 1 - (Ywaypt1CS_interface - 0.0213)/1.1689;
+  var Ywaypt2CS = 1 - (Ywaypt2CS_interface - 0.0213)/1.1689;
+
   // console.log(Xwaypt1CS,Ywaypt1CS);
   if(changedWaypt === undefined){
 
@@ -955,14 +962,14 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   var radiusJauneCS = radiusJaune;
 } else {
   // console.log("Definida");
-  var XjauneCS = imagesData[currentImage].XcenterYellow*1.1;
+  var XjauneCS = imagesData[currentImage].XcenterYellow;
   var YjauneCS = imagesData[currentImage].YcenterYellow;
-  var XrougeCS = imagesData[currentImage].XcenterRed*1.1;
+  var XrougeCS = imagesData[currentImage].XcenterRed;
   var YrougeCS = imagesData[currentImage].YcenterRed;
-  var radiusRougeCS = imagesData[currentImage].radiusRed * 1.1;
-  var radiusJauneCS = imagesData[currentImage].radiusYellow * 1.1;
+  var radiusRougeCS = imagesData[currentImage].radiusRed;
+  var radiusJauneCS = imagesData[currentImage].radiusYellow;
 	}
-  console.log("Radios", radiusJauneCS, radiusRougeCS);
+  //console.log("Radios", radiusJauneCS, radiusRougeCS);
 	// Distancias presentes
 
 	var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
@@ -985,7 +992,7 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   if (distJauneDroit < 0){
     distJauneDroit = 0;
   }
-	var distJauneGauche = Math.sqrt((XjauneCS - Xwaypt2CS)**2 + (Yjaune - Ywaypt2CS)**2)-radiusJauneCS;
+	var distJauneGauche = Math.sqrt((XjauneCS - Xwaypt2CS)**2 + (YjauneCS - Ywaypt2CS)**2)-radiusJauneCS;
   if (distJauneGauche < 0){
     distJauneGauche = 0;
   }
@@ -1005,10 +1012,13 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
 
 
   console.log("Distancia minima",var_min,Math.min(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus));
-  console.log(imagesData[currentImage],XjauneCS,Xwaypt2CS,Yjaune,Ywaypt2CS,radiusJauneCS)
-  console.log(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
+  //console.log(imagesData[currentImage],XjauneCS,Xwaypt2CS,Yjaune,Ywaypt2CS,radiusJauneCS);
+  console.log('Comprobar aqui',XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS);
+  console.log('Distancias amarillas',distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
+  console.log('Distancias rojas',distRougeDroit,distRougeRoute,distRougeGauche,distRougeDessus);
 	//console.log('Celdas calculadora future',cellDirCellule.textContent);
 	//console.log(cellVitesseCellule.textContent);
+  console.log('Las putas X',Xwaypt1,Xwaypt1CS)
 	
 	let vitesse = 0;
 	if(cellVitesseCellule.textContent == 'Rapide'){
@@ -1734,9 +1744,9 @@ buttonOption1.addEventListener('click', async function () {
         getQUASA();
         
         }
-        if (condition == 3 && session == 1){
+        if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
           selectionDeuxiemeOption(waypointChoisi);
-        } else if (condition != 3 || (condition == 3 && session != 1)){
+        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
           ajouterDonneesEnregistrer();
           waypointChoisi = -1;
         cambiarCaso();
@@ -1892,9 +1902,9 @@ buttonOption2.addEventListener('click', async function () {
         getQUASA();
 
         }
-        if (condition == 3 && session == 1){
+        if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
           selectionDeuxiemeOption(waypointChoisi);
-        } else if (condition != 3 || (condition == 3 && session != 1)){
+        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
           ajouterDonneesEnregistrer();
           waypointChoisi = -1;
         cambiarCaso();
@@ -2192,9 +2202,9 @@ buttonsansChangement.addEventListener('click', async function(){
       if(QUASApositions.includes(currentImage)){
         getQUASA();
         }
-			if (condition == 3 && session == 1){
+			if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
 				selectionDeuxiemeOption(waypointChoisi);
-	}else if (condition != 3 || (condition == 3 && session != 1)){
+	}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
   				ajouterDonneesEnregistrer();
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -2290,7 +2300,7 @@ buttonParDessus.addEventListener('click', async function(){
         }
 			if (condition == 3 && session ==1){
 			selectionDeuxiemeOption(waypointChoisi);
-		}else if (condition != 3 || (condition == 3 && session != 1)){
+		}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
 				ajouterDonneesEnregistrer();
 				waypointChoisi = -1;
 				cambiarCaso();
@@ -2655,7 +2665,7 @@ async function saveData2(ArrayJSONS){
 
 
 
-	if(condition == 3 && session == 1){
+	if(condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
 	localStorage.setItem("Counterfactuals", JSON.stringify(arrayJSONSContrafactual));
 
 
