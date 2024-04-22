@@ -917,6 +917,7 @@ document.addEventListener("keydown", function(event) {
 
 function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
 
+  //console.log(imagesData[currentImage].src)
   /*var XposWapt1 = Xwaypt1 * NDcontainerWidth;
   var YposWapt1 = (1-Ywaypt1) * NDcontainerHeight;
 
@@ -926,15 +927,15 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   canvasWaypt1.style.top = YposWapt1 + 'px';
   canvasWaypt1.style.left = XposWapt1 + 'px';*/
 
-  var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth;// - 0.033; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
-  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth; // - 0.033;
-  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight - 0.066;
-  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight - 0.066;
+  var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth + 0.033; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
+  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth + 0.033;
+  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight + 0.066;
+  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight + 0.066;
 
   var Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
   var Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
-  var Ywaypt1CS = 1 - (Ywaypt1CS_interface - 0.0213)/1.1689;
-  var Ywaypt2CS = 1 - (Ywaypt2CS_interface - 0.0213)/1.1689;
+  var Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
+  var Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
 
   // console.log(Xwaypt1CS,Ywaypt1CS);
   if(changedWaypt === undefined){
@@ -1011,14 +1012,15 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   let var_min = Object.entries(vars).reduce((a, b) => a[1] < b[1] ? a : b)[0];
 
 
-  console.log("Distancia minima",var_min,Math.min(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus));
+  // console.log("Distancia minima",var_min,Math.min(distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus));
   //console.log(imagesData[currentImage],XjauneCS,Xwaypt2CS,Yjaune,Ywaypt2CS,radiusJauneCS);
-  console.log('Comprobar aqui',XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS);
-  console.log('Distancias amarillas',distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
-  console.log('Distancias rojas',distRougeDroit,distRougeRoute,distRougeGauche,distRougeDessus);
+  // console.log('Comprobar aqui,XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS');
+  //console.log('Comprobar aqui',XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS);
+  //console.log('Distancias amarillas',distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
+  //console.log('Distancias rojas',distRougeDroit,distRougeRoute,distRougeGauche,distRougeDessus);
 	//console.log('Celdas calculadora future',cellDirCellule.textContent);
 	//console.log(cellVitesseCellule.textContent);
-  console.log('Las putas X',Xwaypt1,Xwaypt1CS)
+  //console.log('Las putas X',Xwaypt1,Xwaypt1CS)
 	
 	let vitesse = 0;
 	if(cellVitesseCellule.textContent == 'Rapide'){
@@ -1142,25 +1144,34 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
 
 function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Ypos){
 
-  var Xwaypt1CS = canvasWaypt1.offsetLeft/NDcontainerWidth;
-  var Xwaypt2CS = canvasWaypt2.offsetLeft/NDcontainerWidth;
-  var Ywaypt1CS = 1 - canvasWaypt1.offsetTop / NDcontainerHeight;
-  var Ywaypt2CS = 1 - canvasWaypt2.offsetTop / NDcontainerHeight;
-  console.log(currentImage);
+    var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth + 0.033; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
+  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth + 0.033;
+  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight + 0.066;
+  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight + 0.066;
 
+  var Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
+  var Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  var Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
+  var Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
+
+  // console.log(Xwaypt1CS,Ywaypt1CS);
   if(changedWaypt === undefined){
 
   }else if (changedWaypt == 1){
-    Xwaypt1CS = Xwaypt1CS + cumuloModifsX;
-    Ywaypt1CS = Ywaypt1CS + cumuloModifsY;
+    
+    Xwaypt1CS = Xwaypt1CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt1CS = Ywaypt1CS - (cumuloModifsY/NDcontainerHeight);
   }else if (changedWaypt == 2){
-    Xwaypt2CS = Xwaypt2CS + cumuloModifsX;
-    Ywaypt2CS = Ywaypt2CS + cumuloModifsY;
+    Xwaypt2CS = Xwaypt2CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt2CS = Ywaypt2CS - (cumuloModifsY/NDcontainerHeight);
   }
 
 
-  if (typeof currentImage1 === "undefined") {
-  console.log("No definida");
+  
+
+  // console.log(currentImage);
+  if (typeof currentImage === "undefined") {
+  // console.log("No definida");
   var XjauneCS = Xjaune;
   var YjauneCS = Yjaune;
   var XrougeCS = Xrouge;
@@ -1168,15 +1179,15 @@ function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Yp
   var radiusRougeCS = radiusRouge;
   var radiusJauneCS = radiusJaune;
 } else {
-  console.log("Definida");
-  var XjauneCS = imagesData[currentImage].XcenterYellow * 1.1;
+  // console.log("Definida");
+  var XjauneCS = imagesData[currentImage].XcenterYellow;
   var YjauneCS = imagesData[currentImage].YcenterYellow;
-  var XrougeCS = imagesData[currentImage].XcenterRed * 1.1;
+  var XrougeCS = imagesData[currentImage].XcenterRed;
   var YrougeCS = imagesData[currentImage].YcenterRed;
-  var radiusRougeCS = imagesData[currentImage].radiusRouge * 1.1;
-  var radiusJauneCS = imagesData[currentImage].radiusJaune * 1.1;
+  var radiusRougeCS = imagesData[currentImage].radiusRed;
+  var radiusJauneCS = imagesData[currentImage].radiusYellow;
   }
-  
+  //console.log("Radios", radiusJauneCS, radiusRougeCS);
   // Distancias presentes
 
   var distJauneDessus = (parseFloat(cellAltParDessus.textContent) - parseFloat(cellAltZoneJaune.textContent))/10000;
@@ -1211,6 +1222,7 @@ function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Yp
   if (distJauneRoute < 0){
     distJauneRoute = 0;
   }
+
 
   //console.log('Celdas calculadora future',cellDirCellule.textContent);
   //console.log(cellVitesseCellule.textContent);
