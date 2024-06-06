@@ -6,7 +6,7 @@ const condition = urlParams.get("condition");
 const session = urlParams.get("session");
 const participantCS = urlParams.get("numParticipantCS");
 const participantCS2 = urlParams.get("numParticipantCS2");
-const nombreDeCasContrefactuels = 3000;
+const nombreDeCasContrefactuels = 20;
 
 var title = document.getElementById("Titulo");
 title.textContent = "P" + numParticipant + "C" + condition + "S" + session;
@@ -23,7 +23,8 @@ if (participantCS == "8"){
 //const QUASApositions = [1, 5, 8, 9];
 //const QUASApositions = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90];
 // Randomized:
-const QUASApositions = [ 7,  12,  19,  26,  31,  37,  42, 49,  56,  62,  69,  76,  81,  86,  91, 97, 104, 111, 118, 125, 130, 135, 141, 148, 154, 161, 166, 173, 180];
+const QUASApositions = []; // [ 7,  12,  19,  26,  31,  37,  42, 49,  56,  62,  69,  76,  81,  86,  91, 97, 104, 111, 118, 125, 130, 135, 141, 148, 154, 161, 166, 173, 180];
+const counterfactPositions = [2, 4, 6];
 
 let PFD = document.getElementById('PFD');
 let ctxPFD = PFD.getContext('2d');
@@ -927,30 +928,6 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   canvasWaypt1.style.top = YposWapt1 + 'px';
   canvasWaypt1.style.left = XposWapt1 + 'px';*/
 
-  var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth + 0.033; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
-  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth + 0.033;
-  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight + 0.066;
-  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight + 0.066;
-
-  var Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
-  var Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
-  var Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
-  var Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
-
-  // console.log(Xwaypt1CS,Ywaypt1CS);
-  if(changedWaypt === undefined){
-
-  }else if (changedWaypt == 1){
-    
-    Xwaypt1CS = Xwaypt1CS + cumuloModifsX/NDcontainerWidth;
-    Ywaypt1CS = Ywaypt1CS - (cumuloModifsY/NDcontainerHeight);
-  }else if (changedWaypt == 2){
-    Xwaypt2CS = Xwaypt2CS + cumuloModifsX/NDcontainerWidth;
-    Ywaypt2CS = Ywaypt2CS - (cumuloModifsY/NDcontainerHeight);
-  }
-
-
-  
 
   // console.log(currentImage);
   if (typeof currentImage === "undefined") {
@@ -969,7 +946,74 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   var YrougeCS = imagesData[currentImage].YcenterRed;
   var radiusRougeCS = imagesData[currentImage].radiusRed;
   var radiusJauneCS = imagesData[currentImage].radiusYellow;
-	}
+  }
+
+
+  var Xwaypt1CS_interface = canvasWaypt1.offsetLeft/NDcontainerWidth + 0.033/2; // Le estoy sumando el tamaño del waypt para que calcule sobre el punto central
+  var Xwaypt2CS_interface = canvasWaypt2.offsetLeft/NDcontainerWidth + 0.033/2;
+  var Ywaypt1CS_interface = canvasWaypt1.offsetTop / NDcontainerHeight + 0.066/2;
+  var Ywaypt2CS_interface = canvasWaypt2.offsetTop / NDcontainerHeight + 0.066/2;
+
+
+  var Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
+  var Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  var Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
+  var Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
+  console.log(Ywaypt1CS);
+
+  // We need to calculate the closes waypt point
+  /*if (Xwaypt2CS > XjauneCS){
+    Xwaypt2CS_interface = Xwaypt2CS_interface - 0.033/32;
+    Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  } else if (Xwaypt2CS < XjauneCS){
+    Xwaypt2CS_interface = Xwaypt2CS_interface + 0.033/32;
+    Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  } 
+  if (Xwaypt1CS > XjauneCS){
+    Xwaypt1CS_interface = Xwaypt1CS_interface - 0.033/32;
+    Xwaypt1CS = (Xwaypt1CS_interface + 0.141)/1.2821;
+  } else if (Xwaypt1CS < XjauneCS){
+    Xwaypt2CS_interface = Xwaypt2CS_interface + 0.033/32;
+    Xwaypt2CS = (Xwaypt2CS_interface + 0.141)/1.2821;
+  } 
+
+  
+  if (Ywaypt2CS > YjauneCS){
+    Ywaypt2CS_interface = Ywaypt2CS_interface - 0.066/32;
+    Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
+  } else*/ if (Ywaypt2CS < YjauneCS){
+    Ywaypt2CS_interface = Ywaypt2CS_interface + 0.066;
+    Ywaypt2CS = (Ywaypt2CS_interface - 0.0213)/1.1689;
+  }
+
+  /*if (Ywaypt1CS > YjauneCS){
+    Ywaypt1CS_interface = Ywaypt1CS_interface - 0.066/32;
+    Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
+  } else*/ if (Ywaypt1CS < YjauneCS){
+    Ywaypt1CS_interface = Ywaypt1CS_interface + 0.066;
+    Ywaypt1CS = (Ywaypt1CS_interface - 0.0213)/1.1689;
+  }
+  
+  console.log('Wpt 1',Xwaypt1CS,Ywaypt1CS);
+  console.log('Wpt 2',Xwaypt2CS,Ywaypt2CS);
+
+
+  if(changedWaypt === undefined){
+
+  }else if (changedWaypt == 1){
+    
+    Xwaypt1CS = Xwaypt1CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt1CS = Ywaypt1CS - (cumuloModifsY/NDcontainerHeight);
+  }else if (changedWaypt == 2){
+    Xwaypt2CS = Xwaypt2CS + cumuloModifsX/NDcontainerWidth;
+    Ywaypt2CS = Ywaypt2CS - (cumuloModifsY/NDcontainerHeight);
+  }
+
+
+  console.log('Ha cambiado wpt', changedWaypt);
+  console.log('Wpt 1',Xwaypt1CS,Ywaypt1CS);
+  console.log('Wpt 2',Xwaypt2CS,Ywaypt2CS);
+
   //console.log("Radios", radiusJauneCS, radiusRougeCS);
 	// Distancias presentes
 
@@ -1016,7 +1060,7 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
   //console.log(imagesData[currentImage],XjauneCS,Xwaypt2CS,Yjaune,Ywaypt2CS,radiusJauneCS);
   // console.log('Comprobar aqui,XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS');
   //console.log('Comprobar aqui',XjauneCS,YjauneCS,radiusJauneCS,XrougeCS,YrougeCS,radiusRougeCS,Xwaypt1CS,Ywaypt1CS,Xwaypt2CS,Ywaypt2CS);
-  //console.log('Distancias amarillas',distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
+  console.log('Distancias amarillas',distJauneDroit,distJauneRoute,distJauneGauche,distJauneDessus);
   //console.log('Distancias rojas',distRougeDroit,distRougeRoute,distRougeGauche,distRougeDessus);
 	//console.log('Celdas calculadora future',cellDirCellule.textContent);
 	//console.log(cellVitesseCellule.textContent);
@@ -1024,16 +1068,16 @@ function calculadoraVariablesCS(currentImage,changedWaypt,Xpos,Ypos){
 	
 	let vitesse = 0;
 	if(cellVitesseCellule.textContent == 'Rapide'){
-		vitesse = 2/3;
+		vitesse = 2/4;
 	}else if ( cellVitesseCellule.textContent == 'Lente'){
-		vitesse = 1/3;
+		vitesse = 1/4;
 	}
 
 	if (cellDirCellule.textContent == 'Gauche') {
 		vitesse = -vitesse
 	}
 
-	var futureXcenterRed = Xrouge + vitesse;
+	var futureXcenterRed = XrougeCS + vitesse;
 	var futureXcenterYellow = XjauneCS + vitesse;
 
 	// Distancias futuras
@@ -1241,9 +1285,9 @@ function calculadoraVariablesCSordrePreference(currentImage,changedWaypt,Xpos,Yp
 
   let vitesse = 0;
   if(cellVitesseCellule.textContent == 'Rapide'){
-    vitesse = 2/3;
+    vitesse = 2/4;
   }else if ( cellVitesseCellule.textContent == 'Lente'){
-    vitesse = 1/3;
+    vitesse = 1/4;
   }
 
   if (cellDirCellule.textContent == 'Gauche') {
@@ -1756,9 +1800,9 @@ buttonOption1.addEventListener('click', async function () {
         getQUASA();
         
         }
-        if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
+        if (condition == 3 && session == 1 && counterfactPositions.includes(currentImage)){
           selectionDeuxiemeOption(waypointChoisi);
-        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
+        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && !counterfactPositions.includes(currentImage))){
           ajouterDonneesEnregistrer();
           waypointChoisi = -1;
         cambiarCaso();
@@ -1914,9 +1958,9 @@ buttonOption2.addEventListener('click', async function () {
         getQUASA();
 
         }
-        if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
+        if (condition == 3 && session == 1 && counterfactPositions.includes(currentImage)){
           selectionDeuxiemeOption(waypointChoisi);
-        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
+        } else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && !counterfactPositions.includes(currentImage))){
           ajouterDonneesEnregistrer();
           waypointChoisi = -1;
         cambiarCaso();
@@ -2214,9 +2258,9 @@ buttonsansChangement.addEventListener('click', async function(){
       if(QUASApositions.includes(currentImage)){
         getQUASA();
         }
-			if (condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
+			if (condition == 3 && session == 1 && counterfactPositions.includes(currentImage)){
 				selectionDeuxiemeOption(waypointChoisi);
-	}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
+	}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && !counterfactPositions.includes(currentImage))){
   				ajouterDonneesEnregistrer();
   				waypointChoisi = -1;
 				cambiarCaso();
@@ -2312,7 +2356,7 @@ buttonParDessus.addEventListener('click', async function(){
         }
 			if (condition == 3 && session ==1){
 			selectionDeuxiemeOption(waypointChoisi);
-		}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && currentImage >= nombreDeCasContrefactuels)){
+		}else if (condition != 3 || (condition == 3 && session != 1) || (condition == 3 && session == 1 && !counterfactPositions.includes(currentImage))){
 				ajouterDonneesEnregistrer();
 				waypointChoisi = -1;
 				cambiarCaso();
@@ -2677,7 +2721,7 @@ async function saveData2(ArrayJSONS){
 
 
 
-	if(condition == 3 && session == 1 && currentImage < nombreDeCasContrefactuels){
+	if(condition == 3 && session == 1){ // && counterfactPositions.includes(currentImage)){
 	localStorage.setItem("Counterfactuals", JSON.stringify(arrayJSONSContrafactual));
 
 
